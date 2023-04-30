@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test": "vitest",
     "lint": "npx eslint src/**/*.{js,jsx,ts,tsx,json}",
-    "prepare": "husky install"
+    "prepare": "is-ci || husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.10.8",
