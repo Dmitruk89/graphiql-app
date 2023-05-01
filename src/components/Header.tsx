@@ -6,12 +6,12 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import React from 'react';
-import { Trans } from 'react-i18next';
 import LanguageSwitcher from './LanguageSwitcher';
-import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { selectTranslations } from '../features/translation/translationSlice';
 
 export default function Header() {
-  const { i18n } = useTranslation();
+  const t = useSelector(selectTranslations);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -20,10 +20,10 @@ export default function Header() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Trans i18nKey="header.title">GraphiQL-clone</Trans>
+            {t.title}
           </Typography>
           <Button color="inherit">Login</Button>
-          <LanguageSwitcher i18n={i18n}></LanguageSwitcher>
+          <LanguageSwitcher></LanguageSwitcher>
         </Toolbar>
       </AppBar>
     </Box>
