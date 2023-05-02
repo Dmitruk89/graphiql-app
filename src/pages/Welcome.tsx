@@ -1,4 +1,4 @@
-import DeveloperCard from 'components/Card';
+import DeveloperCard from '../components/Card';
 import React from 'react';
 
 

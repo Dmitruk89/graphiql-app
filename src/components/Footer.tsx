@@ -2,25 +2,46 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import { Typography } from '@mui/material';
 
 export default function Footer() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <React.Fragment>
+      <AppBar position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }}>
         <Toolbar>
-          <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            GraphiQL-clone
-          </Typography>
-          <Button color="inherit">Login</Button>
+          <Link href="https://rs.school/" target="blanc">
+            <div className="logo"></div>
+          </Link>
+          <Box sx={{ flexGrow: 1 }} />
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              '& > *': {
+                m: 1,
+              },
+            }}
+          >
+            <ButtonGroup variant="text" color="inherit" aria-label="text button group">
+              <Button href="https://github.com/Dmitruk89" target="blanc">
+                Dmitruk89
+              </Button>
+              <Button href="https://github.com/IrinaBukley23" target="blanc">
+                IrinaBukley23
+              </Button>
+              <Button href="https://github.com/liestreadt" target="blanc">
+                liestreadt
+              </Button>
+            </ButtonGroup>
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
+          <Typography>© 2023</Typography>
         </Toolbar>
       </AppBar>
-    </Box>
+    </React.Fragment>
   );
 }
