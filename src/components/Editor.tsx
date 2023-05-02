@@ -18,6 +18,7 @@ export default function Editor() {
         sx={{
           padding: 2,
           display: 'flex',
+          flexGrow: 1,
           flexDirection: 'column',
           alignItems: 'flex-start',
           backgroundColor: '#f5f5f5',
@@ -38,7 +39,6 @@ export default function Editor() {
               'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
           }}
         />
-        <Box sx={{ flexGrow: 1 }} />
         <Button variant="contained" endIcon={<SendIcon />}>
           Send
         </Button>
