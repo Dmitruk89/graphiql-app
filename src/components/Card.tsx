@@ -4,6 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 interface IProps {
     image: string;
@@ -15,13 +16,14 @@ interface IProps {
 function DeveloperCard({image, name, descr, altText}: IProps) {
   return (
     <>
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ width: '33%', margin: '0 15px' }}>
             <CardActionArea>
                 <CardMedia
                 component="img"
-                height="140"
+                height="300"
                 image={image}
                 alt={altText}
+                sx={{ verticalAlign: 'top' }}
                 />
                 <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
