@@ -3,16 +3,12 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { developers } from '../utils/constants';
 import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import Footer from '../components/Footer';
 
 function Welcome() {
   return (
     <>
-    <Typography variant="h1" component="h2" sx={{ fontSize: '48px', fontWeight: 500, textAlign: 'center' }}>
+    <Typography variant="h1" component="h2" sx={{ margin: '20px auto 0', fontSize: '48px', fontWeight: 500, textAlign: 'center' }}>
         GraphiQL-clone
     </Typography>;
     <Typography component="p" sx={{ fontSize: '28px', width: '60%', textAlign: 'center', margin: '0 auto  20px' }}>
@@ -27,10 +23,10 @@ function Welcome() {
     <Typography component="p" sx={{ fontSize: '28px', width: '60%', margin: '0 auto' }}>
     Uses a type system to describe data.
     </Typography>
-        <Box component="div" sx={{ width: '1400px', margin: ' 20px auto 0', display: 'flex', justifyContent: 'space-around' }}>
-           {developers.map(dev => <DeveloperCard name={dev.name} altText={dev.altText} descr={dev.descr} image={dev.image} />)}
-        </Box>
-
+    <Box component="div" sx={{ width: '1400px', margin: ' 20px auto 0', display: 'flex', justifyContent: 'space-around' }}>
+        {developers.map(dev => <DeveloperCard name={dev.name} altText={dev.altText} descr={dev.descr} image={dev.image} />)}
+    </Box>
+    <Footer />
     </>
   );
 }
