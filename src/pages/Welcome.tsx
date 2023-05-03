@@ -3,7 +3,6 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { developers } from '../utils/constants';
 import Typography from '@mui/material/Typography';
-import Footer from '../components/Footer';
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
 import { IDeveloper } from 'types/types';
