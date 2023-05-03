@@ -11,6 +11,14 @@ export type i18nState = {
         welcomeFirstChar: 'string';
         welcomeSecondChar: 'string';
         welcomeThirdChar: 'string';
+        dontHaveAcc: 'string';
+        haveAcc: 'string';
+        signUp: 'string';
+        signIn: 'string';
+        login: 'string';
+        email: 'string';
+        password: 'string';
+        repeatPassword: 'string';
       };
     };
     lang: string | number;
