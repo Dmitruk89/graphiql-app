@@ -5,3 +5,15 @@ export type I18n = {
 export type i18nState = {
   i18n: { translations: { [x: string]: { [x: string]: 'string' } }; lang: string | number };
 };
+
+export type SignUpInput = {
+  login: string;
+  email: string;
+  password: string;
+  repeatedPassword: string;
+};
+
+export type SignInInput = {
+  login: string;
+  password: string;
+};
