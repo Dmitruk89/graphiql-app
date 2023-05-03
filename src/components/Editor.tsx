@@ -27,7 +27,7 @@ export default function Editor() {
           value={code}
           language="graphql"
           placeholder="Please enter GraphQL query"
-          onChange={(evn) => dispatch(updateEditor(evn.target.value))}
+          onChange={(event) => dispatch(updateEditor(event.target.value))}
           padding={15}
           style={{
             width: '100%',
