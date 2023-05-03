@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import { store } from './store';
 import { Provider } from 'react-redux';
+import { apiSlice } from './features/api/apiSlice';
+import { ApiProvider } from '@reduxjs/toolkit/query/react';
 
 export function App() {
   return (
@@ -16,10 +18,12 @@ export function App() {
 
 export function WrappedApp() {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <ApiProvider api={apiSlice}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ApiProvider>
   );
 }

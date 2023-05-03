@@ -22,7 +22,7 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {t.title}
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit">Logout</Button>
           <LanguageSwitcher></LanguageSwitcher>
         </Toolbar>
       </AppBar>

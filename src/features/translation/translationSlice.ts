@@ -15,7 +15,7 @@ const initialState = {
       title: 'GraphiQL-clone',
     },
     ru: {
-      title: 'ГрафиКуЭль-клоун',
+      title: 'ГрафиКуЭль-клон',
     },
   },
 };
