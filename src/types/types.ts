@@ -24,3 +24,15 @@ export interface IDeveloper {
   altText: string;
   link: string;
 }
+
+export type SignUpInput = {
+  login: string;
+  email: string;
+  password: string;
+  repeatedPassword: string;
+};
+
+export type SignInInput = {
+  login: string;
+  password: string;
+};

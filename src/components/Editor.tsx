@@ -3,15 +3,14 @@ import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import Box from '@mui/material/Box';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateEditor, createQuery } from '../features/graphql/graphqlSlice';
+import { RootState } from '../store';
 
 export default function Editor() {
-  const [code, setCode] = React.useState(`
-  {
-    test {
-      id
-    }
-  }
-  `);
+  const code = useSelector((state: RootState) => state.graphql.editorCode);
+  const dispatch = useDispatch();
+
   return (
     <React.Fragment>
       <Box
@@ -28,7 +27,7 @@ export default function Editor() {
           value={code}
           language="graphql"
           placeholder="Please enter GraphQL query"
-          onChange={(evn) => setCode(evn.target.value)}
+          onChange={(event) => dispatch(updateEditor(event.target.value))}
           padding={15}
           style={{
             width: '100%',
@@ -39,7 +38,11 @@ export default function Editor() {
               'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
           }}
         />
-        <Button variant="contained" endIcon={<SendIcon />}>
+        <Button
+          variant="contained"
+          endIcon={<SendIcon />}
+          onClick={() => dispatch(createQuery(code))}
+        >
           Send
         </Button>
       </Box>
