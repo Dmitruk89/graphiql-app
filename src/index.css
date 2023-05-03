@@ -8,3 +8,9 @@ body {
   background-image: url(/src/assets/rs_school-og.png);
   background-size: cover;
 }
+
+.layout {
+  display: flex;
+  margin-top: var(--footer-height);
+  min-height: calc(100vh - var(--footer-height) - var(--footer-height));
+}

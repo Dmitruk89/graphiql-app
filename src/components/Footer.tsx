@@ -10,7 +10,7 @@ import { Typography } from '@mui/material';
 export default function Footer() {
   return (
     <React.Fragment>
-      <AppBar position="fixed" color="primary" sx={{ top: 'auto', bottom: 0 }}>
+      <AppBar component="footer" position="static" color="primary" sx={{ top: 'auto', bottom: 0 }}>
         <Toolbar>
           <Link href="https://rs.school/" target="blanc">
             <div className="logo"></div>
