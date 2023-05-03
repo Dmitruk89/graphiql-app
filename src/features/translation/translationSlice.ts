@@ -13,9 +13,25 @@ const initialState = {
   translations: {
     en: {
       title: 'GraphiQL-clone',
+      dontHaveAcc: "Don't have an account?",
+      haveAcc: 'Already have an account?',
+      signUp: 'Sign Up',
+      signIn: 'Sign In',
+      login: 'Enter login',
+      email: 'Enter e-mail',
+      password: 'Enter password',
+      repeatPassword: 'Repeat password',
     },
     ru: {
-      title: 'ГрафиКуЭль-клон',
+      title: 'ГрафиКуЭль-клоун',
+      dontHaveAcc: 'Нет аккаунта?',
+      haveAcc: 'Уже есть аккаунт?',
+      signUp: 'Зарегистрироваться',
+      signIn: 'Войти',
+      login: 'Введите логин',
+      email: 'Введите e-mail',
+      password: 'Введите пароль',
+      repeatPassword: 'Повторите пароль',
     },
   },
 };

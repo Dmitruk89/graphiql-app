@@ -4,12 +4,14 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import i18nReducer from './features/translation/translationSlice';
 import graphqlReducer from './features/graphql/graphqlSlice';
 import translationReducer from './features/translation/translationSlice';
+import authReducer from './features/authentication/authenticationSlice';
 
 export const store = configureStore({
   reducer: {
     graphql: graphqlReducer,
     translation: translationReducer,
     i18n: i18nReducer,
+    auth: authReducer,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
