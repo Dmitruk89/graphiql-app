@@ -1,4 +1,3 @@
-import { I18n } from '../types/types';
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -9,25 +8,22 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import type { RootState } from '../store';
+import { useSelector, useDispatch } from 'react-redux';
+import { switchLanguage } from '../features/translation/translationSlice';
 
-const options = ['EN', 'RU'];
-
-export default function LanguageSwitcher(props: I18n) {
+export default function LanguageSwitcher() {
+  const language = useSelector((state: RootState) => state.translation.lang);
+  const languages = useSelector((state: RootState) => state.translation.supportedLangs);
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
-  const handleMenuItemClick = (
-    event: React.MouseEvent<HTMLLIElement, MouseEvent>,
-    index: number
-  ) => {
+  const handleMenuItemClick = (index: number, option: string) => {
     setSelectedIndex(index);
     setOpen(false);
-    if (options[selectedIndex] === 'RU') {
-      props.i18n.changeLanguage('en');
-    } else {
-      props.i18n.changeLanguage('ru');
-    }
+    dispatch(switchLanguage(option));
   };
 
   const handleToggle = () => {
@@ -38,7 +34,6 @@ export default function LanguageSwitcher(props: I18n) {
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return;
     }
-
     setOpen(false);
   };
 
@@ -55,7 +50,7 @@ export default function LanguageSwitcher(props: I18n) {
           onClick={handleToggle}
         >
           <LanguageIcon />
-          {options[selectedIndex]}
+          {language}
         </Button>
       </ButtonGroup>
       <Popper
@@ -78,14 +73,14 @@ export default function LanguageSwitcher(props: I18n) {
             <Paper>
               <ClickAwayListener onClickAway={handleClose}>
                 <MenuList id="split-button-menu" autoFocusItem>
-                  {options.map((option, index) => (
+                  {Object.keys(languages).map((option, index) => (
                     <MenuItem
                       key={option}
                       disabled={index === 2}
                       selected={index === selectedIndex}
-                      onClick={(event) => handleMenuItemClick(event, index)}
+                      onClick={() => handleMenuItemClick(index, option)}
                     >
-                      {option}
+                      {option.toUpperCase()}
                     </MenuItem>
                   ))}
                 </MenuList>
