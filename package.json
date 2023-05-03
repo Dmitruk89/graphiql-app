@@ -8,8 +8,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "lint": "npx eslint src/**/*.{js,jsx,ts,tsx,json}",
-    "prepare": "is-ci || husky install"
+    "lint": "npx eslint src/**/*.{js,jsx,ts,tsx,json}"
   },
   "dependencies": {
     "@emotion/react": "^11.10.8",
