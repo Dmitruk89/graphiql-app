@@ -3,5 +3,24 @@ export type I18n = {
 };
 
 export type i18nState = {
-  i18n: { translations: { [x: string]: { [x: string]: 'string' } }; lang: string | number };
+  i18n: {
+    translations: {
+      [x: string]: {
+        title: 'string';
+        welcomeDescr: 'string';
+        welcomeFirstChar: 'string';
+        welcomeSecondChar: 'string';
+        welcomeThirdChar: 'string';
+      };
+    };
+    lang: string | number;
+  };
 };
+
+export interface IDeveloper {
+  image: string;
+  name: string;
+  descr: string;
+  altText: string;
+  link: string;
+}

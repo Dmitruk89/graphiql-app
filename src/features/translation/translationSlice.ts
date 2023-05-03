@@ -13,9 +13,19 @@ const initialState = {
   translations: {
     en: {
       title: 'GraphiQL-clone',
+      welcomeDescr:
+        'GraphQL is a syntax that describes how to query data, and is mainly used by the client to download data from the server. GraphQL has three main characteristics:',
+      welcomeFirstChar: 'Allows the client to specify exactly what data they need.',
+      welcomeSecondChar: 'Facilitates the aggregation of data from multiple sources.',
+      welcomeThirdChar: 'Uses a type system to describe data.',
     },
     ru: {
       title: 'ГрафиКуЭль-клон',
+      welcomeDescr:
+        'ГрафиКуЭль это синтаксис, который описывает как запрашивать данные, и, в основном, используется клиентом для загрузки данных с сервера. ГрафиКуЭль имеет три основные характеристики:',
+      welcomeFirstChar: 'Позволяет клиенту точно указать, какие данные ему нужны.',
+      welcomeSecondChar: 'Облегчает агрегацию данных из нескольких источников.',
+      welcomeThirdChar: 'Использует систему типов для описания данных.',
     },
   },
 };

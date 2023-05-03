@@ -5,16 +5,14 @@ import NotFound from './pages/NotFound';
 import Welcome from './pages/Welcome';
 import { store } from './store';
 import { Provider } from 'react-redux';
-import Header from './components/Header';
 import Layout from './components/Layout';
 
 export function App() {
   return (
     <>
-      <Header />
       <Routes>
         <Route index element={<Welcome />} />
-        <Route path="/" element={<Layout />} >
+        <Route path="/" element={<Layout />}>
           <Route path="home" element={<Home />} />
           <Route path="*" element={<NotFound />} />
         </Route>
