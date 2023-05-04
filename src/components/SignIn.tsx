@@ -27,8 +27,9 @@ export function SignIn() {
   } = methods;
 
   const onFormSubmit = (data: SignInInput): void => {
-    reset();
+    // there will be script to check input data in firebase
     console.log(data);
+    reset();
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -57,7 +58,7 @@ export function SignIn() {
             label={t.login}
             variant="outlined"
             type="text"
-            {...register('login', { required: 'login error' })}
+            {...register('login', { required: 'Please enter your login' })}
           />
           {errors.login && <Box sx={{ color: 'red' }}>{errors.login.message}</Box>}
           <TextField
@@ -66,7 +67,7 @@ export function SignIn() {
             label={t.password}
             variant="outlined"
             type={showPassword ? 'text' : 'password'}
-            {...register('password', { required: 'password error' })}
+            {...register('password', { required: 'Please enter your password' })}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
