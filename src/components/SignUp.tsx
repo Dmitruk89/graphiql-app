@@ -61,7 +61,7 @@ export function SignUp() {
           <TextField
             error={isLoginError}
             fullWidth={true}
-            label={t.login}
+            label={t.auth.login}
             variant="outlined"
             type="text"
             {...register('login', { required: 'login error' })}
@@ -70,7 +70,7 @@ export function SignUp() {
           <TextField
             error={isEmailError}
             fullWidth={true}
-            label={t.email}
+            label={t.auth.email}
             variant="outlined"
             type="text"
             {...register('email', { required: 'email error' })}
@@ -79,7 +79,7 @@ export function SignUp() {
           <TextField
             error={isPasswordError}
             fullWidth={true}
-            label={t.password}
+            label={t.auth.password}
             variant="outlined"
             type={showPassword ? 'text' : 'password'}
             {...register('password', { required: 'password error' })}
@@ -101,7 +101,7 @@ export function SignUp() {
           <TextField
             error={isRepeatedPasswordError}
             fullWidth={true}
-            label={t.repeatPassword}
+            label={t.auth.repeatPassword}
             variant="outlined"
             type={showRepeatedPassword ? 'text' : 'password'}
             {...register('repeatedPassword', { required: 'repeatedPassword error' })}
@@ -123,11 +123,11 @@ export function SignUp() {
             <Box sx={{ color: 'red' }}>{errors.repeatedPassword.message}</Box>
           )}
           <Button type="submit" variant="contained">
-            {t.signUp}
+            {t.auth.signUp}
           </Button>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography>{t.haveAcc}</Typography>
-            <Button onClick={() => dispatch(changeAuthState('signIn'))}>{t.signIn}</Button>
+            <Typography>{t.auth.haveAcc}</Typography>
+            <Button onClick={() => dispatch(changeAuthState('signIn'))}>{t.auth.signIn}</Button>
           </Box>
         </Box>
       </form>
