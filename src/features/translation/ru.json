@@ -17,6 +17,14 @@
     "login": "Введите логин",
     "email": "Введите e-mail",
     "password": "Введите пароль",
-    "repeatPassword": "Повторите пароль"
+    "repeatPassword": "Повторите пароль",
+    "loginPatternErrorMessage": "Логин должен состоять как минимум из 3 символов латинского алфавита",
+    "loginRequireErrorMessage": "Необходимо ввести логин",
+    "emailPatternErrorMessage": "E-mail должен содержать минимум 8 символов, минимум одну букву, одну цифру и один специальный символ ($!%*#?&) только перед @",
+    "emailRequireErrorMessage": "Необходимо ввести e-mail",
+    "passwordPatternErrorMessage": "Пароль должен содержать минимум 8 символов, минимум одну букву, одну цифру и один специальный символ ($!%*#?&)",
+    "passwordRequireErrorMessage": "Необходимо ввести пароль",
+    "repeatedPasswordPatternErrorMessage": "Пароли не совпадают",
+    "repeatedPasswordRequireErrorMessage": "Пожалуйста повторите пароль"
   }
 }

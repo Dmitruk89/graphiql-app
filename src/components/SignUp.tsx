@@ -38,7 +38,6 @@ export function SignUp() {
   const onFormSubmit = (data: SignUpInput): void => {
     // there will be script to post input data to firebase
     console.log(data);
-    console.log(watchPasswordValue);
     reset();
   };
 
@@ -72,10 +71,10 @@ export function SignUp() {
             variant="outlined"
             type="text"
             {...register('login', {
-              required: validationPatterns.login.requireErrorMessage,
+              required: t.auth.loginRequireErrorMessage,
               pattern: {
-                value: validationPatterns.login.pattern,
-                message: validationPatterns.login.patternErrorMessage,
+                value: validationPatterns.login,
+                message: t.auth.loginPatternErrorMessage,
               },
             })}
           />
@@ -87,10 +86,10 @@ export function SignUp() {
             variant="outlined"
             type="text"
             {...register('email', {
-              required: validationPatterns.email.requireErrorMessage,
+              required: t.auth.emailRequireErrorMessage,
               pattern: {
-                value: validationPatterns.email.pattern,
-                message: validationPatterns.email.patternErrorMessage,
+                value: validationPatterns.email,
+                message: t.auth.emailPatternErrorMessage,
               },
             })}
           />
@@ -103,10 +102,10 @@ export function SignUp() {
             variant="outlined"
             type={showPassword ? 'text' : 'password'}
             {...register('password', {
-              required: validationPatterns.password.requireErrorMessage,
+              required: t.auth.passwordRequireErrorMessage,
               pattern: {
-                value: validationPatterns.password.pattern,
-                message: validationPatterns.password.patternErrorMessage,
+                value: validationPatterns.password,
+                message: t.auth.passwordPatternErrorMessage,
               },
             })}
             InputProps={{
@@ -131,10 +130,10 @@ export function SignUp() {
             variant="outlined"
             type={showRepeatedPassword ? 'text' : 'password'}
             {...register('repeatedPassword', {
-              required: validationPatterns.repeatedPassword.requireErrorMessage,
+              required: t.auth.repeatedPasswordRequireErrorMessage,
               pattern: {
-                value: new RegExp(`^${watchPasswordValue}`),
-                message: validationPatterns.repeatedPassword.patternErrorMessage,
+                value: new RegExp(`^${watchPasswordValue}$`),
+                message: t.auth.repeatedPasswordPatternErrorMessage,
               },
             })}
             InputProps={{

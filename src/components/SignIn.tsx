@@ -58,7 +58,7 @@ export function SignIn() {
             label={t.auth.login}
             variant="outlined"
             type="text"
-            {...register('login', { required: 'Please enter your login' })}
+            {...register('login', { required: t.auth.loginRequireErrorMessage })}
           />
           {errors.login && <Box sx={{ color: 'red' }}>{errors.login.message}</Box>}
           <TextField
@@ -67,7 +67,7 @@ export function SignIn() {
             label={t.auth.password}
             variant="outlined"
             type={showPassword ? 'text' : 'password'}
-            {...register('password', { required: 'Please enter your password' })}
+            {...register('password', { required: t.auth.passwordRequireErrorMessage })}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
