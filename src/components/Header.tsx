@@ -20,7 +20,7 @@ export default function Header() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            {t.title}
+            {t.header.title}
           </Typography>
           <Button color="inherit">Logout</Button>
           <LanguageSwitcher></LanguageSwitcher>

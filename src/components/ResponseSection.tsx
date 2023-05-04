@@ -4,8 +4,10 @@ import { useGetCharactersQuery } from '../features/api/apiSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import JSONPretty from 'react-json-pretty';
+import { selectTranslations } from '../features/translation/translationSlice';
 
 export default function ResponseSection() {
+  const t = useSelector(selectTranslations);
   const query = useSelector((state: RootState) => state.graphql.query);
   const { data: characters } = useGetCharactersQuery({ query });
 
@@ -36,7 +38,7 @@ export default function ResponseSection() {
             booleanStyle="color:#116329"
           ></JSONPretty>
         ) : (
-          'Result goes here...'
+          t.mainSection.resultPlaceholder
         )}
       </Box>
     </React.Fragment>

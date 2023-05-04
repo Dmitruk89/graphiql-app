@@ -1,0 +1,22 @@
+{
+  "header": {
+    "title": "GraphiQL-clone",
+    "logoutButton": "logout"
+  },
+  "welcomeSection": {},
+  "mainSection": {
+    "sendButton": "send",
+    "editorPlaceholder": "Please enter GraphQL query",
+    "resultPlaceholder": "Result goes here..."
+  },
+  "auth": {
+    "dontHaveAcc": "Don't have an account?",
+    "haveAcc": "Already have an account?",
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "login": "Enter login",
+    "email": "Enter e-mail",
+    "password": "Enter password",
+    "repeatPassword": "Repeat password"
+  }
+}

@@ -6,8 +6,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateEditor, createQuery } from '../features/graphql/graphqlSlice';
 import { RootState } from '../store';
+import { selectTranslations } from '../features/translation/translationSlice';
 
 export default function Editor() {
+  const t = useSelector(selectTranslations);
   const code = useSelector((state: RootState) => state.graphql.editorCode);
   const dispatch = useDispatch();
 
@@ -26,7 +28,7 @@ export default function Editor() {
         <CodeEditor
           value={code}
           language="graphql"
-          placeholder="Please enter GraphQL query"
+          placeholder={t.mainSection.editorPlaceholder}
           onChange={(event) => dispatch(updateEditor(event.target.value))}
           padding={15}
           style={{
@@ -43,7 +45,7 @@ export default function Editor() {
           endIcon={<SendIcon />}
           onClick={() => dispatch(createQuery(code))}
         >
-          Send
+          {t.mainSection.sendButton}
         </Button>
       </Box>
     </React.Fragment>
