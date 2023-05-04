@@ -4,12 +4,17 @@ import SendIcon from '@mui/icons-material/Send';
 import Box from '@mui/material/Box';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateEditor, createQuery } from '../features/graphql/graphqlSlice';
+import { updateEditor, createQuery, disableSkip } from '../features/graphql/graphqlSlice';
 import { RootState } from '../store';
 
 export default function Editor() {
   const code = useSelector((state: RootState) => state.graphql.editorCode);
   const dispatch = useDispatch();
+
+  function onSendButtonClick() {
+    dispatch(disableSkip());
+    dispatch(createQuery(code));
+  }
 
   return (
     <React.Fragment>
@@ -38,11 +43,7 @@ export default function Editor() {
               'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
           }}
         />
-        <Button
-          variant="contained"
-          endIcon={<SendIcon />}
-          onClick={() => dispatch(createQuery(code))}
-        >
+        <Button variant="contained" endIcon={<SendIcon />} onClick={onSendButtonClick}>
           Send
         </Button>
       </Box>

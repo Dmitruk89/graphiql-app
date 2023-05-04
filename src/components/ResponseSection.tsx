@@ -6,8 +6,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 
 export default function ResponseSection() {
+  const skip = useSelector((state: RootState) => state.graphql.skipQuery);
   const query = useSelector((state: RootState) => state.graphql.query);
-  const { data: characters } = useGetCharactersQuery({ query });
+  const { data: characters } = useGetCharactersQuery({ query }, { skip });
 
   return (
     <React.Fragment>

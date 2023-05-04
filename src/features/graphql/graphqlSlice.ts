@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface GraphqlState {
   editorCode: string;
   query: string;
+  skipQuery: boolean;
 }
 
 const initialState: GraphqlState = {
@@ -23,6 +24,7 @@ const initialState: GraphqlState = {
     }
   }`,
   query: '',
+  skipQuery: true,
 };
 
 export const graphqlSlice = createSlice({
@@ -35,9 +37,12 @@ export const graphqlSlice = createSlice({
     createQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
+    disableSkip: (state) => {
+      state.skipQuery = false;
+    },
   },
 });
 
-export const { updateEditor, createQuery } = graphqlSlice.actions;
+export const { updateEditor, createQuery, disableSkip } = graphqlSlice.actions;
 
 export default graphqlSlice.reducer;
