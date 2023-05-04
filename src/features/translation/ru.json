@@ -1,0 +1,22 @@
+{
+  "header": {
+    "title": "ГрафиКуЭль-клон",
+    "logoutButton": "выйти"
+  },
+  "welcomeSection": {},
+  "mainSection": {
+    "sendButton": "отправить",
+    "editorPlaceholder": "Пожалуйста введите GraphQL запрос",
+    "resultPlaceholder": "Результат отобразится здесь..."
+  },
+  "auth": {
+    "dontHaveAcc": "Нет аккаунта?",
+    "haveAcc": "Уже есть аккаунт?",
+    "signUp": "Зарегистрироваться",
+    "signIn": "Войти",
+    "login": "Введите логин",
+    "email": "Введите e-mail",
+    "password": "Введите пароль",
+    "repeatPassword": "Повторите пароль"
+  }
+}

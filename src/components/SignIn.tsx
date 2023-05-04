@@ -55,7 +55,7 @@ export function SignIn() {
           <TextField
             error={isLoginError}
             fullWidth={true}
-            label={t.login}
+            label={t.auth.login}
             variant="outlined"
             type="text"
             {...register('login', { required: 'Please enter your login' })}
@@ -64,7 +64,7 @@ export function SignIn() {
           <TextField
             error={isPasswordError}
             fullWidth={true}
-            label={t.password}
+            label={t.auth.password}
             variant="outlined"
             type={showPassword ? 'text' : 'password'}
             {...register('password', { required: 'Please enter your password' })}
@@ -84,11 +84,11 @@ export function SignIn() {
           />
           {errors.password && <Box sx={{ color: 'red' }}>{errors.password.message}</Box>}
           <Button type="submit" variant="contained">
-            {t.signIn}
+            {t.auth.signIn}
           </Button>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography>{t.dontHaveAcc}</Typography>
-            <Button onClick={() => dispatch(changeAuthState('signUp'))}>{t.signUp}</Button>
+            <Typography>{t.auth.dontHaveAcc}</Typography>
+            <Button onClick={() => dispatch(changeAuthState('signUp'))}>{t.auth.signUp}</Button>
           </Box>
         </Box>
       </form>

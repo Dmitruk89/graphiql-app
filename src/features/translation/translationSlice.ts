@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { i18nState } from '../../types/types';
+import enJSON from './en.json' assert { type: 'json' };
+import ruJSON from './ru.json' assert { type: 'json' };
 
 const supportedLangs = {
   en: 'English',
@@ -11,28 +13,8 @@ const initialState = {
   lang: 'en',
   supportedLangs: { ...supportedLangs },
   translations: {
-    en: {
-      title: 'GraphiQL-clone',
-      dontHaveAcc: "Don't have an account?",
-      haveAcc: 'Already have an account?',
-      signUp: 'Sign Up',
-      signIn: 'Sign In',
-      login: 'Enter login',
-      email: 'Enter e-mail',
-      password: 'Enter password',
-      repeatPassword: 'Repeat password',
-    },
-    ru: {
-      title: 'ГрафиКуЭль-клоун',
-      dontHaveAcc: 'Нет аккаунта?',
-      haveAcc: 'Уже есть аккаунт?',
-      signUp: 'Зарегистрироваться',
-      signIn: 'Войти',
-      login: 'Введите логин',
-      email: 'Введите e-mail',
-      password: 'Введите пароль',
-      repeatPassword: 'Повторите пароль',
-    },
+    en: enJSON,
+    ru: ruJSON,
   },
 };
 
