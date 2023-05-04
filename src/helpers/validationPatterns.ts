@@ -6,13 +6,13 @@ export const validationPatterns = {
   },
   email: {
     pattern:
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$!%*#?&])[A-Za-z\d$!%*#?&.]{8,}@{1}([A-Za-z]+\.)([a-z]{2,5})$/,
+      /^(?=.*[A-Z])(?=.*\d)(?=.*[$!%*#?&])[A-Za-z\d$!%*#?&.]{8,}@{1}([A-Za-z]+\.)([a-z]{2,5})$/,
     patternErrorMessage:
       'E-mail must contain minimum 8 symbols, at least one letter, one digit, one special character ($!%*#?&) only before @',
     requireErrorMessage: 'E-mail is required',
   },
   password: {
-    pattern: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+    pattern: /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
     patternErrorMessage:
       'Password must contain minimum 8 symbols, at least one letter, one digit, one special character ($!%*#?&)',
     requireErrorMessage: 'Password is required',

@@ -10,16 +10,6 @@ import { SignUpInput } from '../types/types';
 import { InputErrorMessage } from './InputErrorMessage';
 
 export function SignUp() {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [showRepeatedPassword, setShowRepeatedPassword] = React.useState(false);
-
-  const [isLoginError, setIsLoginError] = React.useState(false);
-  const [isEmailError, setIsEmailError] = React.useState(false);
-  const [isPasswordError, setIsPasswordError] = React.useState(false);
-  const [isRepeatedPasswordError, setIsRepeatedPasswordError] = React.useState(false);
-
-  const passwordValue = React.useRef<HTMLInputElement>(null);
-
   const t = useSelector(selectTranslations);
   const dispatch = useDispatch();
   const methods = useForm<SignUpInput>({
@@ -29,13 +19,26 @@ export function SignUp() {
   const {
     register,
     reset,
+    watch,
     handleSubmit,
     formState: { errors },
   } = methods;
 
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showRepeatedPassword, setShowRepeatedPassword] = React.useState(false);
+
+  const [isLoginError, setIsLoginError] = React.useState(false);
+  const [isEmailError, setIsEmailError] = React.useState(false);
+  const [isPasswordError, setIsPasswordError] = React.useState(false);
+  const [isRepeatedPasswordError, setIsRepeatedPasswordError] = React.useState(false);
+
+  const watchPasswordValue = watch('password');
+  const passwordValue = React.useRef<HTMLInputElement>(null);
+
   const onFormSubmit = (data: SignUpInput): void => {
     // there will be script to post input data to firebase
     console.log(data);
+    console.log(watchPasswordValue);
     reset();
   };
 
@@ -130,7 +133,7 @@ export function SignUp() {
             {...register('repeatedPassword', {
               required: validationPatterns.repeatedPassword.requireErrorMessage,
               pattern: {
-                value: new RegExp(`^${passwordValue.current?.value}$`),
+                value: new RegExp(`^${watchPasswordValue}`),
                 message: validationPatterns.repeatedPassword.patternErrorMessage,
               },
             })}
