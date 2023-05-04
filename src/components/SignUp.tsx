@@ -5,18 +5,11 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeAuthState } from '../features/authentication/authenticationSlice';
 import { selectTranslations } from '../features/translation/translationSlice';
-
+import { validationPatterns } from '../helpers/validationPatterns';
 import { SignUpInput } from '../types/types';
+import { InputErrorMessage } from './InputErrorMessage';
 
 export function SignUp() {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [showRepeatedPassword, setShowRepeatedPassword] = React.useState(false);
-
-  const [isLoginError, setIsLoginError] = React.useState(false);
-  const [isEmailError, setIsEmailError] = React.useState(false);
-  const [isPasswordError, setIsPasswordError] = React.useState(false);
-  const [isRepeatedPasswordError, setIsRepeatedPasswordError] = React.useState(false);
-
   const t = useSelector(selectTranslations);
   const dispatch = useDispatch();
   const methods = useForm<SignUpInput>({
@@ -26,13 +19,27 @@ export function SignUp() {
   const {
     register,
     reset,
+    watch,
     handleSubmit,
     formState: { errors },
   } = methods;
 
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showRepeatedPassword, setShowRepeatedPassword] = React.useState(false);
+
+  const [isLoginError, setIsLoginError] = React.useState(false);
+  const [isEmailError, setIsEmailError] = React.useState(false);
+  const [isPasswordError, setIsPasswordError] = React.useState(false);
+  const [isRepeatedPasswordError, setIsRepeatedPasswordError] = React.useState(false);
+
+  const watchPasswordValue = watch('password');
+  const passwordValue = React.useRef<HTMLInputElement>(null);
+
   const onFormSubmit = (data: SignUpInput): void => {
-    reset();
+    // there will be script to post input data to firebase
     console.log(data);
+    console.log(watchPasswordValue);
+    reset();
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -64,25 +71,44 @@ export function SignUp() {
             label={t.login}
             variant="outlined"
             type="text"
-            {...register('login', { required: 'login error' })}
+            {...register('login', {
+              required: validationPatterns.login.requireErrorMessage,
+              pattern: {
+                value: validationPatterns.login.pattern,
+                message: validationPatterns.login.patternErrorMessage,
+              },
+            })}
           />
-          {errors.login && <Box sx={{ color: 'red' }}>{errors.login.message}</Box>}
+          {errors.login && <InputErrorMessage error={errors.login} />}
           <TextField
             error={isEmailError}
             fullWidth={true}
             label={t.email}
             variant="outlined"
             type="text"
-            {...register('email', { required: 'email error' })}
+            {...register('email', {
+              required: validationPatterns.email.requireErrorMessage,
+              pattern: {
+                value: validationPatterns.email.pattern,
+                message: validationPatterns.email.patternErrorMessage,
+              },
+            })}
           />
-          {errors.email && <Box sx={{ color: 'red' }}>{errors.email.message}</Box>}
+          {errors.email && <InputErrorMessage error={errors.email} />}
           <TextField
+            inputRef={passwordValue}
             error={isPasswordError}
             fullWidth={true}
             label={t.password}
             variant="outlined"
             type={showPassword ? 'text' : 'password'}
-            {...register('password', { required: 'password error' })}
+            {...register('password', {
+              required: validationPatterns.password.requireErrorMessage,
+              pattern: {
+                value: validationPatterns.password.pattern,
+                message: validationPatterns.password.patternErrorMessage,
+              },
+            })}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -97,14 +123,20 @@ export function SignUp() {
               ),
             }}
           />
-          {errors.password && <Box sx={{ color: 'red' }}>{errors.password.message}</Box>}
+          {errors.password && <InputErrorMessage error={errors.password} />}
           <TextField
             error={isRepeatedPasswordError}
             fullWidth={true}
             label={t.repeatPassword}
             variant="outlined"
             type={showRepeatedPassword ? 'text' : 'password'}
-            {...register('repeatedPassword', { required: 'repeatedPassword error' })}
+            {...register('repeatedPassword', {
+              required: validationPatterns.repeatedPassword.requireErrorMessage,
+              pattern: {
+                value: new RegExp(`^${watchPasswordValue}`),
+                message: validationPatterns.repeatedPassword.patternErrorMessage,
+              },
+            })}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -119,9 +151,7 @@ export function SignUp() {
               ),
             }}
           />
-          {errors.repeatedPassword && (
-            <Box sx={{ color: 'red' }}>{errors.repeatedPassword.message}</Box>
-          )}
+          {errors.repeatedPassword && <InputErrorMessage error={errors.repeatedPassword} />}
           <Button type="submit" variant="contained">
             {t.signUp}
           </Button>
