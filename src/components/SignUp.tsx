@@ -1,9 +1,9 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { TextField, Box, Button, Typography, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeAuthState } from '../features/authentication/authenticationSlice';
+import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
 import { validationPatterns } from '../helpers/validationPatterns';
 import { SignUpInput } from '../types/types';
@@ -11,7 +11,6 @@ import { InputErrorMessage } from './InputErrorMessage';
 
 export function SignUp() {
   const t = useSelector(selectTranslations);
-  const dispatch = useDispatch();
   const methods = useForm<SignUpInput>({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
@@ -35,9 +34,12 @@ export function SignUp() {
   const watchPasswordValue = watch('password');
   const passwordValue = React.useRef<HTMLInputElement>(null);
 
+  const navigate = useNavigate();
+
   const onFormSubmit = (data: SignUpInput): void => {
     // there will be script to post input data to firebase
     console.log(data);
+    navigate('/');
     reset();
   };
 
@@ -156,7 +158,9 @@ export function SignUp() {
           </Button>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography>{t.auth.haveAcc}</Typography>
-            <Button onClick={() => dispatch(changeAuthState('signIn'))}>{t.auth.signIn}</Button>
+            <Link to="/auth/signIn">
+              <Button>{t.auth.signIn}</Button>
+            </Link>
           </Box>
         </Box>
       </form>

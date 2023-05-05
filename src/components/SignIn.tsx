@@ -1,20 +1,15 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { TextField, Box, Button, Typography, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeAuthState } from '../features/authentication/authenticationSlice';
+import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
 
 import { SignInInput } from '../types/types';
 
 export function SignIn() {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [isLoginError, setIsLoginError] = React.useState(false);
-  const [isPasswordError, setIsPasswordError] = React.useState(false);
-
   const t = useSelector(selectTranslations);
-  const dispatch = useDispatch();
   const methods = useForm<SignInInput>({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
@@ -26,9 +21,16 @@ export function SignIn() {
     formState: { errors },
   } = methods;
 
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [isLoginError, setIsLoginError] = React.useState(false);
+  const [isPasswordError, setIsPasswordError] = React.useState(false);
+
+  const navigate = useNavigate();
+
   const onFormSubmit = (data: SignInInput): void => {
     // there will be script to check input data in firebase
     console.log(data);
+    navigate('/');
     reset();
   };
 
@@ -88,7 +90,9 @@ export function SignIn() {
           </Button>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography>{t.auth.dontHaveAcc}</Typography>
-            <Button onClick={() => dispatch(changeAuthState('signUp'))}>{t.auth.signUp}</Button>
+            <Link to="/auth/signUp">
+              <Button>{t.auth.signUp}</Button>
+            </Link>
           </Box>
         </Box>
       </form>
