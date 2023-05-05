@@ -1,12 +1,17 @@
 import React from 'react';
-import Editor from './Editor';
-import ResponseSection from './ResponseSection';
+import { Outlet } from 'react-router-dom';
+
+import Header from './Header';
+import Footer from './Footer';
 
 export default function PageLayout() {
   return (
-    <div className="layout">
-      <Editor></Editor>
-      <ResponseSection></ResponseSection>
-    </div>
+    <>
+      <Header />
+      <div className="layout">
+        <Outlet />
+      </div>
+      <Footer />
+    </>
   );
 }

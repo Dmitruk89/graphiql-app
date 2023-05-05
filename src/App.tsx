@@ -9,11 +9,15 @@ import Home from './pages/Home';
 import Welcome from './pages/WelcomeExample';
 import Auth from './pages/Auth';
 import NotFound from './pages/NotFound';
+import PageLayout from './components/PageLayout';
 
 export function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<PageLayout />}>
+        {/* place for private routes */}
+        <Route index element={<Home />} />
+      </Route>
       <Route path="/welcome" element={<Welcome />} />
       <Route path="/auth/:path" element={<Auth />} />
       <Route path="*" element={<NotFound />} />
