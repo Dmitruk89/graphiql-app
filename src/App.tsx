@@ -17,8 +17,8 @@ export function App() {
       <Route path="/auth" element={<Auth />} />
       <Route path="/" element={<Layout />}>
         <Route path="home" element={<Home />} />
-        <Route path="*" element={<NotFound />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

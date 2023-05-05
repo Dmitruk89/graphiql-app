@@ -29,5 +29,9 @@
     "passwordRequireErrorMessage": "Password is required",
     "repeatedPasswordPatternErrorMessage": "Password mismatch",
     "repeatedPasswordRequireErrorMessage": "Please repeat your password"
+  },
+  "notFound": {
+    "descrText": "The page you’re looking for doesn’t exist.",
+    "btnText": "back home"
   }
 }
