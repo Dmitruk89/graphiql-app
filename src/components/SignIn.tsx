@@ -6,6 +6,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
 
+import { InputErrorMessage } from './InputErrorMessage';
 import { SignInInput } from '../types/types';
 
 export function SignIn() {
@@ -62,7 +63,7 @@ export function SignIn() {
             type="text"
             {...register('login', { required: t.auth.loginRequireErrorMessage })}
           />
-          {errors.login && <Box sx={{ color: 'red' }}>{errors.login.message}</Box>}
+          {errors.login && <InputErrorMessage error={errors.login} />}
           <TextField
             error={isPasswordError}
             fullWidth={true}
@@ -84,7 +85,7 @@ export function SignIn() {
               ),
             }}
           />
-          {errors.password && <Box sx={{ color: 'red' }}>{errors.password.message}</Box>}
+          {errors.password && <InputErrorMessage error={errors.password} />}
           <Button type="submit" variant="contained">
             {t.auth.signIn}
           </Button>

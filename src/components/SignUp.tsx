@@ -32,7 +32,6 @@ export function SignUp() {
   const [isRepeatedPasswordError, setIsRepeatedPasswordError] = React.useState(false);
 
   const watchPasswordValue = watch('password');
-  const passwordValue = React.useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
 
@@ -97,7 +96,6 @@ export function SignUp() {
           />
           {errors.email && <InputErrorMessage error={errors.email} />}
           <TextField
-            inputRef={passwordValue}
             error={isPasswordError}
             fullWidth={true}
             label={t.auth.password}
