@@ -24,7 +24,7 @@ export default function Header() {
             {t.header.title}
           </Typography>
           <Link style={{ color: 'inherit' }} to="/welcome">
-            <Button color="inherit">Logout</Button>
+            <Button color="inherit">{t.header.logoutButton}</Button>
           </Link>
           <LanguageSwitcher></LanguageSwitcher>
         </Toolbar>
