@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
 import { IDeveloper, i18nState } from 'types/types';
 import Header from '../components/Header';
+import { descrdStyle, devStyle, titleStyle } from '../utils/style-const';
 
 function Welcome() {
   const t = useSelector(selectTranslations);
@@ -14,29 +15,14 @@ function Welcome() {
   return (
     <>
       <Header />
-      <Typography
-        variant="h1"
-        component="h2"
-        sx={{ margin: '120px auto 0', fontSize: '48px', fontWeight: 500, textAlign: 'center' }}
-      >
+      <Typography variant="h1" component="h2" sx={titleStyle}>
         {t.welcomeSection.title}
       </Typography>
       ;
-      <Typography
-        component="p"
-        sx={{ fontSize: '28px', width: '60%', textAlign: 'center', margin: '0 auto  20px' }}
-      >
+      <Typography component="p" sx={descrdStyle}>
         {t.welcomeSection.welcomeDescr}
       </Typography>
-      <Box
-        component="div"
-        sx={{
-          width: '1400px',
-          margin: ' 20px auto 0',
-          display: 'flex',
-          justifyContent: 'space-around',
-        }}
-      >
+      <Box component="div" sx={devStyle}>
         {lang === 'en'
           ? developers_en.map((developer: IDeveloper, i) => (
               <DeveloperCard key={i} developer={developer} />
