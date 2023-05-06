@@ -7,9 +7,10 @@ import JSONPretty from 'react-json-pretty';
 import { selectTranslations } from '../features/translation/translationSlice';
 
 export default function ResponseSection() {
+  const skip = useSelector((state: RootState) => state.graphql.skipQuery);
   const t = useSelector(selectTranslations);
   const query = useSelector((state: RootState) => state.graphql.query);
-  const { data: characters } = useGetCharactersQuery({ query });
+  const { data: characters } = useGetCharactersQuery({ query }, { skip });
 
   return (
     <React.Fragment>
