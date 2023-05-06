@@ -3,7 +3,10 @@ export type I18n = {
 };
 
 export type i18nState = {
-  i18n: { translations: { [x: string]: { [x: string]: 'string' } }; lang: string | number };
+  i18n: {
+    translations: { [x: string]: { [x: string]: { [x: string]: 'string' } } };
+    lang: string | number;
+  };
 };
 
 export type SignUpInput = {
@@ -17,3 +20,11 @@ export type SignInInput = {
   login: string;
   password: string;
 };
+
+export interface IDeveloper {
+  image: string;
+  name: string;
+  descr: string;
+  altText: string;
+  link: string;
+}

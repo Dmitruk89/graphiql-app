@@ -5,18 +5,11 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeAuthState } from '../features/authentication/authenticationSlice';
 import { selectTranslations } from '../features/translation/translationSlice';
-
+import { validationPatterns } from '../helpers/validationPatterns';
 import { SignUpInput } from '../types/types';
+import { InputErrorMessage } from './InputErrorMessage';
 
 export function SignUp() {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [showRepeatedPassword, setShowRepeatedPassword] = React.useState(false);
-
-  const [isLoginError, setIsLoginError] = React.useState(false);
-  const [isEmailError, setIsEmailError] = React.useState(false);
-  const [isPasswordError, setIsPasswordError] = React.useState(false);
-  const [isRepeatedPasswordError, setIsRepeatedPasswordError] = React.useState(false);
-
   const t = useSelector(selectTranslations);
   const dispatch = useDispatch();
   const methods = useForm<SignUpInput>({
@@ -26,13 +19,26 @@ export function SignUp() {
   const {
     register,
     reset,
+    watch,
     handleSubmit,
     formState: { errors },
   } = methods;
 
+  const [showPassword, setShowPassword] = React.useState(false);
+  const [showRepeatedPassword, setShowRepeatedPassword] = React.useState(false);
+
+  const [isLoginError, setIsLoginError] = React.useState(false);
+  const [isEmailError, setIsEmailError] = React.useState(false);
+  const [isPasswordError, setIsPasswordError] = React.useState(false);
+  const [isRepeatedPasswordError, setIsRepeatedPasswordError] = React.useState(false);
+
+  const watchPasswordValue = watch('password');
+  const passwordValue = React.useRef<HTMLInputElement>(null);
+
   const onFormSubmit = (data: SignUpInput): void => {
-    reset();
+    // there will be script to post input data to firebase
     console.log(data);
+    reset();
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -61,28 +67,47 @@ export function SignUp() {
           <TextField
             error={isLoginError}
             fullWidth={true}
-            label={t.login}
+            label={t.auth.login}
             variant="outlined"
             type="text"
-            {...register('login', { required: 'login error' })}
+            {...register('login', {
+              required: t.auth.loginRequireErrorMessage,
+              pattern: {
+                value: validationPatterns.login,
+                message: t.auth.loginPatternErrorMessage,
+              },
+            })}
           />
-          {errors.login && <Box sx={{ color: 'red' }}>{errors.login.message}</Box>}
+          {errors.login && <InputErrorMessage error={errors.login} />}
           <TextField
             error={isEmailError}
             fullWidth={true}
-            label={t.email}
+            label={t.auth.email}
             variant="outlined"
             type="text"
-            {...register('email', { required: 'email error' })}
+            {...register('email', {
+              required: t.auth.emailRequireErrorMessage,
+              pattern: {
+                value: validationPatterns.email,
+                message: t.auth.emailPatternErrorMessage,
+              },
+            })}
           />
-          {errors.email && <Box sx={{ color: 'red' }}>{errors.email.message}</Box>}
+          {errors.email && <InputErrorMessage error={errors.email} />}
           <TextField
+            inputRef={passwordValue}
             error={isPasswordError}
             fullWidth={true}
-            label={t.password}
+            label={t.auth.password}
             variant="outlined"
             type={showPassword ? 'text' : 'password'}
-            {...register('password', { required: 'password error' })}
+            {...register('password', {
+              required: t.auth.passwordRequireErrorMessage,
+              pattern: {
+                value: validationPatterns.password,
+                message: t.auth.passwordPatternErrorMessage,
+              },
+            })}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -97,14 +122,20 @@ export function SignUp() {
               ),
             }}
           />
-          {errors.password && <Box sx={{ color: 'red' }}>{errors.password.message}</Box>}
+          {errors.password && <InputErrorMessage error={errors.password} />}
           <TextField
             error={isRepeatedPasswordError}
             fullWidth={true}
-            label={t.repeatPassword}
+            label={t.auth.repeatPassword}
             variant="outlined"
             type={showRepeatedPassword ? 'text' : 'password'}
-            {...register('repeatedPassword', { required: 'repeatedPassword error' })}
+            {...register('repeatedPassword', {
+              required: t.auth.repeatedPasswordRequireErrorMessage,
+              pattern: {
+                value: new RegExp(`^${watchPasswordValue}$`),
+                message: t.auth.repeatedPasswordPatternErrorMessage,
+              },
+            })}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -119,15 +150,13 @@ export function SignUp() {
               ),
             }}
           />
-          {errors.repeatedPassword && (
-            <Box sx={{ color: 'red' }}>{errors.repeatedPassword.message}</Box>
-          )}
+          {errors.repeatedPassword && <InputErrorMessage error={errors.repeatedPassword} />}
           <Button type="submit" variant="contained">
-            {t.signUp}
+            {t.auth.signUp}
           </Button>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography>{t.haveAcc}</Typography>
-            <Button onClick={() => dispatch(changeAuthState('signIn'))}>{t.signIn}</Button>
+            <Typography>{t.auth.haveAcc}</Typography>
+            <Button onClick={() => dispatch(changeAuthState('signIn'))}>{t.auth.signIn}</Button>
           </Box>
         </Box>
       </form>

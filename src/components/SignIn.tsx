@@ -27,8 +27,9 @@ export function SignIn() {
   } = methods;
 
   const onFormSubmit = (data: SignInInput): void => {
-    reset();
+    // there will be script to check input data in firebase
     console.log(data);
+    reset();
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -54,19 +55,19 @@ export function SignIn() {
           <TextField
             error={isLoginError}
             fullWidth={true}
-            label={t.login}
+            label={t.auth.login}
             variant="outlined"
             type="text"
-            {...register('login', { required: 'login error' })}
+            {...register('login', { required: t.auth.loginRequireErrorMessage })}
           />
           {errors.login && <Box sx={{ color: 'red' }}>{errors.login.message}</Box>}
           <TextField
             error={isPasswordError}
             fullWidth={true}
-            label={t.password}
+            label={t.auth.password}
             variant="outlined"
             type={showPassword ? 'text' : 'password'}
-            {...register('password', { required: 'password error' })}
+            {...register('password', { required: t.auth.passwordRequireErrorMessage })}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -83,11 +84,11 @@ export function SignIn() {
           />
           {errors.password && <Box sx={{ color: 'red' }}>{errors.password.message}</Box>}
           <Button type="submit" variant="contained">
-            {t.signIn}
+            {t.auth.signIn}
           </Button>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography>{t.dontHaveAcc}</Typography>
-            <Button onClick={() => dispatch(changeAuthState('signUp'))}>{t.signUp}</Button>
+            <Typography>{t.auth.dontHaveAcc}</Typography>
+            <Button onClick={() => dispatch(changeAuthState('signUp'))}>{t.auth.signUp}</Button>
           </Box>
         </Box>
       </form>
