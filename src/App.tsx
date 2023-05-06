@@ -7,13 +7,18 @@ import { store } from './store';
 import { Provider } from 'react-redux';
 import { apiSlice } from './features/api/apiSlice';
 import { ApiProvider } from '@reduxjs/toolkit/query/react';
+import Welcome from './pages/Welcome';
+import Layout from './components/Layout';
 
 export function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route index element={<Welcome />} />
       <Route path="/auth" element={<Auth />} />
-      <Route path="*" element={<NotFound />} />
+      <Route path="/" element={<Layout />}>
+        <Route path="home" element={<Home />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
     </Routes>
   );
 }

@@ -5,10 +5,13 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import JSONPretty from 'react-json-pretty';
 import { CircularProgress } from '@mui/material';
+import { selectTranslations } from '../features/translation/translationSlice';
 
 export default function ResponseSection() {
+  const skip = useSelector((state: RootState) => state.graphql.skipQuery);
+  const t = useSelector(selectTranslations);
   const query = useSelector((state: RootState) => state.graphql.query);
-  const { data: characters, error, isLoading } = useGetCharactersQuery({ query });
+  const { data: characters, error, isLoading } = useGetCharactersQuery({ query }, { skip });
 
   return (
     <React.Fragment>
@@ -60,7 +63,7 @@ export default function ResponseSection() {
             booleanStyle="color:#116329"
           ></JSONPretty>
         ) : (
-          'Result goes here...'
+          t.mainSection.resultPlaceholder
         )}
       </Box>
     </React.Fragment>

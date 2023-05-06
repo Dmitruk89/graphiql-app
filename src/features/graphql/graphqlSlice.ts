@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface GraphqlState {
   editorCode: string;
   query: string;
+  skipQuery: boolean;
   isDocsOpen: boolean;
   docsWidth: number;
 }
@@ -25,6 +26,7 @@ const initialState: GraphqlState = {
     }
   }`,
   query: '',
+  skipQuery: true,
   isDocsOpen: false,
   docsWidth: 400,
 };
@@ -39,12 +41,15 @@ export const graphqlSlice = createSlice({
     createQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
+    disableSkip: (state) => {
+      state.skipQuery = false;
+    },
     setDocsOpen: (state, action: PayloadAction<boolean>) => {
       state.isDocsOpen = action.payload;
     },
   },
 });
 
-export const { updateEditor, createQuery, setDocsOpen } = graphqlSlice.actions;
+export const { updateEditor, createQuery, disableSkip, setDocsOpen } = graphqlSlice.actions;
 
 export default graphqlSlice.reducer;
