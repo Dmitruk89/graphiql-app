@@ -15,7 +15,27 @@ export const apiSlice = createApi({
         `,
       }),
     }),
+    getDocs: builder.query({
+      query: () => ({
+        document: gql`
+          query GetSchema {
+            __schema {
+              types {
+                name
+                kind
+                fields {
+                  name
+                  type {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        `,
+      }),
+    }),
   }),
 });
 
-export const { useGetCharactersQuery } = apiSlice;
+export const { useGetCharactersQuery, useGetDocsQuery } = apiSlice;
