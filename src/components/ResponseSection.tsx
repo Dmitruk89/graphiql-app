@@ -4,12 +4,15 @@ import { useGetCharactersQuery } from '../features/api/apiSlice';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import JSONPretty from 'react-json-pretty';
+import { CircularProgress } from '@mui/material';
 import { selectTranslations } from '../features/translation/translationSlice';
+
 
 export default function ResponseSection() {
   const skip = useSelector((state: RootState) => state.graphql.skipQuery);
   const t = useSelector(selectTranslations);
   const query = useSelector((state: RootState) => state.graphql.query);
+  const { data: characters, error, isLoading } = useGetCharactersQuery({ query });
   const { data: characters } = useGetCharactersQuery({ query }, { skip });
 
   return (
@@ -26,7 +29,30 @@ export default function ResponseSection() {
             'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
         }}
       >
-        {characters ? (
+        {error ? (
+          <JSONPretty
+            id="json-pretty"
+            style={{ fontSize: '1rem' }}
+            data={error}
+            mainStyle="line-height:1.3;color:#6e7781;background:#f5f5f5;overflow:auto;"
+            errorStyle="line-height:1.3;color:#66d9ef;background:f5f5f5;overflow:auto;"
+            keyStyle="color:#0550ae;"
+            stringStyle="color:#116329;"
+            valueStyle="color:#116329;"
+            booleanStyle="color:#116329"
+          ></JSONPretty>
+        ) : isLoading ? (
+          <Box
+            sx={{
+              display: 'flex',
+              flexGrow: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <CircularProgress color="inherit" />
+          </Box>
+        ) : characters ? (
           <JSONPretty
             id="json-pretty"
             style={{ fontSize: '1rem' }}
