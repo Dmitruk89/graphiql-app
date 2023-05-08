@@ -10,20 +10,19 @@ import { IDeveloper, i18nState } from 'types/types';
 import { descrdStyle, devStyle, titleStyle } from '../utils/style-const';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { Link } from 'react-router-dom';
+import { Container } from '@mui/material';
 
 function Welcome() {
   const t = useSelector(selectTranslations);
   const lang = useSelector((state: i18nState) => state.i18n.lang);
   return (
     <>
-      <Box
-        component="div"
+      <Container
         sx={{
           display: 'flex',
           justifyContent: 'flex-end',
-          maxWidth: '1400px',
-          padding: '15px',
-          margin: '20px auto',
+          alignItems: 'center',
+          height: '6rem',
         }}
       >
         <Link to="/auth/signIn">
@@ -33,7 +32,7 @@ function Welcome() {
           <Button color="primary">{t.auth.signUp}</Button>
         </Link>
         <LanguageSwitcher></LanguageSwitcher>
-      </Box>
+      </Container>
       <Typography variant="h1" component="h2" sx={titleStyle}>
         {t.welcomeSection.title}
       </Typography>
