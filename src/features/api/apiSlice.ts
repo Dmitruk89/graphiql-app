@@ -22,9 +22,11 @@ export const apiSlice = createApi({
             __schema {
               types {
                 name
+                description
                 kind
                 fields {
                   name
+                  description
                   type {
                     name
                   }

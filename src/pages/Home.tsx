@@ -10,7 +10,6 @@ function Home() {
       <Header></Header>
       <PageLayout></PageLayout>
       <Footer></Footer>
-      {/* <PersistentDrawerLeft></PersistentDrawerLeft> */}
     </>
   );
 }

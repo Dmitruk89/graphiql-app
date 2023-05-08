@@ -9,15 +9,23 @@ import { RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDocsOpen } from '../features/graphql/graphqlSlice';
 import { useGetDocsQuery } from '../features/api/apiSlice';
-import JSONPretty from 'react-json-pretty';
+import { Collapse, Link, List, ListSubheader, Typography } from '@mui/material';
 
 export default function Docs() {
+  const [isSublistOpen, setIsSublistOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setIsSublistOpen(!isSublistOpen);
+  };
   const drawerWidth = useSelector((state: RootState) => state.graphql.docsWidth);
   const open = useSelector((state: RootState) => state.graphql.isDocsOpen);
   const dispatch = useDispatch();
   const theme = useTheme();
 
   const { data: docs } = useGetDocsQuery({});
+  if (docs) {
+    console.log(docs['__schema']['types']);
+  }
 
   const handleDocsClose = () => {
     dispatch(setDocsOpen(false));
@@ -40,6 +48,7 @@ export default function Docs() {
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
+          padding: '15px',
         },
       }}
       variant="persistent"
@@ -47,22 +56,58 @@ export default function Docs() {
       open={open}
     >
       <DrawerHeader>
+        <Typography variant="h6">Docs</Typography>
         <IconButton onClick={handleDocsClose}>
           {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>
       </DrawerHeader>
       <Divider></Divider>
-      <JSONPretty
-        id="json-pretty"
-        style={{ fontSize: '1rem' }}
-        data={docs}
-        mainStyle="line-height:1.3;color:#6e7781;background:#f5f5f5;overflow:auto;"
-        errorStyle="line-height:1.3;color:#66d9ef;background:f5f5f5;overflow:auto;"
-        keyStyle="color:#0550ae;"
-        stringStyle="color:#116329;"
-        valueStyle="color:#116329;"
-        booleanStyle="color:#116329"
-      ></JSONPretty>
+      <List
+        sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        subheader={
+          <ListSubheader component="p" id="nested-list-subheader" sx={{ lineHeight: '1.3rem' }}>
+            A GraphQL schema provides a root type for each kind of operation.
+          </ListSubheader>
+        }
+      >
+        <li>
+          <Typography variant="body1">
+            query:{' '}
+            <Link href="#" onClick={handleClick}>
+              Query
+            </Link>
+          </Typography>
+        </li>
+        <Collapse in={isSublistOpen} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding sx={{ pl: 4 }}>
+            {docs
+              ? docs['__schema']['types'][0]['fields'].map(
+                  (field: { name: string; description: string }) => {
+                    return (
+                      <li key={field.name}>
+                        <Typography variant="body1">
+                          {field.name}():
+                          <Link href="#" onClick={handleClick}>
+                            Type
+                          </Link>
+                        </Typography>
+                        <ListSubheader
+                          component="p"
+                          id="nested-list-subheader"
+                          sx={{ lineHeight: '1.3rem' }}
+                        >
+                          {field.description}
+                        </ListSubheader>
+                      </li>
+                    );
+                  }
+                )
+              : null}
+          </List>
+        </Collapse>
+      </List>
     </Drawer>
   );
 }
