@@ -4,7 +4,7 @@ import { store } from './store';
 import { Provider } from 'react-redux';
 import { apiSlice } from './features/api/apiSlice';
 import { ApiProvider } from '@reduxjs/toolkit/query/react';
-
+import Welcome from './pages/Welcome';
 import Home from './pages/Home';
 import Welcome from './pages/WelcomeExample';
 import Auth from './pages/Auth';
@@ -14,12 +14,11 @@ import PageLayout from './components/PageLayout';
 export function App() {
   return (
     <Routes>
+      <Route index element={<Welcome />} />
+      <Route path="/auth" element={<Auth />} />
       <Route path="/" element={<PageLayout />}>
-        {/* place for private routes */}
-        <Route index element={<Home />} />
+        <Route path="home" element={<Home />} />
       </Route>
-      <Route path="/welcome" element={<Welcome />} />
-      <Route path="/auth/:path" element={<Auth />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

@@ -20,3 +20,11 @@ export type SignInInput = {
   login: string;
   password: string;
 };
+
+export interface IDeveloper {
+  image: string;
+  name: string;
+  descr: string;
+  altText: string;
+  link: string;
+}

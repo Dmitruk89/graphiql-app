@@ -3,7 +3,10 @@
     "title": "GraphiQL-clone",
     "logoutButton": "logout"
   },
-  "welcomeSection": {},
+  "welcomeSection": {
+    "title": "GraphiQL-clone",
+    "welcomeDescr": "GraphiQL is the GraphQL integrated development environment (IDE). It’s a powerful (and all-around awesome) tool you’ll use often while building Gatsby websites. It offers syntax highlighting, intellisense autocompletion, automatic documentation, and much more."
+  },
   "mainSection": {
     "sendButton": "send",
     "editorPlaceholder": "Please enter GraphQL query",
@@ -26,5 +29,9 @@
     "passwordRequireErrorMessage": "Password is required",
     "repeatedPasswordPatternErrorMessage": "Password mismatch",
     "repeatedPasswordRequireErrorMessage": "Please repeat your password"
+  },
+  "notFound": {
+    "descrText": "The page you’re looking for doesn’t exist.",
+    "btnText": "back home"
   }
 }

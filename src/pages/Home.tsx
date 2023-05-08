@@ -1,13 +1,13 @@
 import React from 'react';
-
-import Editor from '../components/Editor';
-import ResponseSection from '../components/ResponseSection';
+import Footer from '../components/Footer';
+import PageLayout from '../components/PageLayout';
 
 function Home() {
   return (
     <>
-      <Editor></Editor>
-      <ResponseSection></ResponseSection>
+      <Header></Header>
+      <PageLayout></PageLayout>
+      <Footer></Footer>
     </>
   );
 }

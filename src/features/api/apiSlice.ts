@@ -4,7 +4,9 @@ import { graphqlRequestBaseQuery } from '@rtk-query/graphql-request-base-query';
 
 export const apiSlice = createApi({
   reducerPath: 'api',
-  baseQuery: graphqlRequestBaseQuery({ url: 'https://rickandmortyapi.com/graphql' }),
+  baseQuery: graphqlRequestBaseQuery({
+    url: 'https://rickandmortyapi.com/graphql',
+  }),
   endpoints: (builder) => ({
     getCharacters: builder.query({
       query: (payload) => ({
@@ -13,7 +15,27 @@ export const apiSlice = createApi({
         `,
       }),
     }),
+    getDocs: builder.query({
+      query: () => ({
+        document: gql`
+          query GetSchema {
+            __schema {
+              types {
+                name
+                kind
+                fields {
+                  name
+                  type {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        `,
+      }),
+    }),
   }),
 });
 
-export const { useGetCharactersQuery } = apiSlice;
+export const { useGetCharactersQuery, useGetDocsQuery } = apiSlice;

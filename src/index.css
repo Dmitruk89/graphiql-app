@@ -14,3 +14,9 @@ body {
   margin-top: var(--footer-height);
   min-height: calc(100vh - var(--footer-height) - var(--footer-height));
 }
+
+@media (max-width: 915px) {
+  .photo {
+    display: none;
+  }
+}
