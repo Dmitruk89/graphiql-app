@@ -13,7 +13,7 @@ export function App() {
   return (
     <Routes>
       <Route index element={<Welcome />} />
-      <Route path="/auth" element={<Auth />} />
+      <Route path="/auth/:path" element={<Auth />} />
       <Route path="/home" element={<Home />} />
       <Route path="*" element={<NotFound />} />
     </Routes>

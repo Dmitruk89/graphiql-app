@@ -38,7 +38,7 @@ export function SignUp() {
   const onFormSubmit = (data: SignUpInput): void => {
     // there will be script to post input data to firebase
     console.log(data);
-    navigate('/');
+    navigate('/home');
     reset();
   };
 
