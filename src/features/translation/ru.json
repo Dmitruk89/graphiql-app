@@ -29,5 +29,9 @@
     "passwordRequireErrorMessage": "Необходимо ввести пароль",
     "repeatedPasswordPatternErrorMessage": "Пароли не совпадают",
     "repeatedPasswordRequireErrorMessage": "Пожалуйста повторите пароль"
+  },
+  "notFound": {
+    "descrText": "Страница, которую вы ищете не существует",
+    "btnText": "назад"
   }
 }
