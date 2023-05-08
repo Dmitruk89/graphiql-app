@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, Box } from '@mui/material';
-
 import { SignIn } from '../components/SignIn';
 import { SignUp } from '../components/SignUp';
 
