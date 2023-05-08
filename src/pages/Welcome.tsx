@@ -9,6 +9,7 @@ import { selectTranslations } from '../features/translation/translationSlice';
 import { IDeveloper, i18nState } from 'types/types';
 import { descrdStyle, devStyle, titleStyle } from '../utils/style-const';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import { Link } from 'react-router-dom';
 
 function Welcome() {
   const t = useSelector(selectTranslations);
@@ -21,11 +22,16 @@ function Welcome() {
           display: 'flex',
           justifyContent: 'flex-end',
           maxWidth: '1400px',
+          padding: '15px',
           margin: '20px auto',
         }}
       >
-        <Button color="primary">{t.auth.signIn}</Button>
-        <Button color="primary">{t.auth.signUp}</Button>
+        <Link to="/auth/signIn">
+          <Button color="primary">{t.auth.signIn}</Button>
+        </Link>
+        <Link to="/auth/signUp">
+          <Button color="primary">{t.auth.signUp}</Button>
+        </Link>
         <LanguageSwitcher></LanguageSwitcher>
       </Box>
       <Typography variant="h1" component="h2" sx={titleStyle}>
