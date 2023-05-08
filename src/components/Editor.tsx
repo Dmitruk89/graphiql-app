@@ -45,11 +45,7 @@ export default function Editor() {
               'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
           }}
         />
-        <Button
-          variant="contained"
-          endIcon={<SendIcon />}
-          onClick={() => dispatch(createQuery(code))}
-        >
+        <Button variant="contained" endIcon={<SendIcon />} onClick={() => onSendButtonClick()}>
           {t.mainSection.sendButton}
         </Button>
       </Box>

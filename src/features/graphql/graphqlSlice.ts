@@ -4,6 +4,8 @@ export interface GraphqlState {
   editorCode: string;
   query: string;
   skipQuery: boolean;
+  isDocsOpen: boolean;
+  docsWidth: number;
 }
 
 const initialState: GraphqlState = {
@@ -25,6 +27,8 @@ const initialState: GraphqlState = {
   }`,
   query: '',
   skipQuery: true,
+  isDocsOpen: false,
+  docsWidth: 400,
 };
 
 export const graphqlSlice = createSlice({
@@ -40,9 +44,12 @@ export const graphqlSlice = createSlice({
     disableSkip: (state) => {
       state.skipQuery = false;
     },
+    setDocsOpen: (state, action: PayloadAction<boolean>) => {
+      state.isDocsOpen = action.payload;
+    },
   },
 });
 
-export const { updateEditor, createQuery, disableSkip } = graphqlSlice.actions;
+export const { updateEditor, createQuery, disableSkip, setDocsOpen } = graphqlSlice.actions;
 
 export default graphqlSlice.reducer;
