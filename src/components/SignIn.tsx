@@ -3,13 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { TextField, Box, Button, Typography, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
+import { setUser } from '../features/authentication/authenticationSlice';
 import { InputErrorMessage } from './InputErrorMessage';
 import { SignInInput } from '../types/types';
 
 export function SignIn() {
+  const dispatch = useDispatch();
   const t = useSelector(selectTranslations);
   const methods = useForm<SignInInput>({
     mode: 'onSubmit',
@@ -29,18 +32,29 @@ export function SignIn() {
   const navigate = useNavigate();
 
   const onFormSubmit = (data: SignInInput): void => {
-    // there will be script to check input data in firebase
-    console.log(data);
-    navigate('/');
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, data.email, data.password)
+      .then(({ user }) => {
+        console.log(user);
+        dispatch(
+          setUser({
+            email: user.email,
+            id: user.uid,
+            token: user.refreshToken,
+          })
+        );
+        navigate('/home');
+      })
+      .catch(console.error);
     reset();
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   React.useEffect(() => {
-    errors.login ? setIsLoginError(true) : setIsLoginError(false);
+    errors.email ? setIsLoginError(true) : setIsLoginError(false);
     errors.password ? setIsPasswordError(true) : setIsPasswordError(false);
-  }, [errors.login, errors.password]);
+  }, [errors.email, errors.password]);
 
   return (
     <FormProvider {...methods}>
@@ -58,12 +72,12 @@ export function SignIn() {
           <TextField
             error={isLoginError}
             fullWidth={true}
-            label={t.auth.login}
+            label={t.auth.email}
             variant="outlined"
             type="text"
-            {...register('login', { required: t.auth.loginRequireErrorMessage })}
+            {...register('email', { required: t.auth.emailRequireErrorMessage })}
           />
-          {errors.login && <InputErrorMessage error={errors.login} />}
+          {errors.email && <InputErrorMessage error={errors.email} />}
           <TextField
             error={isPasswordError}
             fullWidth={true}

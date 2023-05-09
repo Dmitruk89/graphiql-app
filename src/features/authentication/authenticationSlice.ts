@@ -1,17 +1,25 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const authSlice = createSlice({
   name: 'authSlice',
   initialState: {
-    currentState: localStorage.getItem('authState') || 'signUp',
+    email: null,
+    token: null,
+    id: null,
   },
   reducers: {
-    changeAuthState(state, action: PayloadAction<string>) {
-      state.currentState = action.payload;
-      localStorage.setItem('authState', action.payload);
+    setUser(state, action) {
+      state.email = action.payload.email;
+      state.token = action.payload.token;
+      state.id = action.payload.id;
+    },
+    removeUser(state) {
+      state.email = null;
+      state.token = null;
+      state.id = null;
     },
   },
 });
 
-export const { changeAuthState } = authSlice.actions;
+export const { setUser, removeUser } = authSlice.actions;
 export default authSlice.reducer;

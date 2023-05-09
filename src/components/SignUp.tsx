@@ -3,13 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { TextField, Box, Button, Typography, InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
 import { validationPatterns } from '../helpers/validationPatterns';
 import { SignUpInput } from '../types/types';
 import { InputErrorMessage } from './InputErrorMessage';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { setUser } from '../features/authentication/authenticationSlice';
 
 export function SignUp() {
+  const dispatch = useDispatch();
   const t = useSelector(selectTranslations);
   const methods = useForm<SignUpInput>({
     mode: 'onSubmit',
@@ -26,7 +29,6 @@ export function SignUp() {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showRepeatedPassword, setShowRepeatedPassword] = React.useState(false);
 
-  const [isLoginError, setIsLoginError] = React.useState(false);
   const [isEmailError, setIsEmailError] = React.useState(false);
   const [isPasswordError, setIsPasswordError] = React.useState(false);
   const [isRepeatedPasswordError, setIsRepeatedPasswordError] = React.useState(false);
@@ -36,9 +38,20 @@ export function SignUp() {
   const navigate = useNavigate();
 
   const onFormSubmit = (data: SignUpInput): void => {
-    // there will be script to post input data to firebase
-    console.log(data);
-    navigate('/');
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, data.email, data.repeatedPassword)
+      .then(({ user }) => {
+        console.log(user);
+        dispatch(
+          setUser({
+            email: user.email,
+            id: user.uid,
+            token: user.refreshToken,
+          })
+        );
+        navigate('/');
+      })
+      .catch(console.error);
     reset();
   };
 
@@ -46,11 +59,10 @@ export function SignUp() {
   const handleClickShowRepeatedPassword = () => setShowRepeatedPassword((show) => !show);
 
   React.useEffect(() => {
-    errors.login ? setIsLoginError(true) : setIsLoginError(false);
     errors.email ? setIsEmailError(true) : setIsEmailError(false);
     errors.password ? setIsPasswordError(true) : setIsPasswordError(false);
     errors.repeatedPassword ? setIsRepeatedPasswordError(true) : setIsRepeatedPasswordError(false);
-  }, [errors.login, errors.password, errors.email, errors.repeatedPassword]);
+  }, [errors.password, errors.email, errors.repeatedPassword]);
 
   return (
     <FormProvider {...methods}>
@@ -65,21 +77,6 @@ export function SignUp() {
             maxWidth: '300px',
           }}
         >
-          <TextField
-            error={isLoginError}
-            fullWidth={true}
-            label={t.auth.login}
-            variant="outlined"
-            type="text"
-            {...register('login', {
-              required: t.auth.loginRequireErrorMessage,
-              pattern: {
-                value: validationPatterns.login,
-                message: t.auth.loginPatternErrorMessage,
-              },
-            })}
-          />
-          {errors.login && <InputErrorMessage error={errors.login} />}
           <TextField
             error={isEmailError}
             fullWidth={true}
