@@ -16,19 +16,39 @@ export const apiSlice = createApi({
       }),
     }),
     getDocs: builder.query({
-      query: () => ({
+      query: (payload) => ({
         document: gql`
-          query GetSchema {
-            __schema {
-              types {
+          query IntrospectionQuery {
+            __type(name: "${payload.docsTypeName}") {
+              name
+              kind
+              description
+              fields {
                 name
                 description
-                kind
-                fields {
+                args {
                   name
                   description
                   type {
+                    kind
                     name
+                    ofType {
+                      kind
+                      name
+                    }
+                  }
+                }
+                type {
+                  kind
+                  name
+                  description
+                  ofType {
+                    kind
+                    name
+                    ofType {
+                      kind
+                      name
+                    }
                   }
                 }
               }

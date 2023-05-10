@@ -44,8 +44,6 @@ export default function Header() {
   }));
 
   const handleDocsOpen = () => {
-    console.log('open docs');
-
     dispatch(setDocsOpen(true));
   };
 

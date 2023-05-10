@@ -10,23 +10,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setDocsOpen } from '../features/graphql/graphqlSlice';
 import { useGetDocsQuery } from '../features/api/apiSlice';
 import { Collapse, Link, List, ListSubheader, Typography } from '@mui/material';
+import { FieldList } from './docs/FieldList';
+import Description from './docs/Description';
 
 export default function Docs() {
-  const [isSublistOpen, setIsSublistOpen] = React.useState(true);
+  const dispatch = useDispatch();
+  const theme = useTheme();
+  const [isSublistOpen, setIsSublistOpen] = React.useState(false);
+
+  const drawerWidth = useSelector((state: RootState) => state.graphql.docsWidth);
+  const open = useSelector((state: RootState) => state.graphql.isDocsOpen);
+  const docsTypeName = useSelector((state: RootState) => state.graphql.docsTypeName);
+
+  const { data: docs } = useGetDocsQuery({ docsTypeName });
 
   const handleClick = () => {
     setIsSublistOpen(!isSublistOpen);
   };
-  const drawerWidth = useSelector((state: RootState) => state.graphql.docsWidth);
-  const open = useSelector((state: RootState) => state.graphql.isDocsOpen);
-  const dispatch = useDispatch();
-  const theme = useTheme();
-
-  const { data: docs } = useGetDocsQuery({});
-  if (docs) {
-    console.log(docs['__schema']['types']);
-  }
-
   const handleDocsClose = () => {
     dispatch(setDocsOpen(false));
   };
@@ -35,7 +35,6 @@ export default function Docs() {
     display: 'flex',
     alignItems: 'center',
     padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   }));
@@ -76,36 +75,16 @@ export default function Docs() {
           <Typography variant="body1">
             query:{' '}
             <Link href="#" onClick={handleClick}>
-              Query
+              {docsTypeName}
             </Link>
           </Typography>
         </li>
         <Collapse in={isSublistOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding sx={{ pl: 4 }}>
-            {docs
-              ? docs['__schema']['types'][0]['fields'].map(
-                  (field: { name: string; description: string }) => {
-                    return (
-                      <li key={field.name}>
-                        <Typography variant="body1">
-                          {field.name}():
-                          <Link href="#" onClick={handleClick}>
-                            Type
-                          </Link>
-                        </Typography>
-                        <ListSubheader
-                          component="p"
-                          id="nested-list-subheader"
-                          sx={{ lineHeight: '1.3rem' }}
-                        >
-                          {field.description}
-                        </ListSubheader>
-                      </li>
-                    );
-                  }
-                )
-              : null}
-          </List>
+          {docs && docs['__type']['fields'] ? (
+            <FieldList fields={docs['__type']['fields']}></FieldList>
+          ) : docs && docs['__type'] ? (
+            <Description type={docs['__type']}></Description>
+          ) : null}
         </Collapse>
       </List>
     </Drawer>
