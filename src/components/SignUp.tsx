@@ -41,18 +41,21 @@ export function SignUp() {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, data.email, data.repeatedPassword)
       .then(({ user }) => {
-        console.log(user);
-        dispatch(
-          setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.refreshToken,
-          })
-        );
-        navigate('/');
+        user.getIdToken().then((token) => {
+          dispatch(
+            setUser({
+              email: user.email,
+              id: user.uid,
+              token: token,
+            })
+          );
+          navigate('/home');
+          reset();
+        });
       })
-      .catch(console.error);
-    reset();
+      .catch(() => {
+        console.error;
+      });
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);

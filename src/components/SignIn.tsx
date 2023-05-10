@@ -35,18 +35,21 @@ export function SignIn() {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then(({ user }) => {
-        console.log(user);
-        dispatch(
-          setUser({
-            email: user.email,
-            id: user.uid,
-            token: user.refreshToken,
-          })
-        );
-        navigate('/home');
+        user.getIdToken().then((token) => {
+          dispatch(
+            setUser({
+              email: user.email,
+              id: user.uid,
+              token: token,
+            })
+          );
+          navigate('/home');
+          reset();
+        });
       })
-      .catch(console.error);
-    reset();
+      .catch(() => {
+        console.error;
+      });
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
