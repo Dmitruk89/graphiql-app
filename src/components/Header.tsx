@@ -66,7 +66,7 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {t.header.title}
           </Typography>
-          <Link style={{ color: 'inherit' }} to="/welcome">
+          <Link style={{ color: 'inherit' }} to="/">
             <Button color="inherit">{t.header.logoutButton}</Button>
           </Link>
           <LanguageSwitcher></LanguageSwitcher>

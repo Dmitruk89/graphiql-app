@@ -31,7 +31,7 @@ export function SignIn() {
   const onFormSubmit = (data: SignInInput): void => {
     // there will be script to check input data in firebase
     console.log(data);
-    navigate('/');
+    navigate('/home');
     reset();
   };
 
