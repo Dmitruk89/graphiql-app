@@ -16,11 +16,16 @@ body {
 }
 
 .argName {
+  color: rgb(255, 69, 131);
+}
+
+.fieldName {
   color: blueviolet;
 }
 
-.argType {
-  color: orange;
+.argType,
+.fieldType {
+  color: rgb(255, 153, 0);
 }
 
 @media (max-width: 915px) {

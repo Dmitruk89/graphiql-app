@@ -23,6 +23,17 @@ export const apiSlice = createApi({
               name
               kind
               description
+              inputFields {
+                name
+                type {
+                  kind
+                  name
+                  ofType {
+                    kind
+                    name
+                  }
+                }
+              }
               fields {
                 name
                 description

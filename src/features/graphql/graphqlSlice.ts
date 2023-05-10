@@ -9,6 +9,7 @@ export interface GraphqlState {
   docsType: DocsType | null;
   docsTypeName: string;
 }
+//const vari = { $id: 1 };
 
 const initialState: GraphqlState = {
   editorCode: ` query {
@@ -27,6 +28,7 @@ const initialState: GraphqlState = {
       id
     }
   }`,
+
   query: '',
   skipQuery: true,
   isDocsOpen: false,

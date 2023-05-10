@@ -3,7 +3,7 @@ export type DocsField = {
   name: string;
   description: string;
   type: DocsType;
-  args: DocsArg[];
+  args?: DocsArg[];
 };
 export type DocsArg = {
   name: string;

@@ -24,6 +24,10 @@ export default function Docs() {
 
   const { data: docs } = useGetDocsQuery({ docsTypeName });
 
+  if (docs && docs['__type']) {
+    console.log(docs['__type']);
+  }
+
   const handleClick = () => {
     setIsSublistOpen(!isSublistOpen);
   };
@@ -73,15 +77,17 @@ export default function Docs() {
       >
         <li>
           <Typography variant="body1">
-            query:{' '}
+            <span className="fieldName">query: </span>
             <Link href="#" onClick={handleClick}>
-              {docsTypeName}
+              <span className="fieldType">{docsTypeName}</span>
             </Link>
           </Typography>
         </li>
         <Collapse in={isSublistOpen} timeout="auto" unmountOnExit>
           {docs && docs['__type']['fields'] ? (
             <FieldList fields={docs['__type']['fields']}></FieldList>
+          ) : docs && docs['__type']['inputFields'] ? (
+            <FieldList fields={docs['__type']['inputFields']}></FieldList>
           ) : docs && docs['__type'] ? (
             <Description type={docs['__type']}></Description>
           ) : null}

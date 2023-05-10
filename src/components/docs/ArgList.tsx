@@ -15,18 +15,16 @@ export function ArgList(props: { args: DocsArg[] }) {
       {props.args.map((arg: DocsArg) => {
         return (
           <span key={arg.name}>
+            {'('}
             {props.args.length > 1 ? <br /> : ''}
-            <span className="argName">
-              {'('}
-              {arg.name}
-            </span>
+            <span className="argName">{arg.name}</span>
             {': '}
             <Link href="#" onClick={() => handleClick(arg.type)}>
               <span className="argType">
                 {arg.type.name ? arg.type.name : arg.type.ofType?.name}
-                {')'}
               </span>
             </Link>
+            {')'}
           </span>
         );
       })}

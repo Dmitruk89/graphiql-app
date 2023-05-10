@@ -18,11 +18,11 @@ export function FieldList(props: { fields: DocsField[] }) {
         ? fields.map((field: DocsField) => {
             return (
               <li key={field.name}>
-                <Typography variant="body1">
-                  {field.name}
-                  <ArgList args={field.args}></ArgList>:
+                <Typography mt={2} variant="body1">
+                  <span className="fieldName">{field.name}</span>
+                  {field.args ? <ArgList args={field.args}></ArgList> : null}:
                   <Link href="#" onClick={() => handleClick(field.type)}>
-                    {field.type.name}
+                    <span className="fieldType">{field.type.name}</span>
                   </Link>
                 </Typography>
                 <ListSubheader
