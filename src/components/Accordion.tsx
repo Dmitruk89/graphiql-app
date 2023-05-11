@@ -10,45 +10,45 @@ import Box from '@mui/material/Box';
 
 export default function SimpleAccordion() {
   const [value, setValue] = React.useState('1');
-  const [isExpanded, setIsExpanded] = React.useState('auto');
+  const [isExpanded, setIsExpanded] = React.useState(false);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
-  };
-
-  const handleClick = (event: React.SyntheticEvent) => {
-    const target = event.currentTarget.firstChild?.firstChild?.firstChild?.firstChild?.textContent;
-    // if (target) {
-    //   setIsExpanded('none');
-    // } else {
-    //   setIsExpanded('auto');
-    // }
+  const handleTabClick = (val: string) => {
+    setValue(val);
+    if (!isExpanded) setIsExpanded(true);
   };
 
   return (
     <>
-      <Accordion>
+      <Accordion expanded={isExpanded}>
         <AccordionSummary
           expandIcon={
             <ExpandMoreIcon
-              sx={{ transform: 'rotate(180deg)', pointerEvents: 'auto' }}
-              onClick={() => setIsExpanded('auto')}
+              sx={{ transform: 'rotate(180deg)' }}
+              onClick={() => setIsExpanded(!isExpanded)}
             />
           }
           aria-controls="panel1a-content"
           id="panel1a-header"
-          sx={{ pointerEvents: `${isExpanded}` }}
         >
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }} onClick={handleClick}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs
               value={value}
-              onChange={handleChange}
               textColor="primary"
               indicatorColor="primary"
               aria-label="tabs example"
             >
-              <Tab className="Variables" label="Variables" value="1" />
-              <Tab className="Headers" label="Headers" value="2" />
+              <Tab
+                className="Variables"
+                label="Variables"
+                value="1"
+                onClick={() => handleTabClick('1')}
+              />
+              <Tab
+                className="Headers"
+                label="Headers"
+                value="2"
+                onClick={() => handleTabClick('2')}
+              />
             </Tabs>
           </Box>
         </AccordionSummary>
