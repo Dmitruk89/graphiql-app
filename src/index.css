@@ -15,6 +15,10 @@ body {
   min-height: calc(100vh - var(--footer-height) - var(--footer-height));
 }
 
+.editor {
+  width: 100%;
+}
+
 @media (max-width: 915px) {
   .photo {
     display: none;
