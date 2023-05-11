@@ -10,7 +10,8 @@
   "mainSection": {
     "sendButton": "отправить",
     "editorPlaceholder": "Пожалуйста введите GraphQL запрос",
-    "resultPlaceholder": "Результат отобразится здесь..."
+    "resultPlaceholder": "Результат отобразится здесь...",
+    "variablesPlaceholder": "Пожалуйста введите переменные"
   },
   "auth": {
     "dontHaveAcc": "Нет аккаунта?",

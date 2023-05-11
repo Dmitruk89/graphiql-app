@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface GraphqlState {
   editorCode: string;
+  varCode: string;
   query: string;
   skipQuery: boolean;
   isDocsOpen: boolean;
@@ -24,6 +25,9 @@ const initialState: GraphqlState = {
     episodesByIds(ids: [1, 2]) {
       id
     }
+  }`,
+  varCode: ` {
+   "id": 1
   }`,
   query: '',
   skipQuery: true,

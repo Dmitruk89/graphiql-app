@@ -10,7 +10,8 @@
   "mainSection": {
     "sendButton": "send",
     "editorPlaceholder": "Please enter GraphQL query",
-    "resultPlaceholder": "Result goes here..."
+    "resultPlaceholder": "Result goes here...",
+    "variablesPlaceholder": "Please enter variables"
   },
   "auth": {
     "dontHaveAcc": "Don't have an account?",
