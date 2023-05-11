@@ -7,7 +7,8 @@ export interface GraphqlState {
   isDocsOpen: boolean;
   docsWidth: number;
   docsType: DocsType | null;
-  docsTypeName: string;
+  docsTypeName: string | undefined;
+  typeNameStack: string[];
 }
 //const vari = { $id: 1 };
 
@@ -34,6 +35,7 @@ const initialState: GraphqlState = {
   isDocsOpen: false,
   docsType: null,
   docsTypeName: 'Query',
+  typeNameStack: ['Query'],
   docsWidth: 400,
 };
 
@@ -58,11 +60,27 @@ export const graphqlSlice = createSlice({
     },
     setDocsTypeName: (state, action: PayloadAction<string>) => {
       state.docsTypeName = action.payload;
+      state.typeNameStack.push(action.payload);
+    },
+    setPrevTypeName: (state) => {
+      if (state.typeNameStack.at(-1) !== undefined) {
+        state.typeNameStack.pop();
+        state.docsTypeName = state.typeNameStack.at(-1);
+      }
     },
   },
 });
 
-export const { updateEditor, createQuery, disableSkip, setDocsOpen, setDocsType, setDocsTypeName } =
-  graphqlSlice.actions;
+[1, 2, 3];
+
+export const {
+  updateEditor,
+  createQuery,
+  disableSkip,
+  setDocsOpen,
+  setDocsType,
+  setDocsTypeName,
+  setPrevTypeName,
+} = graphqlSlice.actions;
 
 export default graphqlSlice.reducer;

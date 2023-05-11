@@ -12,6 +12,7 @@ import { useGetDocsQuery } from '../features/api/apiSlice';
 import { Collapse, Link, List, ListSubheader, Typography } from '@mui/material';
 import { FieldList } from './docs/FieldList';
 import Description from './docs/Description';
+import BreadCrumps from './docs/BreadCrumps';
 
 export default function Docs() {
   const dispatch = useDispatch();
@@ -23,10 +24,6 @@ export default function Docs() {
   const docsTypeName = useSelector((state: RootState) => state.graphql.docsTypeName);
 
   const { data: docs } = useGetDocsQuery({ docsTypeName });
-
-  if (docs && docs['__type']) {
-    console.log(docs['__type']);
-  }
 
   const handleClick = () => {
     setIsSublistOpen(!isSublistOpen);
@@ -64,6 +61,7 @@ export default function Docs() {
           {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>
       </DrawerHeader>
+      <BreadCrumps></BreadCrumps>
       <Divider></Divider>
       <List
         sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
