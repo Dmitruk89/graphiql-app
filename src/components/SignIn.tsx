@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
 import { InputErrorMessage } from './InputErrorMessage';
 import { SignInInput } from '../types/types';
+import { setTokenExpirationToLocalStorage } from '../helpers/helperFuntions';
 
 export function SignIn() {
   const methods = useForm<SignInInput>({
@@ -45,6 +46,8 @@ export function SignIn() {
   const onFormSubmit = (data: SignInInput): void => {
     setIsFirebaseLoading(true);
     signInWithEmailAndPassword(auth, data.email, data.password)
+      .then(({ user }) => user.getIdTokenResult())
+      .then((data) => setTokenExpirationToLocalStorage(new Date(data.expirationTime).getTime()))
       .catch(() => {
         setIsFirebaseError(true);
         setIsEmailError(true);
@@ -83,7 +86,7 @@ export function SignIn() {
         <CircularProgress color="inherit" />
       </Box>
     )) ||
-    (user && <Typography>Redirecting</Typography>) ||
+    (user && <Typography>{t.auth.redirecting}</Typography>) ||
     (isFirebaseLoading && (
       <Box
         sx={{
@@ -94,7 +97,7 @@ export function SignIn() {
           alignItems: 'center',
         }}
       >
-        <Typography>Connecting to firebase</Typography>
+        <Typography>{t.auth.connectingToFirebase}</Typography>
         <CircularProgress color="inherit" />
       </Box>
     )) || (
@@ -110,7 +113,7 @@ export function SignIn() {
               maxWidth: '300px',
             }}
           >
-            {isFirebaseError && <InputErrorMessage error={'Wrong login or password'} />}
+            {isFirebaseError && <InputErrorMessage error={t.auth.wrongEmail} />}
             <TextField
               error={isEmailError}
               fullWidth={true}

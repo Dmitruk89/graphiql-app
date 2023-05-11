@@ -15,7 +15,7 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import { RootState } from '../store';
 import { getAuth, signOut } from 'firebase/auth';
-import { removeUser } from '../features/authentication/authenticationSlice';
+import { removeTokenExpirationFromLocalStorage } from '../helpers/helperFuntions';
 
 export default function Header() {
   const t = useSelector(selectTranslations);
@@ -54,10 +54,9 @@ export default function Header() {
 
   const handleLogOutClick = () => {
     const auth = getAuth();
-    console.log(auth.currentUser);
     signOut(auth)
       .then(() => {
-        dispatch(removeUser());
+        removeTokenExpirationFromLocalStorage();
         navigate('/');
       })
       .catch(() => {

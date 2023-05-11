@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 
 import { getAuth } from 'firebase/auth';
 import { useIdToken } from 'react-firebase-hooks/auth';
+import { checkTokenExpiration } from '../helpers/helperFuntions';
 
 function Welcome() {
   const t = useSelector(selectTranslations);
@@ -22,7 +23,9 @@ function Welcome() {
 
   React.useEffect(() => {
     if (loading) return;
-  }, [loading]);
+    checkTokenExpiration(auth);
+  }, [auth, loading]);
+
   return (
     <>
       <Box

@@ -20,6 +20,7 @@ import { selectTranslations } from '../features/translation/translationSlice';
 import { validationPatterns } from '../helpers/validationPatterns';
 import { SignUpInput } from '../types/types';
 import { InputErrorMessage } from './InputErrorMessage';
+import { setTokenExpirationToLocalStorage } from '../helpers/helperFuntions';
 
 export function SignUp() {
   const methods = useForm<SignUpInput>({
@@ -50,6 +51,8 @@ export function SignUp() {
   const onFormSubmit = (data: SignUpInput): void => {
     setIsFirebaseLoading(true);
     createUserWithEmailAndPassword(auth, data.email, data.repeatedPassword)
+      .then(({ user }) => user.getIdTokenResult())
+      .then((data) => setTokenExpirationToLocalStorage(new Date(data.expirationTime).getTime()))
       .catch(() => {
         setIsFirebaseError(true);
         setIsEmailError(true);
@@ -90,7 +93,7 @@ export function SignUp() {
         <CircularProgress color="inherit" />
       </Box>
     )) ||
-    (user && <Typography>Redirecting</Typography>) ||
+    (user && <Typography>{t.auth.redirecting}</Typography>) ||
     (isFirebaseLoading && (
       <Box
         sx={{
@@ -101,7 +104,7 @@ export function SignUp() {
           alignItems: 'center',
         }}
       >
-        <Typography>Connecting to firebase</Typography>
+        <Typography>{t.auth.connectingToFirebase}</Typography>
         <CircularProgress color="inherit" />
       </Box>
     )) || (
@@ -117,7 +120,7 @@ export function SignUp() {
               maxWidth: '300px',
             }}
           >
-            {isFirebaseError && <Typography color="danger">Wrong login or password</Typography>}
+            {isFirebaseError && <InputErrorMessage error={t.auth.wrongEmail} />}
             <TextField
               error={isEmailError}
               fullWidth={true}
