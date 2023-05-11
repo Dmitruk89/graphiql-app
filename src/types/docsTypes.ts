@@ -10,4 +10,4 @@ export type DocsArg = {
   description: string;
   type: DocsType;
 };
-export type DocsOfType = { kind: string; name: string };
+export type DocsOfType = { kind: string; name: string; ofType: DocsOfType };

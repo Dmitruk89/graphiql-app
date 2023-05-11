@@ -22,7 +22,15 @@ export function FieldList(props: { fields: DocsField[] }) {
                   <span className="fieldName">{field.name}</span>
                   {field.args ? <ArgList args={field.args}></ArgList> : null}:
                   <Link href="#" onClick={() => handleClick(field.type)}>
-                    <span className="fieldType">{field.type.name}</span>
+                    {field.type.name ? (
+                      <span className="fieldType">{field.type.name}</span>
+                    ) : field.type.kind === 'LIST' ? (
+                      <>
+                        {'['}
+                        <span className="fieldType">{field.type.ofType.name}</span>
+                        {']'}
+                      </>
+                    ) : null}
                   </Link>
                 </Typography>
                 <ListSubheader

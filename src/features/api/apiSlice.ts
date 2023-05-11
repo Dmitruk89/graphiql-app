@@ -46,6 +46,14 @@ export const apiSlice = createApi({
                     ofType {
                       kind
                       name
+                      ofType {
+                        kind
+                        name
+                        ofType {
+                          kind
+                          name
+                        }
+                      }
                     }
                   }
                 }
