@@ -11,9 +11,18 @@ import { descrdStyle, devStyle, titleStyle } from '../utils/style-const';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { Link } from 'react-router-dom';
 
+import { getAuth } from 'firebase/auth';
+import { useIdToken } from 'react-firebase-hooks/auth';
+
 function Welcome() {
   const t = useSelector(selectTranslations);
   const lang = useSelector((state: i18nState) => state.i18n.lang);
+  const auth = getAuth();
+  const [user, loading] = useIdToken(auth);
+
+  React.useEffect(() => {
+    if (loading) return;
+  }, [loading]);
   return (
     <>
       <Box
@@ -26,12 +35,21 @@ function Welcome() {
           margin: '20px auto',
         }}
       >
-        <Link to="/auth/signIn">
-          <Button color="primary">{t.auth.signIn}</Button>
-        </Link>
-        <Link to="/auth/signUp">
-          <Button color="primary">{t.auth.signUp}</Button>
-        </Link>
+        {(loading && <></>) ||
+          (user && (
+            <Link to="/home">
+              <Button color="primary">{t.welcomeSection.linkToMain}</Button>
+            </Link>
+          )) || (
+            <>
+              <Link to="/auth/signIn">
+                <Button color="primary">{t.auth.signIn}</Button>
+              </Link>
+              <Link to="/auth/signUp">
+                <Button color="primary">{t.auth.signUp}</Button>
+              </Link>
+            </>
+          )}
         <LanguageSwitcher></LanguageSwitcher>
       </Box>
       <Typography variant="h1" component="h2" sx={titleStyle}>

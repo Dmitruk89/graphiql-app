@@ -1,119 +1,159 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
-import { TextField, Box, Button, Typography, InputAdornment, IconButton } from '@mui/material';
+import {
+  TextField,
+  Box,
+  Button,
+  Typography,
+  InputAdornment,
+  IconButton,
+  CircularProgress,
+} from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectTranslations } from '../features/translation/translationSlice';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-import { setUser } from '../features/authentication/authenticationSlice';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { useIdToken } from 'react-firebase-hooks/auth';
+
+import { useSelector } from 'react-redux';
+import { selectTranslations } from '../features/translation/translationSlice';
 import { InputErrorMessage } from './InputErrorMessage';
 import { SignInInput } from '../types/types';
 
 export function SignIn() {
-  const dispatch = useDispatch();
-  const t = useSelector(selectTranslations);
   const methods = useForm<SignInInput>({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
   });
   const {
     register,
-    reset,
     handleSubmit,
     formState: { errors },
   } = methods;
 
+  const t = useSelector(selectTranslations);
+  const auth = getAuth();
+  const navigate = useNavigate();
+  const [user, loading, error] = useIdToken(auth);
+
   const [showPassword, setShowPassword] = React.useState(false);
-  const [isLoginError, setIsLoginError] = React.useState(false);
+  const [isFirebaseLoading, setIsFirebaseLoading] = React.useState(false);
+  const [isFirebaseError, setIsFirebaseError] = React.useState(false);
+  const [isEmailError, setIsEmailError] = React.useState(false);
   const [isPasswordError, setIsPasswordError] = React.useState(false);
 
-  const navigate = useNavigate();
-
   const onFormSubmit = (data: SignInInput): void => {
-    const auth = getAuth();
+    setIsFirebaseLoading(true);
     signInWithEmailAndPassword(auth, data.email, data.password)
-      .then(({ user }) => {
-        user.getIdToken().then((token) => {
-          dispatch(
-            setUser({
-              email: user.email,
-              id: user.uid,
-              token: token,
-            })
-          );
-          navigate('/home');
-          reset();
-        });
-      })
       .catch(() => {
-        console.error;
-      });
+        setIsFirebaseError(true);
+        setIsEmailError(true);
+        setIsPasswordError(true);
+      })
+      .finally(() => setIsFirebaseLoading(false));
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   React.useEffect(() => {
-    errors.email ? setIsLoginError(true) : setIsLoginError(false);
+    errors.email ? setIsEmailError(true) : setIsEmailError(false);
     errors.password ? setIsPasswordError(true) : setIsPasswordError(false);
   }, [errors.email, errors.password]);
 
+  React.useEffect(() => {
+    if (loading) return;
+    if (user) {
+      setIsFirebaseError(false);
+      setIsEmailError(false);
+      setIsPasswordError(false);
+      navigate('/home');
+    }
+  }, [user, loading, error, navigate]);
+
   return (
-    <FormProvider {...methods}>
-      <form className="form" onSubmit={handleSubmit(onFormSubmit)}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 1,
-            margin: 'auto',
-            maxWidth: '300px',
-          }}
-        >
-          <TextField
-            error={isLoginError}
-            fullWidth={true}
-            label={t.auth.email}
-            variant="outlined"
-            type="text"
-            {...register('email', { required: t.auth.emailRequireErrorMessage })}
-          />
-          {errors.email && <InputErrorMessage error={errors.email} />}
-          <TextField
-            error={isPasswordError}
-            fullWidth={true}
-            label={t.auth.password}
-            variant="outlined"
-            type={showPassword ? 'text' : 'password'}
-            {...register('password', { required: t.auth.passwordRequireErrorMessage })}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
+    (loading && (
+      <Box
+        sx={{
+          display: 'flex',
+          flexGrow: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <CircularProgress color="inherit" />
+      </Box>
+    )) ||
+    (user && <Typography>Redirecting</Typography>) ||
+    (isFirebaseLoading && (
+      <Box
+        sx={{
+          display: 'flex',
+          flexGrow: 1,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Typography>Connecting to firebase</Typography>
+        <CircularProgress color="inherit" />
+      </Box>
+    )) || (
+      <FormProvider {...methods}>
+        <form className="form" onSubmit={handleSubmit(onFormSubmit)}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 1,
+              margin: 'auto',
+              maxWidth: '300px',
             }}
-          />
-          {errors.password && <InputErrorMessage error={errors.password} />}
-          <Button type="submit" variant="contained">
-            {t.auth.signIn}
-          </Button>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography>{t.auth.dontHaveAcc}</Typography>
-            <Link to="/auth/signUp">
-              <Button>{t.auth.signUp}</Button>
-            </Link>
+          >
+            {isFirebaseError && <InputErrorMessage error={'Wrong login or password'} />}
+            <TextField
+              error={isEmailError}
+              fullWidth={true}
+              label={t.auth.email}
+              variant="outlined"
+              type="text"
+              {...register('email', { required: t.auth.emailRequireErrorMessage })}
+            />
+            {errors.email && <InputErrorMessage error={errors.email.message} />}
+            <TextField
+              error={isPasswordError}
+              fullWidth={true}
+              label={t.auth.password}
+              variant="outlined"
+              type={showPassword ? 'text' : 'password'}
+              {...register('password', { required: t.auth.passwordRequireErrorMessage })}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+            {errors.password && <InputErrorMessage error={errors.password.message} />}
+            <Button type="submit" variant="contained">
+              {t.auth.signIn}
+            </Button>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Typography>{t.auth.dontHaveAcc}</Typography>
+              <Link to="/auth/signUp">
+                <Button>{t.auth.signUp}</Button>
+              </Link>
+            </Box>
           </Box>
-        </Box>
-      </form>
-    </FormProvider>
+        </form>
+      </FormProvider>
+    )
   );
 }
