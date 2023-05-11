@@ -5,16 +5,18 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { Collapse, Link, List, ListSubheader, Typography } from '@mui/material';
 import { RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDocsOpen } from '../features/graphql/graphqlSlice';
 import { useGetDocsQuery } from '../features/api/apiSlice';
-import { Collapse, Link, List, ListSubheader, Typography } from '@mui/material';
+import { selectTranslations } from '../features/translation/translationSlice';
 import { FieldList } from './docs/FieldList';
 import Description from './docs/Description';
 import BreadCrumps from './docs/BreadCrumps';
 
 export default function Docs() {
+  const t = useSelector(selectTranslations);
   const dispatch = useDispatch();
   const theme = useTheme();
   const [isSublistOpen, setIsSublistOpen] = React.useState(false);
@@ -56,7 +58,7 @@ export default function Docs() {
       open={open}
     >
       <DrawerHeader>
-        <Typography variant="h6">Docs</Typography>
+        <Typography variant="h6">{t.header.docs}</Typography>
         <IconButton onClick={handleDocsClose}>
           {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>

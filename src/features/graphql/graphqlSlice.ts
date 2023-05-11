@@ -10,7 +10,6 @@ export interface GraphqlState {
   docsTypeName: string | undefined;
   typeNameStack: string[];
 }
-//const vari = { $id: 1 };
 
 const initialState: GraphqlState = {
   editorCode: ` query {
@@ -70,8 +69,6 @@ export const graphqlSlice = createSlice({
     },
   },
 });
-
-[1, 2, 3];
 
 export const {
   updateEditor,

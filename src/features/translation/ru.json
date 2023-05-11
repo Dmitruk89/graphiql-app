@@ -1,7 +1,8 @@
 {
   "header": {
     "title": "ГрафиКуЭль-клон",
-    "logoutButton": "выйти"
+    "logoutButton": "выйти",
+    "docs": "Доки"
   },
   "welcomeSection": {
     "title": "GraphiQL-клон",
