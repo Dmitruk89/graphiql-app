@@ -9,7 +9,7 @@ export function FieldList(props: { fields: DocsField[] }) {
   const dispatch = useDispatch();
   const { fields } = props;
   const handleClick = (type: DocsType) => {
-    dispatch(setDocsTypeName(type.name));
+    dispatch(setDocsTypeName(type.name ? type.name : type.ofType.name));
     dispatch(setDocsType(type));
   };
   return (
@@ -22,6 +22,7 @@ export function FieldList(props: { fields: DocsField[] }) {
                   <span className="fieldName">{field.name}</span>
                   {field.args ? <ArgList args={field.args}></ArgList> : null}:
                   <Link href="#" onClick={() => handleClick(field.type)}>
+                    {' '}
                     {field.type.name ? (
                       <span className="fieldType">{field.type.name}</span>
                     ) : field.type.kind === 'LIST' ? (
