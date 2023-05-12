@@ -76,7 +76,7 @@ export function SignUp() {
       setIsFirebaseError(false);
       setIsEmailError(false);
       setIsPasswordError(false);
-      navigate('/home');
+      navigate('/main');
     }
   }, [user, loading, error, navigate]);
 

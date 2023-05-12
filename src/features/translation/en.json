@@ -36,6 +36,6 @@
   },
   "notFound": {
     "descrText": "The page you’re looking for doesn’t exist.",
-    "btnText": "back home"
+    "btnText": "back to welcome page"
   }
 }

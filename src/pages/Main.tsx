@@ -10,7 +10,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PageLayout from '../components/PageLayout';
 
-function Home() {
+function Main() {
   const t = useSelector(selectTranslations);
   const auth = getAuth();
   const navigate = useNavigate();
@@ -49,4 +49,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Main;

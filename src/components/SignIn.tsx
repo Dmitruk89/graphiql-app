@@ -69,7 +69,7 @@ export function SignIn() {
       setIsFirebaseError(false);
       setIsEmailError(false);
       setIsPasswordError(false);
-      navigate('/home');
+      navigate('/main');
     }
   }, [user, loading, error, navigate]);
 

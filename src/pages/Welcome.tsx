@@ -50,7 +50,7 @@ function Welcome() {
           }}
         >
           {user ? (
-            <Link to="/home">
+            <Link to="/main">
               <Button color="primary">{t.welcomeSection.linkToMain}</Button>
             </Link>
           ) : (
