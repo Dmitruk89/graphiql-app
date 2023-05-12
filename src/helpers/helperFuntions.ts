@@ -12,6 +12,8 @@ export const checkTokenExpiration = (auth: Auth): void => {
   const expirationStamp = localStorage.getItem('DIV_RULEZZ_tokenExpirationStamp');
   const currentTimeStamp = new Date().getTime();
   if (expirationStamp) {
-    if (currentTimeStamp > +expirationStamp) signOut(auth);
+    if (currentTimeStamp > +expirationStamp) {
+      signOut(auth).then(removeTokenExpirationFromLocalStorage);
+    }
   }
 };

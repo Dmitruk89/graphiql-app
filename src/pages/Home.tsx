@@ -9,7 +9,6 @@ import { selectTranslations } from '../features/translation/translationSlice';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PageLayout from '../components/PageLayout';
-import { checkTokenExpiration } from '../helpers/helperFuntions';
 
 function Home() {
   const t = useSelector(selectTranslations);
@@ -18,11 +17,12 @@ function Home() {
   const [user, loading] = useIdToken(auth);
 
   React.useEffect(() => {
-    if (loading) return;
+    if (loading) {
+      return;
+    }
     if (!user) {
       return navigate('/');
     }
-    checkTokenExpiration(auth);
   }, [user, auth, navigate, loading]);
 
   return (

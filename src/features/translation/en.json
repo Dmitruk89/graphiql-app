@@ -1,7 +1,7 @@
 {
   "header": {
     "title": "GraphiQL-clone",
-    "logoutButton": "logout"
+    "logoutButton": "sign out"
   },
   "welcomeSection": {
     "title": "GraphiQL-clone",

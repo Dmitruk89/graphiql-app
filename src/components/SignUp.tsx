@@ -13,7 +13,7 @@ import {
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { useIdToken } from 'react-firebase-hooks/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
@@ -36,7 +36,7 @@ export function SignUp() {
   const t = useSelector(selectTranslations);
   const auth = getAuth();
   const navigate = useNavigate();
-  const [user, loading, error] = useIdToken(auth);
+  const [user, loading, error] = useAuthState(auth);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [showRepeatedPassword, setShowRepeatedPassword] = React.useState(false);

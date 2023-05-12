@@ -1,19 +1,16 @@
-import DeveloperCard from '../components/Card';
 import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
+import { Box, Button, Typography, CircularProgress } from '@mui/material';
 import { developers_en, developers_ru } from '../utils/constants';
-import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
-import { IDeveloper, i18nState } from 'types/types';
+import { IDeveloper, i18nState } from '../types/types';
 import { descrdStyle, devStyle, titleStyle } from '../utils/style-const';
 import LanguageSwitcher from '../components/LanguageSwitcher';
-import { Link } from 'react-router-dom';
+import DeveloperCard from '../components/Card';
 
 import { getAuth } from 'firebase/auth';
 import { useIdToken } from 'react-firebase-hooks/auth';
-import { checkTokenExpiration } from '../helpers/helperFuntions';
 
 function Welcome() {
   const t = useSelector(selectTranslations);
@@ -22,28 +19,41 @@ function Welcome() {
   const [user, loading] = useIdToken(auth);
 
   React.useEffect(() => {
-    if (loading) return;
-    checkTokenExpiration(auth);
-  }, [auth, loading]);
+    if (loading) {
+      return;
+    }
+  }, [loading]);
 
   return (
-    <>
+    (loading && (
       <Box
-        component="div"
         sx={{
           display: 'flex',
-          justifyContent: 'flex-end',
-          maxWidth: '1400px',
-          padding: '15px',
-          margin: '20px auto',
+          flexGrow: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
         }}
       >
-        {(loading && <></>) ||
-          (user && (
+        <CircularProgress color="inherit" />
+      </Box>
+    )) || (
+      <>
+        <Box
+          component="div"
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            maxWidth: '1400px',
+            padding: '15px',
+            margin: '20px auto',
+          }}
+        >
+          {user ? (
             <Link to="/home">
               <Button color="primary">{t.welcomeSection.linkToMain}</Button>
             </Link>
-          )) || (
+          ) : (
             <>
               <Link to="/auth/signIn">
                 <Button color="primary">{t.auth.signIn}</Button>
@@ -53,25 +63,26 @@ function Welcome() {
               </Link>
             </>
           )}
-        <LanguageSwitcher></LanguageSwitcher>
-      </Box>
-      <Typography variant="h1" component="h2" sx={titleStyle}>
-        {t.welcomeSection.title}
-      </Typography>
-      ;
-      <Typography component="p" sx={descrdStyle}>
-        {t.welcomeSection.welcomeDescr}
-      </Typography>
-      <Box component="div" sx={devStyle}>
-        {lang === 'en'
-          ? developers_en.map((developer: IDeveloper, i) => (
-              <DeveloperCard key={i} developer={developer} />
-            ))
-          : developers_ru.map((developer: IDeveloper, i) => (
-              <DeveloperCard key={i} developer={developer} />
-            ))}
-      </Box>
-    </>
+          <LanguageSwitcher></LanguageSwitcher>
+        </Box>
+        <Typography variant="h1" component="h2" sx={titleStyle}>
+          {t.welcomeSection.title}
+        </Typography>
+        ;
+        <Typography component="p" sx={descrdStyle}>
+          {t.welcomeSection.welcomeDescr}
+        </Typography>
+        <Box component="div" sx={devStyle}>
+          {lang === 'en'
+            ? developers_en.map((developer: IDeveloper, i) => (
+                <DeveloperCard key={i} developer={developer} />
+              ))
+            : developers_ru.map((developer: IDeveloper, i) => (
+                <DeveloperCard key={i} developer={developer} />
+              ))}
+        </Box>
+      </>
+    )
   );
 }
 

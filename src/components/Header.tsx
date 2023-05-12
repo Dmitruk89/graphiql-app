@@ -15,6 +15,8 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import { RootState } from '../store';
 import { getAuth, signOut } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 import { removeTokenExpirationFromLocalStorage } from '../helpers/helperFuntions';
 
 export default function Header() {
@@ -22,6 +24,9 @@ export default function Header() {
   const open = useSelector((state: RootState) => state.graphql.isDocsOpen);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
 
   const drawerWidth = useSelector((state: RootState) => state.graphql.docsWidth);
 
@@ -53,7 +58,6 @@ export default function Header() {
   };
 
   const handleLogOutClick = () => {
-    const auth = getAuth();
     signOut(auth)
       .then(() => {
         removeTokenExpirationFromLocalStorage();
@@ -81,7 +85,13 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {t.header.title}
           </Typography>
-          <Button onClick={handleLogOutClick} color="inherit">
+          {user ? <Typography component="div">{user.email}</Typography> : <></>}
+          <Button
+            onClick={handleLogOutClick}
+            color="info"
+            variant="contained"
+            sx={{ margin: ' 0 0.65rem 0 1rem' }}
+          >
             {t.header.logoutButton}
           </Button>
           <LanguageSwitcher></LanguageSwitcher>

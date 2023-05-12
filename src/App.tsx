@@ -18,6 +18,7 @@ export function App() {
 
   React.useEffect(() => {
     if (loading) {
+      checkTokenExpiration(auth);
       return;
     }
     setInterval(() => {
