@@ -27,9 +27,9 @@
     "connectingToFirebase": "Connecting to Firebase",
     "loginPatternErrorMessage": "Login must contain at least 3 and only latin letters",
     "loginRequireErrorMessage": "Login is required",
-    "emailPatternErrorMessage": "E-mail must contain minimum 8 symbols, at least one letter, one digit, one special character ($!%*#?&) only before @",
+    "emailPatternErrorMessage": "E-mail must contain minimum 8 symbols, at least one letter, one digit, one special character (-_$!%*#?&) only before @",
     "emailRequireErrorMessage": "E-mail is required",
-    "passwordPatternErrorMessage": "Password must contain minimum 8 symbols, at least one letter, one digit, one special character ($!%*#?&)",
+    "passwordPatternErrorMessage": "Password must contain minimum 8 symbols, at least one letter, one digit, one special character (-_$!%*#?&)",
     "passwordRequireErrorMessage": "Password is required",
     "repeatedPasswordPatternErrorMessage": "Password mismatch",
     "repeatedPasswordRequireErrorMessage": "Please repeat your password"

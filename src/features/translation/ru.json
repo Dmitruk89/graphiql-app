@@ -27,9 +27,9 @@
     "connectingToFirebase": "Подключение к Firebase",
     "loginPatternErrorMessage": "Логин должен состоять как минимум из 3 символов латинского алфавита",
     "loginRequireErrorMessage": "Необходимо ввести логин",
-    "emailPatternErrorMessage": "E-mail должен содержать минимум 8 символов, минимум одну букву, одну цифру и один специальный символ ($!%*#?&) только перед @",
+    "emailPatternErrorMessage": "E-mail должен содержать минимум 8 символов, минимум одну букву, одну цифру и один специальный символ (-_$!%*#?&) только перед @",
     "emailRequireErrorMessage": "Необходимо ввести e-mail",
-    "passwordPatternErrorMessage": "Пароль должен содержать минимум 8 символов, минимум одну букву, одну цифру и один специальный символ ($!%*#?&)",
+    "passwordPatternErrorMessage": "Пароль должен содержать минимум 8 символов, минимум одну букву, одну цифру и один специальный символ (-_$!%*#?&)",
     "passwordRequireErrorMessage": "Необходимо ввести пароль",
     "repeatedPasswordPatternErrorMessage": "Пароли не совпадают",
     "repeatedPasswordRequireErrorMessage": "Пожалуйста повторите пароль"

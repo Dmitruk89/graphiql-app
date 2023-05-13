@@ -173,7 +173,9 @@ export function SignUp() {
               {...register('repeatedPassword', {
                 required: t.auth.repeatedPasswordRequireErrorMessage,
                 pattern: {
-                  value: new RegExp(`^${watchPasswordValue}$`),
+                  value: watchPasswordValue
+                    ? new RegExp(`^${watchPasswordValue.replace(/\$/g, '\\$')}$`)
+                    : new RegExp(watchPasswordValue),
                   message: t.auth.repeatedPasswordPatternErrorMessage,
                 },
               })}
