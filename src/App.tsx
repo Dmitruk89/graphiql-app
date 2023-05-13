@@ -8,6 +8,16 @@ import Welcome from './pages/Welcome';
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import NotFound from './pages/NotFound';
+import { createTheme, ThemeProvider } from '@mui/material';
+
+// create a custom theme
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#426892',
+    },
+  },
+});
 
 export function App() {
   return (
@@ -25,7 +35,9 @@ export function WrappedApp() {
     <ApiProvider api={apiSlice}>
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
         </BrowserRouter>
       </Provider>
     </ApiProvider>
