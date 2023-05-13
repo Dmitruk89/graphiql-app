@@ -12,11 +12,37 @@ import SimpleAccordion from './Accordion';
 export default function Editor() {
   const t = useSelector(selectTranslations);
   const code = useSelector((state: RootState) => state.graphql.editorCode);
+  const varCode: string = useSelector((state: RootState) => state.graphql.varCode);
   const dispatch = useDispatch();
+
+  const queryParam = code.split(' ')[1][0] === '(' ? code.split(' ')[1].slice(0, -1).slice(2) : '';
+  const varParam = JSON.parse(varCode);
+
+  const checkVar = () => {
+    if (code.includes('$')) {
+      const arr = code.split(' ');
+      if (queryParam in varParam) {
+        arr.splice(1, 2);
+        return arr
+          .map((elem: string) => {
+            if (elem[0] === '$') {
+              return (elem = '"' + varParam[`${queryParam}`] + '"');
+            } else {
+              return elem;
+            }
+          })
+          .join(' ');
+      } else {
+        return code;
+      }
+    }
+  };
+  const queryCo = checkVar();
+  console.log(queryCo.length, code.length);
 
   function onSendButtonClick() {
     dispatch(disableSkip());
-    dispatch(createQuery(code));
+    dispatch(createQuery(queryCo ? queryCo : code));
   }
 
   return (

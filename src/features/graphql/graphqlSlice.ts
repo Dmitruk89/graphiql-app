@@ -10,8 +10,8 @@ export interface GraphqlState {
 }
 
 const initialState: GraphqlState = {
-  editorCode: ` query {
-    characters(page: 2, filter: { name: "rick" }) {
+  editorCode: `query ($name: String) {
+    characters(page: 2, filter: { name: $name }) {
       info {
         count
       }
@@ -27,7 +27,7 @@ const initialState: GraphqlState = {
     }
   }`,
   varCode: ` {
-   "id": 1
+   "name": "rick"
   }`,
   query: '',
   skipQuery: true,
@@ -42,6 +42,9 @@ export const graphqlSlice = createSlice({
     updateEditor: (state, action: PayloadAction<string>) => {
       state.editorCode = action.payload;
     },
+    updateVariables: (state, action: PayloadAction<string>) => {
+      state.varCode = action.payload;
+    },
     createQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
@@ -54,6 +57,7 @@ export const graphqlSlice = createSlice({
   },
 });
 
-export const { updateEditor, createQuery, disableSkip, setDocsOpen } = graphqlSlice.actions;
+export const { updateEditor, createQuery, updateVariables, disableSkip, setDocsOpen } =
+  graphqlSlice.actions;
 
 export default graphqlSlice.reducer;
