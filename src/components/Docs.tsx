@@ -46,8 +46,6 @@ export default function Docs() {
   let CollapseListContent;
 
   if (isFetching) {
-    console.log('loading');
-
     CollapseListContent = (
       <Box
         sx={{
@@ -63,8 +61,6 @@ export default function Docs() {
       </Box>
     );
   } else if (isSuccess) {
-    console.log('success');
-
     CollapseListContent = docs['__type']['fields'] ? (
       <FieldList fields={docs['__type']['fields']}></FieldList>
     ) : docs['__type']['inputFields'] ? (
@@ -109,7 +105,7 @@ export default function Docs() {
       >
         <li>
           <Typography variant="body1">
-            <span className="fieldName">query: </span>
+            <span className="fieldName">Fields: </span>
             <Link href="#" onClick={handleClick}>
               <span className="fieldType">{docsTypeName}</span>
             </Link>
