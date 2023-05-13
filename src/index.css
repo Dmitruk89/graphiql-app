@@ -11,8 +11,25 @@ body {
 
 .layout {
   display: flex;
-  margin-top: var(--footer-height);
-  min-height: calc(100vh - var(--footer-height) - var(--footer-height));
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+}
+
+.previousContainer {
+  display: flex;
+}
+
+.argName {
+  color: rgb(255, 69, 131);
+}
+
+.fieldName {
+  color: blueviolet;
+}
+
+.argType,
+.fieldType {
+  color: rgb(255, 153, 0);
 }
 
 @media (max-width: 915px) {
