@@ -19,13 +19,15 @@ export default function PageLayout() {
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+    [theme.breakpoints.up(1000)]: {
+      ...(open && {
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
       }),
-      marginLeft: 0,
-    }),
+    },
   }));
   return (
     <Main open={open} className="layout">

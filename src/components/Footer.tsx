@@ -21,69 +21,68 @@ export default function Footer() {
     open?: boolean;
     component?: 'header' | 'footer';
   }
-  const FooterBar = styled(AppBar, {
+  const FooterContainer = styled(AppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })<AppBarProps>(({ theme, open }) => ({
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+    marginLeft: `-${drawerWidth}px`,
+    [theme.breakpoints.up(1000)]: {
+      ...(open && {
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+        width: `calc(100% - ${drawerWidth}px)`,
       }),
-    }),
+    },
   }));
   return (
-    <React.Fragment>
-      <FooterBar
-        open={open}
-        component="footer"
-        position="static"
-        color="primary"
-        sx={{ top: 'auto', bottom: 0, padding: '15px' }}
-      >
-        <Toolbar>
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              '@media (min-width:600px)': {
-                alignItems: 'space-between',
-                flexDirection: 'row',
-              },
-            }}
-          >
-            <Link href="https://rs.school/" target="blanc">
-              <div className="logo"></div>
-            </Link>
-            <Box sx={{ flexGrow: 1 }}></Box>
-            <ButtonGroup
-              variant="text"
-              color="inherit"
-              aria-label="text button group"
-              orientation={isSMScreen ? 'horizontal' : 'vertical'}
+    <Box sx={{ flexGrow: 1 }}>
+      <FooterContainer open={open} component="footer" sx={{ top: 'auto', bottom: 0 }}>
+        <AppBar position="static" sx={{ top: 'auto', bottom: 0, padding: '15px' }}>
+          <Toolbar>
+            <Box
+              sx={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                '@media (min-width:600px)': {
+                  alignItems: 'space-between',
+                  flexDirection: 'row',
+                },
+              }}
             >
-              <Button href="https://github.com/Dmitruk89" target="blanc">
-                Dmitruk89
-              </Button>
-              <Button href="https://github.com/IrinaBukley23" target="blanc">
-                IrinaBukley23
-              </Button>
-              <Button href="https://github.com/liestreadt" target="blanc">
-                liestreadt
-              </Button>
-            </ButtonGroup>
-            <Box sx={{ flexGrow: 1 }}></Box>
-            <Typography>© 2023</Typography>
-          </Box>
-        </Toolbar>
-      </FooterBar>
-    </React.Fragment>
+              <Link href="https://rs.school/" target="blanc">
+                <div className="logo"></div>
+              </Link>
+              <Box sx={{ flexGrow: 1 }}></Box>
+              <ButtonGroup
+                variant="text"
+                color="inherit"
+                aria-label="text button group"
+                orientation={isSMScreen ? 'horizontal' : 'vertical'}
+              >
+                <Button href="https://github.com/Dmitruk89" target="blanc">
+                  Dmitruk89
+                </Button>
+                <Button href="https://github.com/IrinaBukley23" target="blanc">
+                  IrinaBukley23
+                </Button>
+                <Button href="https://github.com/liestreadt" target="blanc">
+                  liestreadt
+                </Button>
+              </ButtonGroup>
+              <Box sx={{ flexGrow: 1 }}></Box>
+              <Typography>© 2023</Typography>
+            </Box>
+          </Toolbar>
+        </AppBar>
+      </FooterContainer>
+    </Box>
   );
 }

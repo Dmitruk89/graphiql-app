@@ -33,14 +33,17 @@ export default function Header() {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+    marginLeft: `-${drawerWidth}px`,
+    [theme.breakpoints.up(1000)]: {
+      ...(open && {
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+        width: `calc(100% - ${drawerWidth}px)`,
       }),
-    }),
+    },
   }));
 
   const handleDocsOpen = () => {
