@@ -1,5 +1,4 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Link from '@mui/material/Link';
@@ -8,13 +7,40 @@ import ButtonGroup from '@mui/material/ButtonGroup';
 import { Typography } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import AppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import { styled } from '@mui/material/styles';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 export default function Footer() {
   const theme = useTheme();
   const isSMScreen = useMediaQuery(theme.breakpoints.up('sm'));
+  const drawerWidth = useSelector((state: RootState) => state.graphql.docsWidth);
+  const open = useSelector((state: RootState) => state.graphql.isDocsOpen);
+  interface AppBarProps extends MuiAppBarProps {
+    open?: boolean;
+    component?: 'header' | 'footer';
+  }
+  const FooterBar = styled(AppBar, {
+    shouldForwardProp: (prop) => prop !== 'open',
+  })<AppBarProps>(({ theme, open }) => ({
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: `${drawerWidth}px`,
+      transition: theme.transitions.create(['margin', 'width'], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  }));
   return (
     <React.Fragment>
-      <AppBar
+      <FooterBar
+        open={open}
         component="footer"
         position="static"
         color="primary"
@@ -57,7 +83,7 @@ export default function Footer() {
             <Typography>© 2023</Typography>
           </Box>
         </Toolbar>
-      </AppBar>
+      </FooterBar>
     </React.Fragment>
   );
 }

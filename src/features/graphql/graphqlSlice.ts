@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { DocsType } from '../../types/docsTypes';
 
 export interface GraphqlState {
   editorCode: string;
@@ -8,6 +8,9 @@ export interface GraphqlState {
   skipQuery: boolean;
   isDocsOpen: boolean;
   docsWidth: number;
+  docsType: DocsType | null;
+  docsTypeName: string | undefined;
+  typeNameStack: string[];
 }
 
 const initialState: GraphqlState = {
@@ -33,6 +36,9 @@ const initialState: GraphqlState = {
   query: '',
   skipQuery: true,
   isDocsOpen: false,
+  docsType: null,
+  docsTypeName: 'Query',
+  typeNameStack: ['Query'],
   docsWidth: 400,
 };
 
@@ -55,10 +61,31 @@ export const graphqlSlice = createSlice({
     setDocsOpen: (state: GraphqlState, action: PayloadAction<boolean>) => {
       state.isDocsOpen = action.payload;
     },
+    setDocsType: (state, action: PayloadAction<DocsType>) => {
+      state.docsType = action.payload;
+    },
+    setDocsTypeName: (state, action: PayloadAction<string>) => {
+      state.docsTypeName = action.payload;
+      state.typeNameStack.push(action.payload);
+    },
+    setPrevTypeName: (state) => {
+      if (state.typeNameStack.at(-1) !== undefined) {
+        state.typeNameStack.pop();
+        state.docsTypeName = state.typeNameStack.at(-1);
+      }
+    },
   },
 });
 
-export const { updateEditor, createQuery, updateVariables, disableSkip, setDocsOpen } =
-  graphqlSlice.actions;
+export const {
+  updateEditor,
+  createQuery,
+  updateVariables,
+  disableSkip,
+  setDocsOpen,
+  setDocsType,
+  setDocsTypeName,
+  setPrevTypeName,
+} = graphqlSlice.actions;
 
 export default graphqlSlice.reducer;
