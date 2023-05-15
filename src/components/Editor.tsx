@@ -38,7 +38,6 @@ export default function Editor() {
     }
   };
   const queryCo = checkVar();
-  console.log(queryCo.length, code.length);
 
   function onSendButtonClick() {
     dispatch(disableSkip());
