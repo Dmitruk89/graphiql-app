@@ -1,8 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import Variables from './Variables';
 import TabContext from '@mui/lab/TabContext';
 import TabPanel from '@mui/lab/TabPanel';
-import Variables from './Variables';
 
 interface Props {
   value: string;
