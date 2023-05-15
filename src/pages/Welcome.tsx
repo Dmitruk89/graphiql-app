@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Button, Typography, CircularProgress } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
 import { developers_en, developers_ru } from '../utils/constants';
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
