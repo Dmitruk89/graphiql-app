@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction } from '@reduxjs/toolkit/dist/createAction';
 
 export interface GraphqlState {
   editorCode: string;
@@ -39,19 +40,19 @@ export const graphqlSlice = createSlice({
   name: 'characters',
   initialState,
   reducers: {
-    updateEditor: (state, action: PayloadAction<string>) => {
+    updateEditor: (state: GraphqlState, action: PayloadAction<string>) => {
       state.editorCode = action.payload;
     },
-    updateVariables: (state, action: PayloadAction<string>) => {
+    updateVariables: (state: GraphqlState, action: PayloadAction<string>) => {
       state.varCode = action.payload;
     },
-    createQuery: (state, action: PayloadAction<string>) => {
+    createQuery: (state: GraphqlState, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
-    disableSkip: (state) => {
+    disableSkip: (state: GraphqlState) => {
       state.skipQuery = false;
     },
-    setDocsOpen: (state, action: PayloadAction<boolean>) => {
+    setDocsOpen: (state: GraphqlState, action: PayloadAction<boolean>) => {
       state.isDocsOpen = action.payload;
     },
   },

@@ -4,11 +4,11 @@ import TabContext from '@mui/lab/TabContext';
 import TabPanel from '@mui/lab/TabPanel';
 import Variables from './Variables';
 
-interface IProps {
+interface Props {
   value: string;
   handleChange?: () => void;
 }
-export default function LabTabs(props: IProps) {
+export default function LabTabs(props: Props) {
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={props.value}>

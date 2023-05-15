@@ -38,13 +38,13 @@ export default function SimpleAccordion() {
               aria-label="tabs example"
             >
               <Tab
-                className="Variables"
+                className="variables"
                 label="Variables"
                 value="1"
                 onClick={() => handleTabClick('1')}
               />
               <Tab
-                className="Headers"
+                className="headers"
                 label="Headers"
                 value="2"
                 onClick={() => handleTabClick('2')}
