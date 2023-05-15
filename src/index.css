@@ -32,6 +32,10 @@ body {
   color: rgb(255, 153, 0);
 }
 
+.editor, .accordion {
+  width: 100%;
+}
+
 @media (max-width: 915px) {
   .photo {
     display: none;
