@@ -3,6 +3,7 @@ import { DocsType } from '../../types/docsTypes';
 export interface GraphqlState {
   editorCode: string;
   query: string;
+  headersEditor: string;
   skipQuery: boolean;
   isDocsOpen: boolean;
   docsWidth: number;
@@ -28,8 +29,8 @@ const initialState: GraphqlState = {
       id
     }
   }`,
-
   query: '',
+  headersEditor: `asdasdasd`,
   skipQuery: true,
   isDocsOpen: false,
   docsType: null,
@@ -44,6 +45,9 @@ export const graphqlSlice = createSlice({
   reducers: {
     updateEditor: (state, action: PayloadAction<string>) => {
       state.editorCode = action.payload;
+    },
+    updateHeadersEditor: (state, action: PayloadAction<string>) => {
+      state.headersEditor = action.payload;
     },
     createQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
@@ -72,6 +76,7 @@ export const graphqlSlice = createSlice({
 
 export const {
   updateEditor,
+  updateHeadersEditor,
   createQuery,
   disableSkip,
   setDocsOpen,
