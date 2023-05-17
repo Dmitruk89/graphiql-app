@@ -23,14 +23,15 @@ export default function SimpleAccordion() {
         <AccordionSummary
           expandIcon={
             <ExpandMoreIcon
-              sx={{ transform: 'rotate(180deg)' }}
+              sx={{ pointerEvents: 'auto' }}
               onClick={() => setIsExpanded(!isExpanded)}
             />
           }
           aria-controls="panel1a-content"
           id="panel1a-header"
+          sx={{ pointerEvents: 'none' }}
         >
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider', pointerEvents: 'auto' }}>
             <Tabs
               value={value}
               textColor="primary"

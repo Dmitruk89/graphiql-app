@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import LanguageIcon from '@mui/icons-material/Language';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
 import Paper from '@mui/material/Paper';
@@ -51,7 +50,6 @@ export default function LanguageSwitcher() {
           aria-haspopup="menu"
           onClick={handleToggle}
         >
-          {/* <LanguageIcon /> */}
           <div className="flag">
             {language === 'ru' ? <img src={ruFlag} alt="ru" /> : <img src={enFlag} alt="en" />}
           </div>
