@@ -10,7 +10,6 @@ import Auth from './pages/Auth';
 import NotFound from './pages/NotFound';
 import { createTheme, ThemeProvider } from '@mui/material';
 
-// create a custom theme
 const theme = createTheme({
   palette: {
     primary: {
