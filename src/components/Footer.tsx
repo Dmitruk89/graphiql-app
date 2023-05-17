@@ -35,53 +35,55 @@ export default function Footer() {
           easing: theme.transitions.easing.easeOut,
           duration: theme.transitions.duration.enteringScreen,
         }),
-        marginLeft: 0,
+        marginLeft: `${drawerWidth}px`,
         width: `calc(100% - ${drawerWidth}px)`,
       }),
     },
   }));
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <FooterContainer open={open} component="footer" sx={{ top: 'auto', bottom: 0 }}>
-        <AppBar position="static" sx={{ top: 'auto', bottom: 0, padding: '15px' }}>
-          <Toolbar>
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                '@media (min-width:600px)': {
-                  alignItems: 'space-between',
-                  flexDirection: 'row',
-                },
-              }}
+      <FooterContainer
+        open={open}
+        component="footer"
+        sx={{ top: 'auto', bottom: 0, padding: '15px', position: 'static', marginLeft: 0 }}
+      >
+        <Toolbar>
+          <Box
+            sx={{
+              width: '100%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              '@media (min-width:600px)': {
+                alignItems: 'space-between',
+                flexDirection: 'row',
+              },
+            }}
+          >
+            <Link href="https://rs.school/" target="blanc">
+              <div className="logo"></div>
+            </Link>
+            <Box sx={{ flexGrow: 1 }}></Box>
+            <ButtonGroup
+              variant="text"
+              color="inherit"
+              aria-label="text button group"
+              orientation={isSMScreen ? 'horizontal' : 'vertical'}
             >
-              <Link href="https://rs.school/" target="blanc">
-                <div className="logo"></div>
-              </Link>
-              <Box sx={{ flexGrow: 1 }}></Box>
-              <ButtonGroup
-                variant="text"
-                color="inherit"
-                aria-label="text button group"
-                orientation={isSMScreen ? 'horizontal' : 'vertical'}
-              >
-                <Button href="https://github.com/Dmitruk89" target="blanc">
-                  Dmitruk89
-                </Button>
-                <Button href="https://github.com/IrinaBukley23" target="blanc">
-                  IrinaBukley23
-                </Button>
-                <Button href="https://github.com/liestreadt" target="blanc">
-                  liestreadt
-                </Button>
-              </ButtonGroup>
-              <Box sx={{ flexGrow: 1 }}></Box>
-              <Typography>© 2023</Typography>
-            </Box>
-          </Toolbar>
-        </AppBar>
+              <Button href="https://github.com/Dmitruk89" target="blanc">
+                Dmitruk89
+              </Button>
+              <Button href="https://github.com/IrinaBukley23" target="blanc">
+                IrinaBukley23
+              </Button>
+              <Button href="https://github.com/liestreadt" target="blanc">
+                liestreadt
+              </Button>
+            </ButtonGroup>
+            <Box sx={{ flexGrow: 1 }}></Box>
+            <Typography>© 2023</Typography>
+          </Box>
+        </Toolbar>
       </FooterContainer>
     </Box>
   );
