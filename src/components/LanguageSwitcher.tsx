@@ -53,7 +53,6 @@ export default function LanguageSwitcher() {
           <div className="flag">
             {language === 'ru' ? <img src={ruFlag} alt="ru" /> : <img src={enFlag} alt="en" />}
           </div>
-          {language}
         </Button>
       </ButtonGroup>
       <Popper
@@ -90,7 +89,6 @@ export default function LanguageSwitcher() {
                           <img src={enFlag} alt="en" />
                         )}
                       </div>
-                      <span>{option.toUpperCase()}</span>
                     </MenuItem>
                   ))}
                 </MenuList>
