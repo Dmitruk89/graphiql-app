@@ -11,6 +11,7 @@ import Main from './pages/Main';
 import Auth from './pages/Auth';
 import NotFound from './pages/NotFound';
 import { checkTokenExpiration } from './helpers/helperFuntions';
+import PageLayout from './components/PageLayout';
 
 export function App() {
   const auth = getAuth();
@@ -30,8 +31,10 @@ export function App() {
     <Routes>
       <Route index element={<Welcome />} />
       <Route path="/auth/:path" element={<Auth />} />
-      <Route path="/main" element={<Main />} />
-      <Route path="*" element={<NotFound />} />
+      <Route path="/" element={<PageLayout />}>
+        <Route path="main" element={<Main />} />
+        <Route path="*" element={<NotFound />} />
+      </Route>
     </Routes>
   );
 }

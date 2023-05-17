@@ -13,7 +13,7 @@ function NotFound() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        minHeight: '93vh',
+        height: 'calc(100vh - 6rem)',
       }}
     >
       <Container maxWidth="md">

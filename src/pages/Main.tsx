@@ -3,12 +3,13 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { useIdToken } from 'react-firebase-hooks/auth';
-
+import { styled } from '@mui/material/styles';
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import PageLayout from '../components/PageLayout';
+import Docs from '../components/Docs';
+import Editor from '../components/Editor';
+import ResponseSection from '../components/ResponseSection';
+import { RootState } from 'store';
 
 function Main() {
   const t = useSelector(selectTranslations);
@@ -24,6 +25,26 @@ function Main() {
       return navigate('/');
     }
   }, [user, auth, navigate, loading]);
+
+  const open = useSelector((state: RootState) => state.graphql.isDocsOpen);
+  const drawerWidth = useSelector((state: RootState) => state.graphql.docsWidth);
+  const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
+    open?: boolean;
+  }>(({ theme, open }) => ({
+    flexGrow: 1,
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    ...(open && {
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: 0,
+    }),
+  }));
 
   return (
     (loading && (
@@ -41,9 +62,11 @@ function Main() {
     )) ||
     (!user && <Typography>{t.auth.redirecting}</Typography>) || (
       <>
-        <Header></Header>
-        <PageLayout></PageLayout>
-        <Footer></Footer>
+        <Main open={open} className="layout">
+          <Docs></Docs>
+          <Editor></Editor>
+          <ResponseSection></ResponseSection>
+        </Main>
       </>
     )
   );
