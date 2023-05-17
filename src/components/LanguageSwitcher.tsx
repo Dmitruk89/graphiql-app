@@ -11,6 +11,8 @@ import MenuList from '@mui/material/MenuList';
 import type { RootState } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
 import { switchLanguage } from '../features/translation/translationSlice';
+import ruFlag from '../assets/flags/ru.png';
+import enFlag from '../assets/flags/en.png';
 
 export default function LanguageSwitcher() {
   const language = useSelector((state: RootState) => state.translation.lang);
@@ -49,7 +51,10 @@ export default function LanguageSwitcher() {
           aria-haspopup="menu"
           onClick={handleToggle}
         >
-          <LanguageIcon />
+          {/* <LanguageIcon /> */}
+          <div className="flag">
+            {language === 'ru' ? <img src={ruFlag} alt="ru" /> : <img src={enFlag} alt="en" />}
+          </div>
           {language}
         </Button>
       </ButtonGroup>
@@ -80,7 +85,14 @@ export default function LanguageSwitcher() {
                       selected={index === selectedIndex}
                       onClick={() => handleMenuItemClick(index, option)}
                     >
-                      {option.toUpperCase()}
+                      <div className="flag">
+                        {option === 'ru' ? (
+                          <img src={ruFlag} alt="ru" />
+                        ) : (
+                          <img src={enFlag} alt="en" />
+                        )}
+                      </div>
+                      <span>{option.toUpperCase()}</span>
                     </MenuItem>
                   ))}
                 </MenuList>
