@@ -20,7 +20,7 @@ export default function PageLayout() {
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: `-${drawerWidth}px`,
-    [theme.breakpoints.up(1000)]: {
+    [theme.breakpoints.up(915)]: {
       ...(open && {
         transition: theme.transitions.create('margin', {
           easing: theme.transitions.easing.easeOut,
@@ -28,6 +28,9 @@ export default function PageLayout() {
         }),
         marginLeft: 0,
       }),
+    },
+    [theme.breakpoints.down(915)]: {
+      marginLeft: 0,
     },
   }));
   return (

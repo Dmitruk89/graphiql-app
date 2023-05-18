@@ -19,7 +19,7 @@ export default function ResponseSection() {
         sx={{
           padding: 3,
           flexGrow: 1,
-          width: '40%',
+
           color: '#8c959f',
           fontSize: '1.1rem',
           backgroundColor: '#f5f5f5',

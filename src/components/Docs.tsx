@@ -98,19 +98,30 @@ export default function Docs() {
         component="nav"
         aria-labelledby="nested-list-subheader"
         subheader={
-          <ListSubheader component="p" id="nested-list-subheader" sx={{ lineHeight: '1.3rem' }}>
+          <ListSubheader
+            component="p"
+            id="nested-list-subheader"
+            sx={{
+              lineHeight: '1.3rem',
+              zIndex: 5,
+              margin: 0,
+              padding: '15px',
+              top: '-15px',
+              boxShadow: '0px 50px 71px -44px rgba(0,0,0,0.2)',
+            }}
+          >
             A GraphQL schema provides a root type for each kind of operation.
+            <li>
+              <Typography variant="body1">
+                <span className="fieldName">Fields: </span>
+                <Link href="#" onClick={handleClick}>
+                  <span className="fieldType">{docsTypeName}</span>
+                </Link>
+              </Typography>
+            </li>
           </ListSubheader>
         }
       >
-        <li>
-          <Typography variant="body1">
-            <span className="fieldName">Fields: </span>
-            <Link href="#" onClick={handleClick}>
-              <span className="fieldType">{docsTypeName}</span>
-            </Link>
-          </Typography>
-        </li>
         <Collapse in={isSublistOpen} timeout="auto" unmountOnExit>
           {CollapseListContent}
         </Collapse>

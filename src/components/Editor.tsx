@@ -29,26 +29,24 @@ export default function Editor() {
           justifyContent: 'space-between',
         }}
       >
-        <div className="editor">
-          <CodeEditor
-            value={code}
-            language="graphql"
-            placeholder={t.mainSection.editorPlaceholder}
-            onChange={(event) => dispatch(updateEditor(event.target.value))}
-            padding={15}
-            style={{
-              width: '100%',
-              marginBottom: '20px',
-              fontSize: 16,
-              backgroundColor: '#ffffff',
-              fontFamily:
-                'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-            }}
-          />
-          <Button variant="contained" endIcon={<SendIcon />} onClick={() => onSendButtonClick()}>
-            {t.mainSection.sendButton}
-          </Button>
-        </div>
+        <CodeEditor
+          value={code}
+          language="graphql"
+          placeholder={t.mainSection.editorPlaceholder}
+          onChange={(event) => dispatch(updateEditor(event.target.value))}
+          padding={15}
+          style={{
+            width: '100%',
+            marginBottom: '20px',
+            fontSize: 16,
+            backgroundColor: '#ffffff',
+            fontFamily:
+              'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+          }}
+        />
+        <Button variant="contained" endIcon={<SendIcon />} onClick={() => onSendButtonClick()}>
+          {t.mainSection.sendButton}
+        </Button>
       </Box>
     </React.Fragment>
   );
