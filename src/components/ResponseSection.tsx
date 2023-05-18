@@ -11,7 +11,7 @@ export default function ResponseSection() {
   const skip = useSelector((state: RootState) => state.graphql.skipQuery);
   const t = useSelector(selectTranslations);
   const query = useSelector((state: RootState) => state.graphql.query);
-  const headers = useSelector((state: RootState) => state.graphql.headersEditor);
+  const headers = useSelector((state: RootState) => state.graphql.headersForQuery);
   const {
     data: characters,
     error,

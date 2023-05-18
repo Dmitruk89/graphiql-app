@@ -4,7 +4,13 @@ import SendIcon from '@mui/icons-material/Send';
 import Box from '@mui/material/Box';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateEditor, createQuery, disableSkip } from '../features/graphql/graphqlSlice';
+import {
+  updateEditor,
+  createQuery,
+  disableSkip,
+  updateHeadersForQuery,
+  setHeadersState,
+} from '../features/graphql/graphqlSlice';
 import { RootState } from '../store';
 import { selectTranslations } from '../features/translation/translationSlice';
 import SimpleAccordion from './Accordion';
@@ -12,9 +18,22 @@ import SimpleAccordion from './Accordion';
 export default function Editor() {
   const t = useSelector(selectTranslations);
   const code = useSelector((state: RootState) => state.graphql.editorCode);
+  const headersEditorCode = useSelector((state: RootState) => state.graphql.headersEditor);
   const dispatch = useDispatch();
 
   function onSendButtonClick() {
+    try {
+      if (headersEditorCode === '') throw new Error('emptyHeaders');
+      const objFromHeadersEditor = JSON.parse(headersEditorCode);
+      dispatch(setHeadersState('parsed'));
+      dispatch(updateHeadersForQuery(Object.entries(objFromHeadersEditor)));
+    } catch (error) {
+      if (error instanceof Error && error.message === 'emptyHeaders') {
+        dispatch(setHeadersState('empty'));
+      } else {
+        dispatch(setHeadersState('notParsed'));
+      }
+    }
     dispatch(disableSkip());
     dispatch(createQuery(code));
   }
