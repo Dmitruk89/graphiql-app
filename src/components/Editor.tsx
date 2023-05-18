@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateEditor, createQuery, disableSkip } from '../features/graphql/graphqlSlice';
 import { RootState } from '../store';
 import { selectTranslations } from '../features/translation/translationSlice';
-import SimpleAccordion from './Accordion';
 
 export default function Editor() {
   const t = useSelector(selectTranslations);
@@ -23,13 +22,11 @@ export default function Editor() {
     <React.Fragment>
       <Box
         sx={{
-          padding: 2,
           display: 'flex',
           flexGrow: 1,
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'space-between',
-          backgroundColor: '#f5f5f5',
         }}
       >
         <div className="editor">
@@ -51,9 +48,6 @@ export default function Editor() {
           <Button variant="contained" endIcon={<SendIcon />} onClick={() => onSendButtonClick()}>
             {t.mainSection.sendButton}
           </Button>
-        </div>
-        <div className="accordion">
-          <SimpleAccordion />
         </div>
       </Box>
     </React.Fragment>

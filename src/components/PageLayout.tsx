@@ -5,6 +5,7 @@ import Docs from './Docs';
 import Editor from './Editor';
 import ResponseSection from './ResponseSection';
 import { styled } from '@mui/material/styles';
+import SimpleAccordion from './Accordion';
 
 export default function PageLayout() {
   const drawerWidth = useSelector((state: RootState) => state.graphql.docsWidth);
@@ -32,7 +33,11 @@ export default function PageLayout() {
   return (
     <Main open={open} className="layout">
       <Docs></Docs>
-      <Editor></Editor>
+      <div className="editorsContainer">
+        <Editor></Editor>
+
+        <SimpleAccordion />
+      </div>
       <ResponseSection></ResponseSection>
     </Main>
   );
