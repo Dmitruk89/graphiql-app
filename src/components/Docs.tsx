@@ -44,10 +44,12 @@ export default function Docs() {
   }));
 
   let CollapseListContent;
+  const drawerRef = React.useRef(undefined);
 
   if (isFetching) {
     CollapseListContent = (
       <Box
+        ref={drawerRef}
         sx={{
           display: 'flex',
           flexGrow: 1,
@@ -99,7 +101,7 @@ export default function Docs() {
         aria-labelledby="nested-list-subheader"
         subheader={
           <ListSubheader
-            component="p"
+            component="div"
             id="nested-list-subheader"
             sx={{
               lineHeight: '1.3rem',
