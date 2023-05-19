@@ -26,7 +26,7 @@
     "wrongEmail": "Неверный e-mail или пароль",
     "redirecting": "Переадресация",
     "connectingToFirebase": "Подключение к Firebase",
-    "emailPatternErrorMessage": "E-mail должен состоять из букв, цифр или специальных символов (-_$!%*#?&) и содержать не менее 3 символов",
+    "emailPatternErrorMessage": "E-mail должен состоять из букв, цифр или специальных символов (-_$!%*#?&) и содержать не менее 3 символов перед @",
     "emailRequireErrorMessage": "Необходимо ввести e-mail",
     "passwordPatternErrorMessage": "Пароль должен содержать минимум 8 символов, минимум одну букву, одну цифру и один специальный символ (-_$!%*#?&)",
     "passwordRequireErrorMessage": "Необходимо ввести пароль",

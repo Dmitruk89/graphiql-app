@@ -26,7 +26,7 @@
     "wrongEmail": "Wrong e-mail or password",
     "redirecting": "Redirecting",
     "connectingToFirebase": "Connecting to Firebase",
-    "emailPatternErrorMessage": "E-mail must contain minimum 3 symbols that can be letters, digits or special characters (-_$!%*#?&)",
+    "emailPatternErrorMessage": "E-mail must contain minimum 3 symbols that can be letters, digits or special characters (-_$!%*#?&) before @",
     "emailRequireErrorMessage": "E-mail is required",
     "passwordPatternErrorMessage": "Password must contain minimum 8 symbols, at least one letter, one digit, one special character (-_$!%*#?&)",
     "passwordRequireErrorMessage": "Password is required",
