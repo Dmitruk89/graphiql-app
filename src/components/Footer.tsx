@@ -21,30 +21,31 @@ export default function Footer() {
     open?: boolean;
     component?: 'header' | 'footer';
   }
-  const FooterBar = styled(AppBar, {
+  const FooterContainer = styled(AppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
   })<AppBarProps>(({ theme, open }) => ({
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+    marginLeft: `-${drawerWidth}px`,
+    [theme.breakpoints.up(1000)]: {
+      ...(open && {
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: `${drawerWidth}px`,
+        width: `calc(100% - ${drawerWidth}px)`,
       }),
-    }),
+    },
   }));
   return (
-    <React.Fragment>
-      <FooterBar
+    <Box sx={{ flexGrow: 1 }}>
+      <FooterContainer
         open={open}
         component="footer"
-        position="static"
-        color="primary"
-        sx={{ top: 'auto', bottom: 0, padding: '15px' }}
+        sx={{ top: 'auto', bottom: 0, padding: '15px', position: 'static', marginLeft: 0 }}
       >
         <Toolbar>
           <Box
@@ -83,7 +84,7 @@ export default function Footer() {
             <Typography>© 2023</Typography>
           </Box>
         </Toolbar>
-      </FooterBar>
-    </React.Fragment>
+      </FooterContainer>
+    </Box>
   );
 }

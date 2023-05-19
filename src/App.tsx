@@ -11,6 +11,15 @@ import Main from './pages/Main';
 import Auth from './pages/Auth';
 import NotFound from './pages/NotFound';
 import { checkTokenExpiration } from './helpers/helperFuntions';
+import { createTheme, ThemeProvider } from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#426892',
+    },
+  },
+});
 
 export function App() {
   const auth = getAuth();
@@ -41,7 +50,9 @@ export function WrappedApp() {
     <ApiProvider api={apiSlice}>
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
         </BrowserRouter>
       </Provider>
     </ApiProvider>

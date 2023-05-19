@@ -1,9 +1,8 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -14,19 +13,12 @@ import { setDocsOpen } from '../features/graphql/graphqlSlice';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import { RootState } from '../store';
-import { getAuth, signOut } from 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
-
-import { removeTokenExpirationFromLocalStorage } from '../helpers/helperFuntions';
+import UserMenu from './UserMenu';
 
 export default function Header() {
   const t = useSelector(selectTranslations);
   const open = useSelector((state: RootState) => state.graphql.isDocsOpen);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const auth = getAuth();
-  const [user] = useAuthState(auth);
 
   const drawerWidth = useSelector((state: RootState) => state.graphql.docsWidth);
 
@@ -41,29 +33,21 @@ export default function Header() {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+    marginLeft: `-${drawerWidth}px`,
+    [theme.breakpoints.up(1000)]: {
+      ...(open && {
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+        width: `calc(100% - ${drawerWidth}px)`,
       }),
-    }),
+    },
   }));
 
   const handleDocsOpen = () => {
     dispatch(setDocsOpen(true));
-  };
-
-  const handleLogOutClick = () => {
-    signOut(auth)
-      .then(() => {
-        removeTokenExpirationFromLocalStorage();
-        navigate('/');
-      })
-      .catch(() => {
-        console.error;
-      });
   };
 
   return (
@@ -83,15 +67,7 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {t.header.title}
           </Typography>
-          {user ? <Typography component="div">{user.email}</Typography> : <></>}
-          <Button
-            onClick={handleLogOutClick}
-            color="info"
-            variant="contained"
-            sx={{ margin: ' 0 0.65rem 0 1rem' }}
-          >
-            {t.header.logoutButton}
-          </Button>
+          <UserMenu></UserMenu>
           <LanguageSwitcher></LanguageSwitcher>
         </Toolbar>
       </AppBar>

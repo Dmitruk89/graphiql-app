@@ -35,7 +35,7 @@ const initialState: GraphqlState = {
   docsType: null,
   docsTypeName: 'Query',
   typeNameStack: ['Query'],
-  docsWidth: 400,
+  docsWidth: 320,
 };
 
 export const graphqlSlice = createSlice({
