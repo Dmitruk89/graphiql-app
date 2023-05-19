@@ -15,6 +15,7 @@ import { CircularProgress } from '@mui/material';
 import { FieldList } from './docs/FieldList';
 import Description from './docs/Description';
 import BreadCrumps from './docs/BreadCrumps';
+import FieldInfo from './docs/FieldInfo';
 
 export default function Docs() {
   const t = useSelector(selectTranslations);
@@ -25,7 +26,9 @@ export default function Docs() {
   const drawerWidth = useSelector((state: RootState) => state.graphql.docsWidth);
   const open = useSelector((state: RootState) => state.graphql.isDocsOpen);
   const docsTypeName = useSelector((state: RootState) => state.graphql.docsTypeName);
-
+  const docsListName = useSelector((state: RootState) => state.graphql.docsListName);
+  const isTypeQuery = useSelector((state: RootState) => state.graphql.isTypeQuery);
+  const docsField = useSelector((state: RootState) => state.graphql.docsField);
   const { data: docs, isFetching, isSuccess } = useGetDocsQuery({ docsTypeName });
 
   const handleClick = () => {
@@ -62,7 +65,7 @@ export default function Docs() {
         <CircularProgress color="inherit" />
       </Box>
     );
-  } else if (isSuccess) {
+  } else if (isSuccess && isTypeQuery) {
     CollapseListContent = docs['__type']['fields'] ? (
       <FieldList fields={docs['__type']['fields']}></FieldList>
     ) : docs['__type']['inputFields'] ? (
@@ -70,6 +73,8 @@ export default function Docs() {
     ) : docs['__type'] ? (
       <Description type={docs['__type']}></Description>
     ) : null;
+  } else if (!isTypeQuery) {
+    CollapseListContent = docsField ? <FieldInfo field={docsField}></FieldInfo> : null;
   }
 
   return (
@@ -114,10 +119,9 @@ export default function Docs() {
           >
             A GraphQL schema provides a root type for each kind of operation.
             <li>
-              <Typography variant="body1">
-                <span className="fieldName">Fields: </span>
+              <Typography variant="h6">
                 <Link href="#" onClick={handleClick}>
-                  <span className="fieldType">{docsTypeName}</span>
+                  {docsListName}
                 </Link>
               </Typography>
             </li>
