@@ -14,6 +14,7 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import { RootState } from '../store';
 import UserMenu from './UserMenu';
+import { useScrollTrigger } from '@mui/material';
 
 export default function Header() {
   const t = useSelector(selectTranslations);
@@ -46,6 +47,11 @@ export default function Header() {
     },
   }));
 
+  const trigger = useScrollTrigger({
+    disableHysteresis: false,
+    threshold: 0,
+  });
+
   const handleDocsOpen = () => {
     dispatch(setDocsOpen(true));
   };
@@ -53,7 +59,7 @@ export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar sx={{ height: trigger ? '40px' : '80px' }}>
           <IconButton
             size="large"
             aria-label="open drawer"
