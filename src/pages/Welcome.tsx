@@ -16,6 +16,7 @@ import Footer from '../components/Footer';
 
 function Welcome() {
   const t = useSelector(selectTranslations);
+  console.log(t.welcomeSection, t.notFound);
   const lang = useSelector((state: i18nState) => state.i18n.lang);
   const auth = getAuth();
   const [user, loading] = useIdToken(auth);

@@ -33,8 +33,8 @@ export function App() {
       <Route path="/auth/:path" element={<Auth />} />
       <Route path="/" element={<PageLayout />}>
         <Route path="main" element={<Main />} />
-        <Route path="*" element={<NotFound />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
