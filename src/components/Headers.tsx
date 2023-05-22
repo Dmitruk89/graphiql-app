@@ -20,7 +20,6 @@ export function Headers() {
       <CodeEditor
         value={headersEditorState}
         language="graphql"
-        placeholder={t.mainSection.variablesPlaceholder}
         onChange={(event) => dispatch(updateHeadersEditor(event.target.value))}
         style={{
           width: '100%',
