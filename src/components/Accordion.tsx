@@ -7,8 +7,11 @@ import LabTabs from './Tabs';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
+import { useSelector } from 'react-redux';
+import { selectTranslations } from '../features/translation/translationSlice';
 
 export default function SimpleAccordion() {
+  const t = useSelector(selectTranslations);
   const [value, setValue] = React.useState('1');
   const [isExpanded, setIsExpanded] = React.useState(false);
 
@@ -39,14 +42,14 @@ export default function SimpleAccordion() {
               aria-label="tabs example"
             >
               <Tab
-                className="Variables"
-                label="Variables"
+                className="variables"
+                label={t.tabs.variables}
                 value="1"
                 onClick={() => handleTabClick('1')}
               />
               <Tab
-                className="Headers"
-                label="Headers"
+                className="headers"
+                label={t.tabs.headers}
                 value="2"
                 onClick={() => handleTabClick('2')}
               />
