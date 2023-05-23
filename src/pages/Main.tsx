@@ -3,12 +3,11 @@ import { Box, CircularProgress, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { useIdToken } from 'react-firebase-hooks/auth';
-
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import PageLayout from '../components/PageLayout';
+import Footer from '../components/Footer';
 
 function Main() {
   const t = useSelector(selectTranslations);
@@ -43,7 +42,7 @@ function Main() {
       <>
         <Header></Header>
         <PageLayout></PageLayout>
-        <Footer></Footer>
+        <Footer />
       </>
     )
   );

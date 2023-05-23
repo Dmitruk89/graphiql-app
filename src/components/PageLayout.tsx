@@ -38,7 +38,6 @@ export default function PageLayout() {
       <Docs></Docs>
       <div className="editorsContainer">
         <Editor></Editor>
-
         <SimpleAccordion />
       </div>
       <ResponseSection></ResponseSection>
