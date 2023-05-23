@@ -20,6 +20,8 @@ export type SignInInput = {
   password: string;
 };
 
+export type HeadersStateType = 'empty' | 'parsed' | 'notParsed';
+
 export interface IDeveloper {
   image: string;
   name: string;
