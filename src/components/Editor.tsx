@@ -28,7 +28,6 @@ export default function Editor() {
     try {
       if (varQueryCode === '') throw new Error('empty');
       const varParam = JSON.parse(varQueryCode);
-      console.log(varQueryCode, varParam);
       if (code.includes('$')) {
         const arr = code.split(' ');
         if (queryParam in varParam) {
