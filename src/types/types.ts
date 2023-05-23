@@ -10,16 +10,17 @@ export type i18nState = {
 };
 
 export type SignUpInput = {
-  login: string;
   email: string;
   password: string;
   repeatedPassword: string;
 };
 
 export type SignInInput = {
-  login: string;
+  email: string;
   password: string;
 };
+
+export type HeadersStateType = 'empty' | 'parsed' | 'notParsed';
 
 export interface IDeveloper {
   image: string;

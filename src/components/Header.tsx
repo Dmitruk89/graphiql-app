@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -14,6 +13,8 @@ import { setDocsOpen } from '../features/graphql/graphqlSlice';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import { RootState } from '../store';
+import UserMenu from './UserMenu';
+import { useScrollTrigger } from '@mui/material';
 
 export default function Header() {
   const t = useSelector(selectTranslations);
@@ -33,15 +34,23 @@ export default function Header() {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    ...(open && {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: `${drawerWidth}px`,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+    marginLeft: `-${drawerWidth}px`,
+    [theme.breakpoints.up(1000)]: {
+      ...(open && {
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+        width: `calc(100% - ${drawerWidth}px)`,
       }),
-    }),
+    },
   }));
+
+  const trigger = useScrollTrigger({
+    disableHysteresis: false,
+    threshold: 0,
+  });
 
   const handleDocsOpen = () => {
     dispatch(setDocsOpen(true));
@@ -50,7 +59,7 @@ export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar sx={{ height: trigger ? '40px' : '80px' }}>
           <IconButton
             size="large"
             aria-label="open drawer"
@@ -64,9 +73,7 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {t.header.title}
           </Typography>
-          <Link style={{ color: 'inherit' }} to="/">
-            <Button color="inherit">{t.header.logoutButton}</Button>
-          </Link>
+          <UserMenu></UserMenu>
           <LanguageSwitcher></LanguageSwitcher>
         </Toolbar>
       </AppBar>

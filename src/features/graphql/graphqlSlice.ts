@@ -1,10 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DocsType } from '../../types/docsTypes';
+import { HeadersStateType } from '../../types/types';
 
 export interface GraphqlState {
   editorCode: string;
   varCode: string;
   query: string;
+  headersEditor: string;
+  headersForQuery: [string, string | unknown][];
+  headersState: HeadersStateType;
   skipQuery: boolean;
   isDocsOpen: boolean;
   docsWidth: number;
@@ -34,12 +38,15 @@ const initialState: GraphqlState = {
    "name": "rick"
   }`,
   query: '',
+  headersEditor: '',
+  headersForQuery: [['x-custom-headers', '123']],
+  headersState: 'empty',
   skipQuery: true,
   isDocsOpen: false,
   docsType: null,
   docsTypeName: 'Query',
   typeNameStack: ['Query'],
-  docsWidth: 400,
+  docsWidth: 320,
 };
 
 export const graphqlSlice = createSlice({
@@ -52,7 +59,16 @@ export const graphqlSlice = createSlice({
     updateVariables: (state: GraphqlState, action: PayloadAction<string>) => {
       state.varCode = action.payload;
     },
-    createQuery: (state: GraphqlState, action: PayloadAction<string>) => {
+    updateHeadersEditor: (state, action: PayloadAction<string>) => {
+      state.headersEditor = action.payload;
+    },
+    updateHeadersForQuery: (state, action: PayloadAction<[string, string | unknown][]>) => {
+      state.headersForQuery = action.payload;
+    },
+    setHeadersState: (state, action: PayloadAction<HeadersStateType>) => {
+      state.headersState = action.payload;
+    },
+    createQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
     disableSkip: (state: GraphqlState) => {
@@ -79,6 +95,9 @@ export const graphqlSlice = createSlice({
 
 export const {
   updateEditor,
+  updateHeadersEditor,
+  updateHeadersForQuery,
+  setHeadersState,
   createQuery,
   updateVariables,
   disableSkip,

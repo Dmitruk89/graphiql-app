@@ -11,7 +11,12 @@ export default function ResponseSection() {
   const skip = useSelector((state: RootState) => state.graphql.skipQuery);
   const t = useSelector(selectTranslations);
   const query = useSelector((state: RootState) => state.graphql.query);
-  const { data: characters, error, isLoading } = useGetCharactersQuery({ query }, { skip });
+  const headers = useSelector((state: RootState) => state.graphql.headersForQuery);
+  const {
+    data: characters,
+    error,
+    isLoading,
+  } = useGetCharactersQuery({ query, headers }, { skip });
 
   return (
     <React.Fragment>
@@ -19,7 +24,7 @@ export default function ResponseSection() {
         sx={{
           padding: 3,
           flexGrow: 1,
-          width: '40%',
+
           color: '#8c959f',
           fontSize: '1.1rem',
           backgroundColor: '#f5f5f5',

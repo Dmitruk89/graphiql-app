@@ -5,6 +5,7 @@ import Docs from './Docs';
 import Editor from './Editor';
 import ResponseSection from './ResponseSection';
 import { styled } from '@mui/material/styles';
+import SimpleAccordion from './Accordion';
 
 export default function PageLayout() {
   const drawerWidth = useSelector((state: RootState) => state.graphql.docsWidth);
@@ -19,18 +20,26 @@ export default function PageLayout() {
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
+    [theme.breakpoints.up(915)]: {
+      ...(open && {
+        transition: theme.transitions.create('margin', {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
       }),
+    },
+    [theme.breakpoints.down(915)]: {
       marginLeft: 0,
-    }),
+    },
   }));
   return (
     <Main open={open} className="layout">
       <Docs></Docs>
-      <Editor></Editor>
+      <div className="editorsContainer">
+        <Editor></Editor>
+        <SimpleAccordion />
+      </div>
       <ResponseSection></ResponseSection>
     </Main>
   );
