@@ -28,7 +28,7 @@ function Auth() {
           <Box sx={{ margin: 'auto' }}>{params.path === 'signIn' ? <SignIn /> : <SignUp />}</Box>
         </Container>
       </Container>
-      <Footer></Footer>
+      <Footer />
     </>
   );
 }

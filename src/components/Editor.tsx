@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateEditor, createQuery, disableSkip } from '../features/graphql/graphqlSlice';
 import { RootState } from '../store';
 import { selectTranslations } from '../features/translation/translationSlice';
-import SimpleAccordion from './Accordion';
 
 export default function Editor() {
   const t = useSelector(selectTranslations);
@@ -23,38 +22,31 @@ export default function Editor() {
     <React.Fragment>
       <Box
         sx={{
-          padding: 2,
           display: 'flex',
           flexGrow: 1,
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'space-between',
-          backgroundColor: '#f5f5f5',
         }}
       >
-        <div className="editor">
-          <CodeEditor
-            value={code}
-            language="graphql"
-            placeholder={t.mainSection.editorPlaceholder}
-            onChange={(event) => dispatch(updateEditor(event.target.value))}
-            padding={15}
-            style={{
-              width: '100%',
-              marginBottom: '20px',
-              fontSize: 16,
-              backgroundColor: '#ffffff',
-              fontFamily:
-                'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-            }}
-          />
-          <Button variant="contained" endIcon={<SendIcon />} onClick={() => onSendButtonClick()}>
-            {t.mainSection.sendButton}
-          </Button>
-        </div>
-        <div className="accordion">
-          <SimpleAccordion />
-        </div>
+        <CodeEditor
+          value={code}
+          language="graphql"
+          placeholder={t.mainSection.editorPlaceholder}
+          onChange={(event) => dispatch(updateEditor(event.target.value))}
+          padding={15}
+          style={{
+            width: '100%',
+            marginBottom: '20px',
+            fontSize: 16,
+            backgroundColor: '#ffffff',
+            fontFamily:
+              'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+          }}
+        />
+        <Button variant="contained" endIcon={<SendIcon />} onClick={() => onSendButtonClick()}>
+          {t.mainSection.sendButton}
+        </Button>
       </Box>
     </React.Fragment>
   );

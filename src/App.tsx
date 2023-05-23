@@ -6,12 +6,21 @@ import { store } from './store';
 import { Provider } from 'react-redux';
 import { apiSlice } from './features/api/apiSlice';
 import { ApiProvider } from '@reduxjs/toolkit/query/react';
-import Welcome from './pages/Welcome';
-import Main from './pages/Main';
 import Auth from './pages/Auth';
 import NotFound from './pages/NotFound';
 import { checkTokenExpiration } from './helpers/helperFuntions';
-import PageLayout from './components/PageLayout';
+// import Layout from './components/PageLayout';
+import { createTheme, ThemeProvider } from '@mui/material';
+import Welcome from './pages/Welcome';
+import Main from './pages/Main';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#426892',
+    },
+  },
+});
 
 export function App() {
   const auth = getAuth();
@@ -31,9 +40,7 @@ export function App() {
     <Routes>
       <Route index element={<Welcome />} />
       <Route path="/auth/:path" element={<Auth />} />
-      <Route path="/" element={<PageLayout />}>
-        <Route path="main" element={<Main />} />
-      </Route>
+      <Route path="/main" element={<Main />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
@@ -44,7 +51,9 @@ export function WrappedApp() {
     <ApiProvider api={apiSlice}>
       <Provider store={store}>
         <BrowserRouter>
-          <App />
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
         </BrowserRouter>
       </Provider>
     </ApiProvider>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import LabTabs from './Tabs';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -19,11 +19,11 @@ export default function SimpleAccordion() {
 
   return (
     <>
-      <Accordion expanded={isExpanded}>
+      <Accordion expanded={isExpanded} sx={{ marginTop: '16px' }}>
         <AccordionSummary
           expandIcon={
-            <ExpandMoreIcon
-              sx={{ pointerEvents: 'auto' }}
+            <ExpandLessIcon
+              sx={{ transform: 'rotate(180deg)', pointerEvents: 'auto' }}
               onClick={() => setIsExpanded(!isExpanded)}
             />
           }

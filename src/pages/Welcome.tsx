@@ -86,7 +86,7 @@ function Welcome() {
                 ))}
           </Box>
         </Container>
-        <Footer></Footer>
+        <Footer />
       </>
     )
   );
