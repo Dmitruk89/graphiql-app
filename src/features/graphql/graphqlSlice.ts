@@ -57,7 +57,6 @@ export const graphqlSlice = createSlice({
       state.editorCode = action.payload;
     },
     updateVariables: (state: GraphqlState, action: PayloadAction<string>) => {
-      console.log(state.varQueryCode);
       state.varQueryCode = action.payload;
     },
     setVariablesState: (state, action: PayloadAction<VariablesStateType>) => {
