@@ -11,6 +11,7 @@ import MenuList from '@mui/material/MenuList';
 import type { RootState } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
 import { switchLanguage } from '../features/translation/translationSlice';
+import { getCurrentLangIndex } from '../helpers/helperFuntions';
 
 export default function LanguageSwitcher() {
   const language = useSelector((state: RootState) => state.translation.lang);
@@ -18,7 +19,7 @@ export default function LanguageSwitcher() {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState(getCurrentLangIndex());
 
   const handleMenuItemClick = (index: number, option: string) => {
     setSelectedIndex(index);
