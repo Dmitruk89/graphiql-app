@@ -18,7 +18,7 @@ export const cardStyle = {
   },
 };
 
-export const descrdStyle = {
+export const descrStyle = {
   fontSize: '24px',
   width: '70%',
   textAlign: 'center',

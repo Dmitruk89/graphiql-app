@@ -6,7 +6,7 @@ import { developers_en, developers_ru } from '../utils/constants';
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
 import { IDeveloper, i18nState } from '../types/types';
-import { descrdStyle, devStyle, titleStyle } from '../utils/style-const';
+import { descrStyle, devStyle, titleStyle } from '../utils/style-const';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import DeveloperCard from '../components/Card';
 
@@ -68,12 +68,12 @@ function Welcome() {
           )}
           <LanguageSwitcher></LanguageSwitcher>
         </Box>
-        <Container sx={{ height: 'calc(100vh - 12.75rem)' }}>
+        <Container sx={{ height: 'calc(100vh - 94px - 107px)' }}>
           <Typography variant="h1" component="h2" sx={titleStyle}>
             {t.welcomeSection.title}
           </Typography>
           ;
-          <Typography component="p" sx={descrdStyle}>
+          <Typography component="p" sx={descrStyle}>
             {t.welcomeSection.welcomeDescr}
           </Typography>
           <Box component="div" sx={devStyle}>

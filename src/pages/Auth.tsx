@@ -24,7 +24,7 @@ function Auth() {
           </Link>
           <LanguageSwitcher></LanguageSwitcher>
         </Box>
-        <Container sx={{ display: 'flex', height: 'calc(100vh - 12rem)' }}>
+        <Container sx={{ display: 'flex', height: 'calc(100vh - 94px - 6rem)' }}>
           <Box sx={{ margin: 'auto' }}>{params.path === 'signIn' ? <SignIn /> : <SignUp />}</Box>
         </Container>
       </Container>

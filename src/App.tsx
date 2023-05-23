@@ -9,7 +9,6 @@ import { ApiProvider } from '@reduxjs/toolkit/query/react';
 import Auth from './pages/Auth';
 import NotFound from './pages/NotFound';
 import { checkTokenExpiration } from './helpers/helperFuntions';
-// import Layout from './components/PageLayout';
 import { createTheme, ThemeProvider } from '@mui/material';
 import Welcome from './pages/Welcome';
 import Main from './pages/Main';
