@@ -15,7 +15,7 @@ function NotFound() {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          height: 'calc(100vh - 94px)',
+          height: 'calc(100vh - var(--footer-height))',
         }}
       >
         <Container maxWidth="md">

@@ -68,7 +68,7 @@ function Welcome() {
           )}
           <LanguageSwitcher></LanguageSwitcher>
         </Box>
-        <Container sx={{ height: 'calc(100vh - 94px - 107px)' }}>
+        <Container sx={{ height: 'calc(100vh - var(--footer-height) - 107px)' }}>
           <Typography variant="h1" component="h2" sx={titleStyle}>
             {t.welcomeSection.title}
           </Typography>
