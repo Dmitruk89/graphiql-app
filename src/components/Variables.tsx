@@ -7,7 +7,7 @@ import { selectTranslations } from '../features/translation/translationSlice';
 
 export default function Variables() {
   const t = useSelector(selectTranslations);
-  const varaible = useSelector((state: RootState) => state.graphql.varCode);
+  const varaible = useSelector((state: RootState) => state.graphql.varQueryCode);
   const dispatch = useDispatch();
 
   return (

@@ -3,11 +3,9 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateHeadersEditor } from '../features/graphql/graphqlSlice';
-import { selectTranslations } from '../features/translation/translationSlice';
 import { RootState } from '../store';
 
 export function Headers() {
-  const t = useSelector(selectTranslations);
   const headersState = useSelector((state: RootState) => state.graphql.headersState);
   const headersEditorState = useSelector((state: RootState) => state.graphql.headersEditor);
   const dispatch = useDispatch();

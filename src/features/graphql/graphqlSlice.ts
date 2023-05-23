@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { DocsType } from '../../types/docsTypes';
-import { HeadersStateType } from '../../types/types';
+import { HeadersStateType, VariablesStateType } from '../../types/types';
 
 export interface GraphqlState {
   editorCode: string;
-  varCode: string;
+  varQueryCode: string;
+  variablesState: VariablesStateType;
   query: string;
   headersEditor: string;
   headersForQuery: [string, string | unknown][];
@@ -34,9 +35,8 @@ const initialState: GraphqlState = {
       id
     }
   }`,
-  varCode: ` {
-   "name": "rick"
-  }`,
+  varQueryCode: '',
+  variablesState: 'empty',
   query: '',
   headersEditor: '',
   headersForQuery: [['x-custom-headers', '123']],
@@ -57,7 +57,11 @@ export const graphqlSlice = createSlice({
       state.editorCode = action.payload;
     },
     updateVariables: (state: GraphqlState, action: PayloadAction<string>) => {
-      state.varCode = action.payload;
+      console.log(state.varQueryCode);
+      state.varQueryCode = action.payload;
+    },
+    setVariablesState: (state, action: PayloadAction<VariablesStateType>) => {
+      state.variablesState = action.payload;
     },
     updateHeadersEditor: (state, action: PayloadAction<string>) => {
       state.headersEditor = action.payload;
@@ -100,6 +104,7 @@ export const {
   setHeadersState,
   createQuery,
   updateVariables,
+  setVariablesState,
   disableSkip,
   setDocsOpen,
   setDocsType,

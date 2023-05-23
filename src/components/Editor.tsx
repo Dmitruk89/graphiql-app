@@ -10,40 +10,51 @@ import {
   disableSkip,
   updateHeadersForQuery,
   setHeadersState,
+  setVariablesState,
 } from '../features/graphql/graphqlSlice';
 import { RootState } from '../store';
 import { selectTranslations } from '../features/translation/translationSlice';
 
 export default function Editor() {
   const t = useSelector(selectTranslations);
-  const code = useSelector((state: RootState) => state.graphql.editorCode);
-  const varCode: string = useSelector((state: RootState) => state.graphql.varCode);
+  const code: string = useSelector((state: RootState) => state.graphql.editorCode);
+  const varQueryCode: string = useSelector((state: RootState) => state.graphql.varQueryCode);
   const headersEditorCode = useSelector((state: RootState) => state.graphql.headersEditor);
   const dispatch = useDispatch();
 
   const queryParam = code.split(' ')[1][0] === '(' ? code.split(' ')[1].slice(0, -1).slice(2) : '';
-  const varParam = JSON.parse(varCode);
 
   const checkVar = () => {
-    if (code.includes('$')) {
-      const arr = code.split(' ');
-      if (queryParam in varParam) {
-        arr.splice(1, 2);
-        return arr
-          .map((elem: string) => {
-            if (elem[0] === '$') {
-              return (elem = '"' + varParam[`${queryParam}`] + '"');
-            } else {
-              return elem;
-            }
-          })
-          .join(' ');
+    try {
+      if (varQueryCode === '') throw new Error('empty');
+      const varParam = JSON.parse(varQueryCode);
+      console.log(varQueryCode, varParam);
+      if (code.includes('$')) {
+        const arr = code.split(' ');
+        if (queryParam in varParam) {
+          arr.splice(1, 2);
+          return arr
+            .map((elem: string) => {
+              if (elem[0] === '$') {
+                return (elem = '"' + varParam[`${queryParam}`] + '"');
+              } else {
+                return elem;
+              }
+            })
+            .join(' ');
+        } else {
+          return code;
+        }
       } else {
         return code;
       }
+    } catch (error) {
+      if (error instanceof Error && error.message === 'noVariables') {
+        dispatch(setVariablesState('empty'));
+      }
     }
   };
-  const queryCo = checkVar();
+  const queryCode = checkVar();
 
   function onSendButtonClick() {
     try {
@@ -59,7 +70,7 @@ export default function Editor() {
       }
     }
     dispatch(disableSkip());
-    dispatch(createQuery(queryCo ? queryCo : code));
+    dispatch(createQuery(queryCode ? queryCode : code));
   }
 
   return (
