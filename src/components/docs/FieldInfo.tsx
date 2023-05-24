@@ -10,10 +10,12 @@ export default function FieldInfo(props: { field: DocsField }) {
       <ListSubheader component="p" id="nested-list-subheader" sx={{ lineHeight: '1.3rem' }}>
         {props.field.description}
       </ListSubheader>
-      Type:<TypeLink type={props.field.type}></TypeLink>
-      <br />
-      {props.field.args && props.field.args?.length > 0 && 'Args: '}
-      {props.field.args && <ArgList args={props.field.args}></ArgList>}
+      <Typography pl={2}>
+        Type:<TypeLink type={props.field.type}></TypeLink>
+        <br />
+        {props.field.args && props.field.args?.length > 0 && 'Args: '}
+        {props.field.args && <ArgList args={props.field.args}></ArgList>}
+      </Typography>
     </Typography>
   );
 }

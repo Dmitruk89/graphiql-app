@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { Box, Collapse, Link, List, ListSubheader, Typography } from '@mui/material';
+import { Box, Link, List, ListSubheader, Typography } from '@mui/material';
 import { RootState } from '../store';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDocsOpen } from '../features/graphql/graphqlSlice';
@@ -46,11 +46,11 @@ export default function Docs() {
     justifyContent: 'flex-end',
   }));
 
-  let CollapseListContent;
+  let ListContent;
   const drawerRef = React.useRef(undefined);
 
   if (isFetching) {
-    CollapseListContent = (
+    ListContent = (
       <Box
         ref={drawerRef}
         sx={{
@@ -66,7 +66,7 @@ export default function Docs() {
       </Box>
     );
   } else if (isSuccess && isTypeQuery) {
-    CollapseListContent = docs['__type']['fields'] ? (
+    ListContent = docs['__type']['fields'] ? (
       <FieldList fields={docs['__type']['fields']}></FieldList>
     ) : docs['__type']['inputFields'] ? (
       <FieldList fields={docs['__type']['inputFields']}></FieldList>
@@ -74,7 +74,7 @@ export default function Docs() {
       <Description type={docs['__type']}></Description>
     ) : null;
   } else if (!isTypeQuery) {
-    CollapseListContent = docsField ? <FieldInfo field={docsField}></FieldInfo> : null;
+    ListContent = docsField ? <FieldInfo field={docsField}></FieldInfo> : null;
   }
 
   return (
@@ -128,9 +128,7 @@ export default function Docs() {
           </ListSubheader>
         }
       >
-        <Collapse in={isSublistOpen} timeout="auto" unmountOnExit>
-          {CollapseListContent}
-        </Collapse>
+        {ListContent}
       </List>
     </Drawer>
   );
