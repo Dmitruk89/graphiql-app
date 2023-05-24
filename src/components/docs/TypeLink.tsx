@@ -31,6 +31,8 @@ export default function TypeLink(props: { type: DocsType }) {
           ? props.type.name
           : props.type.ofType?.name
           ? props.type.ofType?.name
+          : props.type.ofType?.ofType?.name
+          ? props.type.ofType?.ofType?.name
           : props.type.ofType?.ofType?.ofType?.name}
       </span>
       {props.type.kind === 'NON_NULL' ? '!' : null}
