@@ -1,23 +1,8 @@
-import { setDocsType, setDocsTypeName } from '../../features/graphql/graphqlSlice';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { DocsArg, DocsType } from '../../types/docsTypes';
-import { Link } from '@mui/material';
+import { DocsArg } from '../../types/docsTypes';
+import TypeLink from './TypeLink';
 
 export function ArgList(props: { args: DocsArg[] }) {
-  const dispatch = useDispatch();
-  const handleClick = (type: DocsType) => {
-    dispatch(
-      setDocsTypeName(
-        type.name
-          ? type.name
-          : type.ofType?.name
-          ? type.ofType?.name
-          : type.ofType?.ofType?.ofType?.name
-      )
-    );
-    dispatch(setDocsType(type));
-  };
   return (
     <span>
       {props.args.length ? '(' : null}
@@ -27,18 +12,7 @@ export function ArgList(props: { args: DocsArg[] }) {
             {props.args.length > 1 ? <br /> : ''}
             <span className="argName">{arg.name}</span>
             {': '}
-            <Link href="#" onClick={() => handleClick(arg.type)}>
-              {arg.type.ofType?.kind === 'LIST' ? '[' : null}
-              <span className="argType">
-                {arg.type.name
-                  ? arg.type.name
-                  : arg.type.ofType?.name
-                  ? arg.type.ofType?.name
-                  : arg.type.ofType?.ofType?.ofType?.name}
-              </span>
-              {arg.type.kind === 'NON_NULL' ? '!' : null}
-              {arg.type.ofType?.kind === 'LIST' ? ']!' : null}
-            </Link>
+            <TypeLink type={arg.type}></TypeLink>
           </span>
         );
       })}

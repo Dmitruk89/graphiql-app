@@ -2,23 +2,23 @@ import { Link, Typography } from '@mui/material';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPrevTypeName } from '../../features/graphql/graphqlSlice';
+import { setPrevListName } from '../../features/graphql/graphqlSlice';
 import { RootState } from '../../store';
 
 export default function BreadCrumps() {
   const dispatch = useDispatch();
-  const prevTypeName = useSelector((state: RootState) => state.graphql.typeNameStack.at(-2));
+  const prevListName = useSelector((state: RootState) => state.graphql.docsListStack.at(-2)?.name);
   const handleClick = () => {
-    if (prevTypeName) {
-      dispatch(setPrevTypeName());
+    if (prevListName) {
+      dispatch(setPrevListName());
     }
   };
 
   return (
     <Link href="#" onClick={handleClick}>
       <div className="previousContainer">
-        {prevTypeName && <ChevronLeftIcon />}
-        <Typography variant="body1">{prevTypeName}</Typography>
+        {prevListName && <ChevronLeftIcon />}
+        <Typography variant="body1">{prevListName}</Typography>
       </div>
     </Link>
   );
