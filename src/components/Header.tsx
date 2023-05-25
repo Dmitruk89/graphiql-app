@@ -14,7 +14,6 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import { RootState } from '../store';
 const UserMenu = lazy(() => import('./UserMenu'));
-// import UserMenu from './UserMenu';
 import { useScrollTrigger } from '@mui/material';
 import { Loading } from './Loading';
 

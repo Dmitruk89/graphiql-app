@@ -36,5 +36,10 @@
   "notFound": {
     "descrText": "The page you’re looking for doesn’t exist.",
     "btnText": "back to welcome page"
+  },
+  "loader": {
+    "loading": "Loading",
+    "docs": "Loading Docs",
+    "app": "Loading Application"
   }
 }

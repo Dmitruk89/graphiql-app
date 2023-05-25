@@ -13,6 +13,8 @@ import NotFound from './pages/NotFound';
 import { checkTokenExpiration } from './helpers/helperFuntions';
 import { createTheme, ThemeProvider } from '@mui/material';
 import { Loading } from './components/Loading';
+import { useSelector } from 'react-redux';
+import { selectTranslations } from './features/translation/translationSlice';
 
 const theme = createTheme({
   palette: {
@@ -24,6 +26,7 @@ const theme = createTheme({
 
 export function App() {
   const auth = getAuth();
+  const t = useSelector(selectTranslations);
   const [loading] = useIdToken(auth);
 
   React.useEffect(() => {
@@ -37,7 +40,7 @@ export function App() {
   }, [auth, loading]);
 
   return (
-    <Suspense fallback={<Loading text="Loading Application" fullHeight={true} />}>
+    <Suspense fallback={<Loading text={t.loader.app} fullHeight={true} />}>
       <Routes>
         <Route index element={<Welcome />} />
         <Route path="/auth/:path" element={<Auth />} />

@@ -2,9 +2,6 @@ import React from 'react';
 import { Box, CircularProgress, Typography } from '@mui/material';
 
 export function Loading(props: { text: string | null; fullHeight: boolean }) {
-  React.useEffect(() => {
-    console.log('loading');
-  }, []);
   return (
     <Box
       sx={{
