@@ -19,8 +19,8 @@ export interface GraphqlState {
 }
 
 const initialState: GraphqlState = {
-  editorCode: `query ($name: String) {
-    characters(page: 2, filter: { name: $name }) {
+  editorCode: `query {
+    characters(page: 2, filter: { name: "rick" }) {
       info {
         count
       }
