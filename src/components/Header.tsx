@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,8 +13,10 @@ import { setDocsOpen } from '../features/graphql/graphqlSlice';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import { RootState } from '../store';
-import UserMenu from './UserMenu';
+const UserMenu = lazy(() => import('./UserMenu'));
+// import UserMenu from './UserMenu';
 import { useScrollTrigger } from '@mui/material';
+import { Loading } from './Loading';
 
 export default function Header() {
   const t = useSelector(selectTranslations);
@@ -73,7 +75,9 @@ export default function Header() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {t.header.title}
           </Typography>
-          <UserMenu></UserMenu>
+          <Suspense fallback={<Loading text={null} fullHeight={false} />}>
+            <UserMenu></UserMenu>
+          </Suspense>
           <LanguageSwitcher></LanguageSwitcher>
         </Toolbar>
       </AppBar>
