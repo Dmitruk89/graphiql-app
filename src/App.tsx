@@ -16,7 +16,10 @@ import Main from './pages/Main';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#426892',
+      main: '#99acbe',
+    },
+    info: {
+      main: '#214c75',
     },
   },
 });

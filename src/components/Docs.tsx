@@ -119,7 +119,7 @@ export default function Docs() {
           >
             A GraphQL schema provides a root type for each kind of operation.
             <li>
-              <Typography variant="h6">
+              <Typography color="info" variant="h6">
                 <Link href="#" onClick={handleClick}>
                   {docsListName}
                 </Link>

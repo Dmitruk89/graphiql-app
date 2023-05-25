@@ -29,3 +29,7 @@ export interface IDeveloper {
   altText: string;
   link: string;
 }
+
+export type ApiError = {
+  message: string;
+};
