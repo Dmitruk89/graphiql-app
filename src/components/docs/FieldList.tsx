@@ -1,20 +1,19 @@
 import { Link, List, ListSubheader, Typography } from '@mui/material';
-import { setDocsType, setDocsTypeName } from '../../features/graphql/graphqlSlice';
+import { setDocsListName, setDocsField, setIsTypeQuery } from '../../features/graphql/graphqlSlice';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { DocsField, DocsType } from '../../types/docsTypes';
+import { DocsField } from '../../types/docsTypes';
 import { ArgList } from './ArgList';
+import TypeLink from './TypeLink';
 
 export function FieldList(props: { fields: DocsField[] }) {
   const dispatch = useDispatch();
   const { fields } = props;
-  const handleClick = (type: DocsType) => {
-    dispatch(
-      setDocsTypeName(
-        type.name ? type.name : type.ofType.name ? type.ofType.name : type.ofType?.ofType?.name
-      )
-    );
-    dispatch(setDocsType(type));
+
+  const handleFieldClick = (field: DocsField) => {
+    dispatch(setIsTypeQuery(false));
+    dispatch(setDocsField(field));
+    dispatch(setDocsListName({ name: field.name, isType: false }));
   };
   return (
     <List component="div" disablePadding sx={{ pl: 4 }}>
@@ -23,26 +22,11 @@ export function FieldList(props: { fields: DocsField[] }) {
             return (
               <li key={field.name}>
                 <Typography mt={2} variant="body1">
-                  <span className="fieldName">{field.name}</span>
-                  {field.args ? <ArgList args={field.args}></ArgList> : null}:
-                  <Link href="#" onClick={() => handleClick(field.type)}>
-                    {' '}
-                    {field.type.name ? (
-                      <span className="fieldType">{field.type.name}</span>
-                    ) : field.type.kind === 'LIST' ? (
-                      <>
-                        {'['}
-                        <span className="fieldType">{field.type.ofType.name}</span>
-                        {']'}
-                      </>
-                    ) : field.type.kind === 'NON_NULL' && field.type.ofType.kind === 'LIST' ? (
-                      <>
-                        {'['}
-                        <span className="fieldType">{field.type.ofType?.ofType?.name}</span>
-                        {']!'}
-                      </>
-                    ) : null}
+                  <Link href="#" onClick={() => handleFieldClick(field)}>
+                    <span className="fieldName">{field.name}</span>
                   </Link>
+                  {field.args ? <ArgList args={field.args}></ArgList> : null}:
+                  <TypeLink type={field.type}></TypeLink>
                 </Typography>
                 <ListSubheader
                   component="p"

@@ -11,3 +11,5 @@ export type DocsArg = {
   type: DocsType;
 };
 export type DocsOfType = { kind: string; name: string; ofType: DocsOfType };
+
+export type DocsListItem = { name: string; isType: boolean };

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DocsType } from '../../types/docsTypes';
 import { HeadersStateType, VariablesStateType } from '../../types/types';
+import { DocsType, DocsField, DocsListItem } from '../../types/docsTypes';
+
 
 export interface GraphqlState {
   editorCode: string;
@@ -12,10 +13,13 @@ export interface GraphqlState {
   headersState: HeadersStateType;
   skipQuery: boolean;
   isDocsOpen: boolean;
+  isTypeQuery: boolean;
   docsWidth: number;
   docsType: DocsType | null;
   docsTypeName: string | undefined;
-  typeNameStack: string[];
+  docsListName: string | undefined;
+  docsField: DocsField | null;
+  docsListStack: DocsListItem[];
 }
 
 const initialState: GraphqlState = {
@@ -43,9 +47,12 @@ const initialState: GraphqlState = {
   headersState: 'empty',
   skipQuery: true,
   isDocsOpen: false,
+  isTypeQuery: true,
   docsType: null,
   docsTypeName: 'Query',
-  typeNameStack: ['Query'],
+  docsListName: 'Query',
+  docsField: null,
+  docsListStack: [{ name: 'Query', isType: true }],
   docsWidth: 320,
 };
 
@@ -80,17 +87,32 @@ export const graphqlSlice = createSlice({
     setDocsOpen: (state: GraphqlState, action: PayloadAction<boolean>) => {
       state.isDocsOpen = action.payload;
     },
+    setIsTypeQuery: (state, action: PayloadAction<boolean>) => {
+      state.isTypeQuery = action.payload;
+    },
     setDocsType: (state, action: PayloadAction<DocsType>) => {
       state.docsType = action.payload;
     },
     setDocsTypeName: (state, action: PayloadAction<string>) => {
       state.docsTypeName = action.payload;
-      state.typeNameStack.push(action.payload);
     },
-    setPrevTypeName: (state) => {
-      if (state.typeNameStack.at(-1) !== undefined) {
-        state.typeNameStack.pop();
-        state.docsTypeName = state.typeNameStack.at(-1);
+    setDocsListName: (state, action: PayloadAction<DocsListItem>) => {
+      state.docsListName = action.payload.name;
+      state.docsListStack.push(action.payload);
+    },
+    setDocsField: (state, action: PayloadAction<DocsField>) => {
+      state.docsField = action.payload;
+    },
+    setPrevListName: (state) => {
+      if (state.docsListStack.at(-1) !== undefined) {
+        state.docsListStack.pop();
+        state.docsListName = state.docsListStack.at(-1)?.name;
+        if (state.docsListStack.at(-1)?.isType) {
+          state.docsTypeName = state.docsListStack.at(-1)?.name;
+          state.isTypeQuery = true;
+        } else {
+          state.isTypeQuery = false;
+        }
       }
     },
   },
@@ -108,7 +130,10 @@ export const {
   setDocsOpen,
   setDocsType,
   setDocsTypeName,
-  setPrevTypeName,
+  setDocsListName,
+  setPrevListName,
+  setDocsField,
+  setIsTypeQuery,
 } = graphqlSlice.actions;
 
 export default graphqlSlice.reducer;
