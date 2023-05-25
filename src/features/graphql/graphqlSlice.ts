@@ -1,9 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { HeadersStateType, VariablesStateType } from '../../types/types';
 import { DocsType, DocsField, DocsListItem } from '../../types/docsTypes';
-import { HeadersStateType } from '../../types/types';
+
 
 export interface GraphqlState {
   editorCode: string;
+  varQueryCode: string;
+  variablesState: VariablesStateType;
   query: string;
   headersEditor: string;
   headersForQuery: [string, string | unknown][];
@@ -20,7 +23,7 @@ export interface GraphqlState {
 }
 
 const initialState: GraphqlState = {
-  editorCode: ` query {
+  editorCode: `query {
     characters(page: 2, filter: { name: "rick" }) {
       info {
         count
@@ -36,6 +39,8 @@ const initialState: GraphqlState = {
       id
     }
   }`,
+  varQueryCode: '',
+  variablesState: 'empty',
   query: '',
   headersEditor: '',
   headersForQuery: [['x-custom-headers', '123']],
@@ -55,8 +60,14 @@ export const graphqlSlice = createSlice({
   name: 'characters',
   initialState,
   reducers: {
-    updateEditor: (state, action: PayloadAction<string>) => {
+    updateEditor: (state: GraphqlState, action: PayloadAction<string>) => {
       state.editorCode = action.payload;
+    },
+    updateVariables: (state: GraphqlState, action: PayloadAction<string>) => {
+      state.varQueryCode = action.payload;
+    },
+    setVariablesState: (state, action: PayloadAction<VariablesStateType>) => {
+      state.variablesState = action.payload;
     },
     updateHeadersEditor: (state, action: PayloadAction<string>) => {
       state.headersEditor = action.payload;
@@ -70,10 +81,10 @@ export const graphqlSlice = createSlice({
     createQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
-    disableSkip: (state) => {
+    disableSkip: (state: GraphqlState) => {
       state.skipQuery = false;
     },
-    setDocsOpen: (state, action: PayloadAction<boolean>) => {
+    setDocsOpen: (state: GraphqlState, action: PayloadAction<boolean>) => {
       state.isDocsOpen = action.payload;
     },
     setIsTypeQuery: (state, action: PayloadAction<boolean>) => {
@@ -113,6 +124,8 @@ export const {
   updateHeadersForQuery,
   setHeadersState,
   createQuery,
+  updateVariables,
+  setVariablesState,
   disableSkip,
   setDocsOpen,
   setDocsType,
