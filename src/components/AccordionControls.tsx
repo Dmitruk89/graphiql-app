@@ -3,7 +3,11 @@ import DeleteSweepIcon from '@mui/icons-material/DeleteSweep';
 import Box from '@mui/material/Box';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateEditor, updateVariables } from '../features/graphql/graphqlSlice';
+import {
+  setIsAccordionExpanded,
+  updateEditor,
+  updateVariables,
+} from '../features/graphql/graphqlSlice';
 import { RootState } from '../store';
 import { selectTranslations } from '../features/translation/translationSlice';
 import {
@@ -24,6 +28,7 @@ export default function AccordionControls() {
   function onPasteButtonClick() {
     dispatch(updateEditor(varEditorPlaceholder));
     dispatch(updateVariables(varPlaceholder));
+    dispatch(setIsAccordionExpanded(true));
   }
   function onClearButtonClick() {
     dispatch(updateVariables(''));

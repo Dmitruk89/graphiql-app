@@ -7,18 +7,21 @@ import LabTabs from './Tabs';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
-import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { useSelector, useDispatch } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
 import AccordionControls from './AccordionControls';
+import { setIsAccordionExpanded } from '../features/graphql/graphqlSlice';
 
 export default function SimpleAccordion() {
   const t = useSelector(selectTranslations);
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState('1');
-  const [isExpanded, setIsExpanded] = React.useState(false);
+  const isExpanded = useSelector((state: RootState) => state.graphql.isAccordionExpanded);
 
   const handleTabClick = (val: string) => {
     setValue(val);
-    if (!isExpanded) setIsExpanded(true);
+    if (!isExpanded) dispatch(setIsAccordionExpanded(true));
   };
 
   return (
@@ -34,7 +37,7 @@ export default function SimpleAccordion() {
           expandIcon={
             <ExpandLessIcon
               sx={{ transform: 'rotate(180deg)', pointerEvents: 'auto' }}
-              onClick={() => setIsExpanded(!isExpanded)}
+              onClick={() => dispatch(setIsAccordionExpanded(!isExpanded))}
             />
           }
           aria-controls="panel1a-content"

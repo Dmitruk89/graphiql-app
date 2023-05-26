@@ -23,6 +23,7 @@ export interface GraphqlState {
   docsListName: string | undefined;
   docsField: DocsField | null;
   docsListStack: DocsListItem[];
+  isAccordionExpanded: boolean;
 }
 
 const initialState: GraphqlState = {
@@ -74,6 +75,7 @@ const initialState: GraphqlState = {
   docsField: null,
   docsListStack: [{ name: 'Query', isType: true }],
   docsWidth: 320,
+  isAccordionExpanded: false,
 };
 
 export const graphqlSlice = createSlice({
@@ -135,6 +137,9 @@ export const graphqlSlice = createSlice({
         }
       }
     },
+    setIsAccordionExpanded: (state, action: PayloadAction<boolean>) => {
+      state.isAccordionExpanded = action.payload;
+    },
   },
 });
 
@@ -154,6 +159,7 @@ export const {
   setPrevListName,
   setDocsField,
   setIsTypeQuery,
+  setIsAccordionExpanded,
 } = graphqlSlice.actions;
 
 export default graphqlSlice.reducer;
