@@ -21,6 +21,7 @@ The application is using [Rick and Morthy API](https://rickandmortyapi.com/docum
 - Multiple languages supported
 - Firebase authentication with auto-logout
 - Responsive design (down to 320px)
+- Lazy loading
 
 ## Technologies used
 
