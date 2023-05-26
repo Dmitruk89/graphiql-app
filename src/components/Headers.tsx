@@ -24,6 +24,7 @@ export function Headers() {
         onChange={(event) => dispatch(updateHeadersEditor(event.target.value))}
         style={{
           width: '100%',
+          minHeight: '100px',
           fontSize: 16,
           backgroundColor: '#ffffff',
           fontFamily:

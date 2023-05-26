@@ -19,6 +19,7 @@ export default function Variables() {
         onChange={(event) => dispatch(updateVariables(event.target.value))}
         style={{
           width: '100%',
+          minHeight: '100px',
           fontSize: 16,
           backgroundColor: '#ffffff',
           fontFamily:
