@@ -1,6 +1,5 @@
 {
   "header": {
-    "docs": "Docs",
     "logoutButton": "sign out"
   },
   "welcomeSection": {
@@ -39,5 +38,9 @@
   "tabs": {
     "variables": "Variables",
     "headers": "Headers"
+  },
+  "docs": {
+    "title": "Docs",
+    "description": "A GraphQL schema provides a root type for each kind of operation."
   }
 }

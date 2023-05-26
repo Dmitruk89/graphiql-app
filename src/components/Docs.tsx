@@ -93,7 +93,7 @@ export default function Docs() {
       open={open}
     >
       <DrawerHeader>
-        <Typography variant="h6">{t.header.docs}</Typography>
+        <Typography variant="h6">{t.docs.title}</Typography>
         <IconButton onClick={handleDocsClose}>
           {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>
@@ -117,7 +117,7 @@ export default function Docs() {
               boxShadow: '0px 50px 71px -44px rgba(0,0,0,0.2)',
             }}
           >
-            A GraphQL schema provides a root type for each kind of operation.
+            {t.docs.description}
             <li>
               <Typography color="info" variant="h6">
                 <Link href="#" onClick={handleClick}>

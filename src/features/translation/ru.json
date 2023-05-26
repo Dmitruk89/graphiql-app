@@ -1,7 +1,6 @@
 {
   "header": {
-    "logoutButton": "выйти",
-    "docs": "Доки"
+    "logoutButton": "выйти"
   },
   "welcomeSection": {
     "title": "GraphiQL-клон",
@@ -39,5 +38,9 @@
   "tabs": {
     "variables": "Переменные",
     "headers": "Заголовки"
+  },
+  "docs": {
+    "title": "Доки",
+    "description": "Схема GraphQL отображает корневой тип для каждого вида операций"
   }
 }
