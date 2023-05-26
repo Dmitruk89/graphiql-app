@@ -36,12 +36,13 @@ export function SignUp() {
   const t = useSelector(selectTranslations);
   const auth = getAuth();
   const navigate = useNavigate();
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [showRepeatedPassword, setShowRepeatedPassword] = React.useState(false);
   const [isFirebaseLoading, setIsFirebaseLoading] = React.useState(false);
   const [isFirebaseError, setIsFirebaseError] = React.useState(false);
+  const [firebaseErrorMessage, setFirebaseErrorMessage] = React.useState('');
   const [isEmailError, setIsEmailError] = React.useState(false);
   const [isPasswordError, setIsPasswordError] = React.useState(false);
   const [isRepeatedPasswordError, setIsRepeatedPasswordError] = React.useState(false);
@@ -53,10 +54,10 @@ export function SignUp() {
     createUserWithEmailAndPassword(auth, data.email, data.repeatedPassword)
       .then(({ user }) => user.getIdTokenResult())
       .then((data) => setTokenExpirationToLocalStorage(new Date(data.expirationTime).getTime()))
-      .catch(() => {
+      .catch((err) => {
+        if (err.message.includes('email-already-in-use'))
+          setFirebaseErrorMessage(t.auth.emailInUse);
         setIsFirebaseError(true);
-        setIsEmailError(true);
-        setIsPasswordError(true);
       })
       .finally(() => setIsFirebaseLoading(false));
   };
@@ -70,18 +71,8 @@ export function SignUp() {
     errors.repeatedPassword ? setIsRepeatedPasswordError(true) : setIsRepeatedPasswordError(false);
   }, [errors.password, errors.email, errors.repeatedPassword]);
 
-  React.useEffect(() => {
-    if (loading) return;
-    if (user) {
-      setIsFirebaseError(false);
-      setIsEmailError(false);
-      setIsPasswordError(false);
-      navigate('/main');
-    }
-  }, [user, loading, error, navigate]);
-
-  return (
-    (loading && (
+  if (loading) {
+    return (
       <Box
         sx={{
           display: 'flex',
@@ -92,9 +83,15 @@ export function SignUp() {
       >
         <CircularProgress color="inherit" />
       </Box>
-    )) ||
-    (user && <Typography>{t.auth.redirecting}</Typography>) ||
-    (isFirebaseLoading && (
+    );
+  }
+
+  if (user) {
+    navigate('/main');
+    return <Typography>{t.auth.redirecting}</Typography>;
+  }
+  if (isFirebaseLoading) {
+    return (
       <Box
         sx={{
           display: 'flex',
@@ -107,107 +104,107 @@ export function SignUp() {
         <Typography>{t.auth.connectingToFirebase}</Typography>
         <CircularProgress color="inherit" />
       </Box>
-    )) || (
-      <FormProvider {...methods}>
-        <form className="form" onSubmit={handleSubmit(onFormSubmit)}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 1,
-              margin: 'auto',
-              maxWidth: '300px',
+    );
+  }
+
+  return (
+    <FormProvider {...methods}>
+      <form className="form" onSubmit={handleSubmit(onFormSubmit)}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 1,
+            margin: 'auto',
+            maxWidth: '300px',
+          }}
+        >
+          {isFirebaseError && <InputErrorMessage error={firebaseErrorMessage} />}
+          <TextField
+            error={isEmailError || isFirebaseError}
+            fullWidth={true}
+            label={t.auth.email}
+            variant="outlined"
+            type="text"
+            {...register('email', {
+              required: t.auth.emailRequireErrorMessage,
+              pattern: {
+                value: validationPatterns.email,
+                message: t.auth.emailPatternErrorMessage,
+              },
+            })}
+          />
+          {errors.email && <InputErrorMessage error={errors.email.message} />}
+          <TextField
+            error={isPasswordError || isFirebaseError}
+            fullWidth={true}
+            label={t.auth.password}
+            variant="outlined"
+            type={showPassword ? 'text' : 'password'}
+            {...register('password', {
+              required: t.auth.passwordRequireErrorMessage,
+              pattern: {
+                value: validationPatterns.password,
+                message: t.auth.passwordPatternErrorMessage,
+              },
+            })}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
             }}
-          >
-            {isFirebaseError && <InputErrorMessage error={t.auth.wrongEmail} />}
-            <TextField
-              error={isEmailError}
-              fullWidth={true}
-              label={t.auth.email}
-              variant="outlined"
-              type="text"
-              {...register('email', {
-                required: t.auth.emailRequireErrorMessage,
-                pattern: {
-                  value: validationPatterns.email,
-                  message: t.auth.emailPatternErrorMessage,
-                },
-              })}
-            />
-            {errors.email && <InputErrorMessage error={errors.email.message} />}
-            <TextField
-              error={isPasswordError}
-              fullWidth={true}
-              label={t.auth.password}
-              variant="outlined"
-              type={showPassword ? 'text' : 'password'}
-              {...register('password', {
-                required: t.auth.passwordRequireErrorMessage,
-                pattern: {
-                  value: validationPatterns.password,
-                  message: t.auth.passwordPatternErrorMessage,
-                },
-              })}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            {errors.password && <InputErrorMessage error={errors.password.message} />}
-            <TextField
-              error={isRepeatedPasswordError}
-              fullWidth={true}
-              label={t.auth.repeatPassword}
-              variant="outlined"
-              type={showRepeatedPassword ? 'text' : 'password'}
-              {...register('repeatedPassword', {
-                required: t.auth.repeatedPasswordRequireErrorMessage,
-                pattern: {
-                  value: watchPasswordValue
-                    ? new RegExp(`^${watchPasswordValue.replace(/\$/g, '\\$')}$`)
-                    : new RegExp(watchPasswordValue),
-                  message: t.auth.repeatedPasswordPatternErrorMessage,
-                },
-              })}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowRepeatedPassword}
-                      edge="end"
-                    >
-                      {showRepeatedPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            {errors.repeatedPassword && (
-              <InputErrorMessage error={errors.repeatedPassword.message} />
-            )}
-            <Button type="submit" variant="contained">
-              {t.auth.signUp}
-            </Button>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography>{t.auth.haveAcc}</Typography>
-              <Link to="/auth/signIn">
-                <Button>{t.auth.signIn}</Button>
-              </Link>
-            </Box>
+          />
+          {errors.password && <InputErrorMessage error={errors.password.message} />}
+          <TextField
+            error={isRepeatedPasswordError || isFirebaseError}
+            fullWidth={true}
+            label={t.auth.repeatPassword}
+            variant="outlined"
+            type={showRepeatedPassword ? 'text' : 'password'}
+            {...register('repeatedPassword', {
+              required: t.auth.repeatedPasswordRequireErrorMessage,
+              pattern: {
+                value: watchPasswordValue
+                  ? new RegExp(`^${watchPasswordValue.replace(/\$/g, '\\$')}$`)
+                  : new RegExp(watchPasswordValue),
+                message: t.auth.repeatedPasswordPatternErrorMessage,
+              },
+            })}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowRepeatedPassword}
+                    edge="end"
+                  >
+                    {showRepeatedPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          {errors.repeatedPassword && <InputErrorMessage error={errors.repeatedPassword.message} />}
+          <Button type="submit" variant="contained">
+            {t.auth.signUp}
+          </Button>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Typography>{t.auth.haveAcc}</Typography>
+            <Link to="/auth/signIn">
+              <Button>{t.auth.signIn}</Button>
+            </Link>
           </Box>
-        </form>
-      </FormProvider>
-    )
+        </Box>
+      </form>
+    </FormProvider>
   );
 }

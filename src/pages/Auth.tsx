@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Container, Box, Button } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
 
 import LanguageSwitcher from '../components/LanguageSwitcher';
-import { SignIn } from '../components/SignIn';
-import { SignUp } from '../components/SignUp';
 import Footer from '../components/Footer';
+import { Loading } from '../components/Loading';
+
+const SignIn = lazy(() =>
+  import('../components/SignIn').then((module) => ({ default: module.SignIn }))
+);
+const SignUp = lazy(() =>
+  import('../components/SignUp').then((module) => ({ default: module.SignUp }))
+);
 
 function Auth() {
   const t = useSelector(selectTranslations);
@@ -28,9 +34,13 @@ function Auth() {
           sx={{
             display: 'flex',
             height: 'calc(100vh - 96px - var(--footer-height))',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          <Box sx={{ margin: 'auto' }}>{params.path === 'signIn' ? <SignIn /> : <SignUp />}</Box>
+          <Suspense fallback={<Loading text={null} fullHeight={false} />}>
+            <Box>{params.path === 'signIn' ? <SignIn /> : <SignUp />}</Box>
+          </Suspense>
         </Container>
       </Container>
       <Footer />

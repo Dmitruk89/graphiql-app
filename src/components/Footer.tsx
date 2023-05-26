@@ -45,7 +45,7 @@ export default function Footer() {
       <FooterContainer
         open={open}
         component="footer"
-        sx={{ top: 'auto', bottom: 0, padding: '15px', position: 'static', marginLeft: 0 }}
+        sx={{ top: 'auto', bottom: 0, position: 'static', marginLeft: 0 }}
       >
         <Toolbar>
           <Box

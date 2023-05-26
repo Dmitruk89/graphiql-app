@@ -6,8 +6,10 @@ import { RootState } from '../store';
 import JSONPretty from 'react-json-pretty';
 import { CircularProgress } from '@mui/material';
 import { selectTranslations } from '../features/translation/translationSlice';
+import { ApiError } from '../types/types';
 
 export default function ResponseSection() {
+  let trimmedError = '';
   const skip = useSelector((state: RootState) => state.graphql.skipQuery);
   const t = useSelector(selectTranslations);
   const query = useSelector((state: RootState) => state.graphql.query);
@@ -17,10 +19,15 @@ export default function ResponseSection() {
     variables = '{}';
   }
   const {
-    data: characters,
+    data: apiResponse,
     error,
     isLoading,
   } = useGetCharactersQuery({ query, headers, variables }, { skip });
+  if (error) {
+    const errorMessage = (error as ApiError)?.message;
+    const colonCurlyBraceIndex = errorMessage.indexOf(': {');
+    trimmedError = errorMessage.substring(0, colonCurlyBraceIndex);
+  }
 
   return (
     <React.Fragment>
@@ -28,7 +35,7 @@ export default function ResponseSection() {
         sx={{
           padding: 3,
           flexGrow: 1,
-
+          overflow: 'auto',
           color: '#8c959f',
           fontSize: '1.1rem',
           backgroundColor: '#f5f5f5',
@@ -40,9 +47,9 @@ export default function ResponseSection() {
           <JSONPretty
             id="json-pretty"
             style={{ fontSize: '1rem' }}
-            data={error}
+            data={trimmedError}
             mainStyle="line-height:1.3;color:#6e7781;background:#f5f5f5;overflow:auto;"
-            errorStyle="line-height:1.3;color:#66d9ef;background:f5f5f5;overflow:auto;"
+            errorStyle="line-height:1.3;color:#184f5a;background:f5f5f5;overflow:auto;"
             keyStyle="color:#0550ae;"
             stringStyle="color:#116329;"
             valueStyle="color:#116329;"
@@ -59,11 +66,11 @@ export default function ResponseSection() {
           >
             <CircularProgress color="inherit" />
           </Box>
-        ) : characters ? (
+        ) : apiResponse ? (
           <JSONPretty
             id="json-pretty"
             style={{ fontSize: '1rem' }}
-            data={characters}
+            data={apiResponse}
             mainStyle="line-height:1.3;color:#6e7781;background:#f5f5f5;overflow:auto;"
             errorStyle="line-height:1.3;color:#66d9ef;background:f5f5f5;overflow:auto;"
             keyStyle="color:#0550ae;"
