@@ -45,12 +45,7 @@ export default function UserMenu() {
     <React.Fragment>
       <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
         {user && <Typography component="div">{user.email}</Typography>}
-        <Button
-          onClick={handleLogOutClick}
-          color="info"
-          variant="contained"
-          sx={{ margin: ' 0 0.65rem 0 1rem' }}
-        >
+        <Button onClick={handleLogOutClick} color="info" sx={{ margin: ' 0 0.65rem 0 1rem' }}>
           {t.header.logoutButton}
         </Button>
       </Box>

@@ -19,7 +19,10 @@ import { selectTranslations } from './features/translation/translationSlice';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#426892',
+      main: '#99acbe',
+    },
+    info: {
+      main: '#214c75',
     },
   },
 });

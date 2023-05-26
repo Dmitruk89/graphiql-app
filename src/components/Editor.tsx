@@ -78,9 +78,11 @@ export default function Editor() {
         sx={{
           display: 'flex',
           flexGrow: 1,
+          minWidth: '40vw',
           flexDirection: 'column',
           alignItems: 'flex-start',
           justifyContent: 'space-between',
+          borderRadius: '10px',
         }}
       >
         <CodeEditor

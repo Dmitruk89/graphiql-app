@@ -1,6 +1,6 @@
 import React from 'react';
 import Divider from '@mui/material/Divider';
-import { Box, Collapse, Link, List, ListSubheader, Typography } from '@mui/material';
+import { Box, Link, List, ListSubheader, Typography } from '@mui/material';
 import { useGetDocsQuery } from '../features/api/apiSlice';
 import { CircularProgress } from '@mui/material';
 import { FieldList } from './docs/FieldList';
@@ -20,11 +20,11 @@ export default function DocsBody() {
     setIsSublistOpen(!isSublistOpen);
   };
 
-  let CollapseListContent;
+  let ListContent;
   const drawerRef = React.useRef(undefined);
 
   if (isFetching) {
-    CollapseListContent = (
+    ListContent = (
       <Box
         ref={drawerRef}
         sx={{
@@ -40,7 +40,7 @@ export default function DocsBody() {
       </Box>
     );
   } else if (isSuccess) {
-    CollapseListContent = docs['__type']['fields'] ? (
+    ListContent = docs['__type']['fields'] ? (
       <FieldList fields={docs['__type']['fields']}></FieldList>
     ) : docs['__type']['inputFields'] ? (
       <FieldList fields={docs['__type']['inputFields']}></FieldList>
@@ -82,9 +82,7 @@ export default function DocsBody() {
           </ListSubheader>
         }
       >
-        <Collapse in={isSublistOpen} timeout="auto" unmountOnExit>
-          {CollapseListContent}
-        </Collapse>
+        {ListContent}
       </List>
     </>
   );
