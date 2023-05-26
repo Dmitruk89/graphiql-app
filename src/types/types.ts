@@ -22,6 +22,8 @@ export type SignInInput = {
 
 export type HeadersStateType = 'empty' | 'parsed' | 'notParsed';
 
+export type VariablesStateType = 'empty';
+
 export interface IDeveloper {
   image: string;
   name: string;

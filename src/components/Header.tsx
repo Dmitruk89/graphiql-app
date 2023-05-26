@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { lazy, Suspense } from 'react';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -11,8 +10,9 @@ import { setDocsOpen } from '../features/graphql/graphqlSlice';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import { RootState } from '../store';
-import UserMenu from './UserMenu';
+const UserMenu = lazy(() => import('./UserMenu'));
 import { useScrollTrigger } from '@mui/material';
+import { Loading } from './Loading';
 
 export default function Header() {
   const open = useSelector((state: RootState) => state.graphql.isDocsOpen);
@@ -81,7 +81,9 @@ export default function Header() {
               <AssignmentIcon />
             </IconButton>
             <Box sx={{ flexGrow: 1 }}></Box>
-            <UserMenu></UserMenu>
+            <Suspense fallback={<Loading text={null} fullHeight={false} />}>
+              <UserMenu></UserMenu>
+            </Suspense>
             <LanguageSwitcher></LanguageSwitcher>
           </Toolbar>
         </AppBar>
