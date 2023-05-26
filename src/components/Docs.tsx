@@ -52,9 +52,9 @@ export default function Docs() {
           {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>
       </DrawerHeader>
-      <React.Suspense
-        fallback={<Loading text={t.loader.docs} fullHeight={false} />}
-      ></React.Suspense>
+      <React.Suspense fallback={<Loading text={t.loader.docs} fullHeight={false} />}>
+        <DocsBody />
+      </React.Suspense>
     </Drawer>
   );
 }
