@@ -30,8 +30,8 @@ export const descrStyle = {
 };
 
 export const titleStyle = {
-  margin: '20px auto 0',
-  fontSize: '48px',
+  margin: '55px auto 15px',
+  fontSize: '38px',
   fontWeight: 500,
   textAlign: 'center',
   '@media (max-width: 915px)': {

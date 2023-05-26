@@ -13,6 +13,7 @@ import DeveloperCard from '../components/Card';
 import { getAuth } from 'firebase/auth';
 import { useIdToken } from 'react-firebase-hooks/auth';
 import Footer from '../components/Footer';
+import Features from '../components/Features';
 
 function Welcome() {
   const t = useSelector(selectTranslations);
@@ -46,9 +47,8 @@ function Welcome() {
           sx={{
             display: 'flex',
             justifyContent: 'flex-end',
-            maxWidth: '1400px',
             padding: '15px',
-            margin: '20px auto',
+            margin: '0 auto',
           }}
         >
           {user ? (
@@ -67,13 +67,40 @@ function Welcome() {
           )}
           <LanguageSwitcher></LanguageSwitcher>
         </Box>
-        <Container sx={{ height: 'calc(100vh - var(--footer-height) - 107px)' }}>
+        <Container
+          sx={{
+            marginBottom: '50px',
+          }}
+        >
           <Typography variant="h1" component="h2" sx={titleStyle}>
             {t.welcomeSection.title}
           </Typography>
-          ;
           <Typography component="p" sx={descrStyle}>
             {t.welcomeSection.welcomeDescr}
+          </Typography>
+          <Typography component="p" sx={descrStyle}>
+            {t.welcomeSection.welcomeProj}{' '}
+            <a className="customLink" href="https://rs.school/react/">
+              {t.welcomeSection.welcomeLink}
+            </a>
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '580px',
+              height: '320px',
+              backgroundColor: '#426892',
+              margin: '0 auto',
+            }}
+          >
+            video about app
+          </Box>
+        </Container>
+        <Container>
+          <Typography variant="h1" component="h4" sx={titleStyle}>
+            {t.welcomeSection.developers}
           </Typography>
           <Box component="div" sx={devStyle}>
             {lang === 'en'
@@ -85,6 +112,7 @@ function Welcome() {
                 ))}
           </Box>
         </Container>
+        <Features />
         <Footer />
       </>
     )

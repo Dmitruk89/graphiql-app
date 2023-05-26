@@ -4,7 +4,6 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import { IDeveloper } from '../types/types';
 import { cardStyle } from '../utils/style-const';
 
@@ -13,18 +12,23 @@ interface IProps {
 }
 
 function DeveloperCard(props: IProps) {
-  const { image, altText, name, descr, link } = props.developer;
+  const { image, altText, name, descr } = props.developer;
   return (
     <>
       <Card sx={cardStyle}>
-        <CardActionArea>
+        <CardActionArea sx={{ display: 'flex' }}>
           <div className="photo">
             <CardMedia
               component="img"
-              height="300"
               image={image}
               alt={altText}
-              sx={{ verticalAlign: 'top' }}
+              sx={{
+                height: '50px',
+                width: '50px',
+                margin: '15px',
+                verticalAlign: 'top',
+                borderRadius: '100%',
+              }}
             />
           </div>
           <CardContent sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -36,9 +40,6 @@ function DeveloperCard(props: IProps) {
                 {descr}
               </Typography>
             </div>
-            <GitHubIcon>
-              <a href={link}></a>
-            </GitHubIcon>
           </CardContent>
         </CardActionArea>
       </Card>
