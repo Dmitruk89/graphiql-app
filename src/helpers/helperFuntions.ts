@@ -17,3 +17,9 @@ export const checkTokenExpiration = (auth: Auth): void => {
     }
   }
 };
+
+export const getCurrentLangIndex = (): number => {
+  const languagesArr = ['en', 'ru'];
+  const currentLang = localStorage.getItem('divRulezzCurrentLang');
+  return languagesArr.indexOf(currentLang ? currentLang : 'en');
+};
