@@ -10,7 +10,18 @@
     "welcomeProj": "The application was made as a final task of the Rolling Scope School - ",
     "welcomeLink": "React course 2023 Q1",
     "linkToMain": "Go to main page",
-    "developers": "Developers team"
+    "developers": "About us",
+    "project": "About project"
+  },
+  "about": {
+    "features1": "Query editor",
+    "features2": "Response section",
+    "features3": "Variables and Headers editors",
+    "features4": "Documentation explorer with ability to navigate back in queries",
+    "features5": "Multiple languages supported",
+    "features6": "Firebase authentication with auto-logout",
+    "about1": "Features",
+    "about2": "Technologes"
   },
   "mainSection": {
     "sendButton": "send",

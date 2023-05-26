@@ -5,14 +5,10 @@ import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
-import Zoom from '@mui/material/Zoom';
-import Fab from '@mui/material/Fab';
-import EditIcon from '@mui/icons-material/Edit';
-import UpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { green } from '@mui/material/colors';
 import Box from '@mui/material/Box';
-import { SxProps } from '@mui/system';
 import { titleStyle } from '../utils/style-const';
+import { useSelector } from 'react-redux';
+import { selectTranslations } from '../features/translation/translationSlice';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -45,21 +41,8 @@ function a11yProps(index: string | number) {
   };
 }
 
-const fabStyle = {
-  position: 'absolute',
-  bottom: 16,
-  right: 16,
-};
-
-const fabGreenStyle = {
-  color: 'common.white',
-  bgcolor: green[500],
-  '&:hover': {
-    bgcolor: green[600],
-  },
-};
-
 export default function Features() {
+  const t = useSelector(selectTranslations);
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
@@ -70,26 +53,6 @@ export default function Features() {
   const handleChangeIndex = (index: number) => {
     setValue(index);
   };
-
-  const transitionDuration = {
-    enter: theme.transitions.duration.enteringScreen,
-    exit: theme.transitions.duration.leavingScreen,
-  };
-
-  const fabs = [
-    {
-      color: 'secondary',
-      sx: fabStyle as SxProps,
-      icon: <EditIcon />,
-      label: 'Edit',
-    },
-    {
-      color: 'secondary',
-      sx: fabStyle as SxProps,
-      icon: <EditIcon />,
-      label: 'Edit',
-    },
-  ];
 
   return (
     <Box
@@ -102,7 +65,7 @@ export default function Features() {
       }}
     >
       <Typography variant="h1" component="h4" sx={titleStyle}>
-        Used technologes
+        {t.welcomeSection.project}
       </Typography>
       <AppBar position="static" color="default">
         <Tabs
@@ -113,8 +76,8 @@ export default function Features() {
           variant="fullWidth"
           aria-label="action tabs example"
         >
-          <Tab label="Features" {...a11yProps(0)} />
-          <Tab label="Technologes" {...a11yProps(1)} />
+          <Tab label={t.about.about1} {...a11yProps(0)} />
+          <Tab label={t.about.about2} {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -123,14 +86,12 @@ export default function Features() {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Typography component="p">Query editor</Typography>
-          <Typography component="p">Response section</Typography>
-          <Typography component="p">Variables and Headers editors</Typography>
-          <Typography component="p">
-            Documentation explorer with ability to navigate back in queries
-          </Typography>
-          <Typography component="p">Multiple languages supported</Typography>
-          <Typography component="p">Firebase authentication with auto-logout</Typography>
+          <Typography component="p">{t.about.features1}</Typography>
+          <Typography component="p">{t.about.features2}</Typography>
+          <Typography component="p">{t.about.features3}</Typography>
+          <Typography component="p">{t.about.features4}</Typography>
+          <Typography component="p">{t.about.features5}</Typography>
+          <Typography component="p">{t.about.features6}</Typography>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <Typography component="p">GraphQL</Typography>
@@ -141,21 +102,6 @@ export default function Features() {
           <Typography component="p">i18n</Typography>
         </TabPanel>
       </SwipeableViews>
-      {fabs.map((fab, index) => (
-        <Zoom
-          key={fab.color}
-          in={value === index}
-          timeout={transitionDuration}
-          style={{
-            transitionDelay: `${value === index ? transitionDuration.exit : 0}ms`,
-          }}
-          unmountOnExit
-        >
-          <Fab sx={fab.sx} aria-label={fab.label}>
-            {fab.icon}
-          </Fab>
-        </Zoom>
-      ))}
     </Box>
   );
 }

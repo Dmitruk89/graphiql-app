@@ -30,4 +30,5 @@ export interface IDeveloper {
   descr: string;
   altText: string;
   link: string;
+  work: string;
 }

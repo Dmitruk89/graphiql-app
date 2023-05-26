@@ -9,13 +9,15 @@ export const developers_en = [
     altText: 'irina',
     image: `${irina}`,
     link: 'https://github.com/IrinaBukley23/',
+    work: 'Designed and implemented interfaces and did everything for the convenience of the user.',
   },
   {
     name: 'Dmitry',
-    descr: 'Frontend developer',
+    descr: 'Team Lead. Frontend developer',
     altText: 'dmitry',
     image: `${dmitry}`,
     link: 'https://github.com/Dmitruk89',
+    work: 'Dealt with the most difficult parts of the project, helped the team and managed the development process.',
   },
   {
     name: 'Vlad',
@@ -23,6 +25,7 @@ export const developers_en = [
     altText: 'vlad',
     image: `${vlad}`,
     link: 'https://github.com/liestreadt',
+    work: 'Designed and implemented interfaces and did everything for the convenience of the user.',
   },
 ];
 
@@ -33,13 +36,15 @@ export const developers_ru = [
     altText: 'irina',
     image: `${irina}`,
     link: 'https://github.com/IrinaBukley23/',
+    work: 'Проектировал и реализовывал интерфейсы и делал все для удобства пользователя.',
   },
   {
     name: 'Дмитрий',
-    descr: 'Фронтенд разработчик',
+    descr: 'Тимлид. Фронтенд разработчик',
     altText: 'dmitry',
     image: `${dmitry}`,
     link: 'https://github.com/Dmitruk89',
+    work: 'Разбирался с самыми сложными частями проекта, помогал команде и управлял процессом разработки.',
   },
   {
     name: 'Влад',
@@ -47,5 +52,6 @@ export const developers_ru = [
     altText: 'vlad',
     image: `${vlad}`,
     link: 'https://github.com/liestreadt',
+    work: 'Проектировал и реализовывал интерфейсы и делал все для удобства пользователя.',
   },
 ];

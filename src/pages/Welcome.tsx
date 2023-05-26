@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Divider, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
 import { developers_en, developers_ru } from '../utils/constants';
 import { useSelector } from 'react-redux';
@@ -67,6 +67,7 @@ function Welcome() {
           )}
           <LanguageSwitcher></LanguageSwitcher>
         </Box>
+        <Divider variant="inset" />
         <Container
           sx={{
             marginBottom: '50px',
@@ -98,7 +99,8 @@ function Welcome() {
             video about app
           </Box>
         </Container>
-        <Container>
+        <Divider variant="inset" />
+        <Container sx={{ padding: '50px 0 100px' }}>
           <Typography variant="h1" component="h4" sx={titleStyle}>
             {t.welcomeSection.developers}
           </Typography>
@@ -112,6 +114,7 @@ function Welcome() {
                 ))}
           </Box>
         </Container>
+        <Divider variant="inset" />
         <Features />
         <Footer />
       </>

@@ -12,7 +12,7 @@ interface IProps {
 }
 
 function DeveloperCard(props: IProps) {
-  const { image, altText, name, descr } = props.developer;
+  const { image, altText, name, descr, work } = props.developer;
   return (
     <>
       <Card sx={cardStyle}>
@@ -36,8 +36,15 @@ function DeveloperCard(props: IProps) {
               <Typography gutterBottom variant="h5" component="div">
                 {name}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{ fontWeight: '700', marginBottom: '10px' }}
+              >
                 {descr}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {work}
               </Typography>
             </div>
           </CardContent>
