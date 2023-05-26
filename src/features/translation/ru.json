@@ -10,10 +10,16 @@
     "linkToMain": "Перейти на главную страницу"
   },
   "mainSection": {
-    "sendButton": "отправить",
-    "editorPlaceholder": "Пожалуйста введите GraphQL запрос",
+    "sendButton": "отправить запрос",
+    "editorPlaceholder": "Пожалуйста, введите GraphQL запрос или вставьте шаблон",
+    "editorTooltipPlaceholder": "Код редактора:",
+    "editorClearTooltip": "Очистить редактор",
     "resultPlaceholder": "Результат отобразится здесь...",
-    "variablesPlaceholder": "Пожалуйста введите переменные"
+    "variablesPlaceholder": "Пожалуйста, введите переменные или вставьте шаблон",
+    "variablesTooltipPlaceholder": "Код переменных:",
+    "variablesClearTooltip": "Очистить переменные",
+    "headersPlaceholder": "Пожалуйста, введите заголовки",
+    "tooltipClickAction": "Кликни, чтобы вставить"
   },
   "auth": {
     "dontHaveAcc": "Нет аккаунта?",

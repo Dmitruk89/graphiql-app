@@ -4,8 +4,10 @@ import { Box } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateHeadersEditor } from '../features/graphql/graphqlSlice';
 import { RootState } from '../store';
+import { selectTranslations } from '../features/translation/translationSlice';
 
 export function Headers() {
+  const t = useSelector(selectTranslations);
   const headersState = useSelector((state: RootState) => state.graphql.headersState);
   const headersEditorState = useSelector((state: RootState) => state.graphql.headersEditor);
   const dispatch = useDispatch();
@@ -18,6 +20,7 @@ export function Headers() {
       <CodeEditor
         value={headersEditorState}
         language="graphql"
+        placeholder={t.mainSection.headersPlaceholder}
         onChange={(event) => dispatch(updateHeadersEditor(event.target.value))}
         style={{
           width: '100%',

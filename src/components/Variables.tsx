@@ -17,10 +17,8 @@ export default function Variables() {
         language="graphql"
         placeholder={t.mainSection.variablesPlaceholder}
         onChange={(event) => dispatch(updateVariables(event.target.value))}
-        padding={15}
         style={{
           width: '100%',
-          marginBottom: '20px',
           fontSize: 16,
           backgroundColor: '#ffffff',
           fontFamily:

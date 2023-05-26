@@ -2,12 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HeadersStateType, VariablesStateType } from '../../types/types';
 import { DocsType, DocsField, DocsListItem } from '../../types/docsTypes';
 
-
 export interface GraphqlState {
+  placeholderVar: string;
+  placeholderVarCode: string;
+  placeholderCode: string;
   editorCode: string;
   varQueryCode: string;
   variablesState: VariablesStateType;
   query: string;
+  varQuery: string;
   headersEditor: string;
   headersForQuery: [string, string | unknown][];
   headersState: HeadersStateType;
@@ -23,7 +26,22 @@ export interface GraphqlState {
 }
 
 const initialState: GraphqlState = {
-  editorCode: `query {
+  placeholderVar: `
+  { 
+    "id": 1
+  }`,
+  placeholderVarCode: `
+  query GetCharacter($id: ID!) {
+    character(id: $id) {
+      name
+      status
+      species
+      type
+      gender
+    }
+  }
+`,
+  placeholderCode: `query {
     characters(page: 2, filter: { name: "rick" }) {
       info {
         count
@@ -39,9 +57,11 @@ const initialState: GraphqlState = {
       id
     }
   }`,
+  editorCode: '',
   varQueryCode: '',
   variablesState: 'empty',
   query: '',
+  varQuery: '',
   headersEditor: '',
   headersForQuery: [['x-custom-headers', '123']],
   headersState: 'empty',
@@ -66,8 +86,8 @@ export const graphqlSlice = createSlice({
     updateVariables: (state: GraphqlState, action: PayloadAction<string>) => {
       state.varQueryCode = action.payload;
     },
-    setVariablesState: (state, action: PayloadAction<VariablesStateType>) => {
-      state.variablesState = action.payload;
+    setVariablesQuery: (state) => {
+      state.varQuery = state.varQueryCode;
     },
     updateHeadersEditor: (state, action: PayloadAction<string>) => {
       state.headersEditor = action.payload;
@@ -125,7 +145,7 @@ export const {
   setHeadersState,
   createQuery,
   updateVariables,
-  setVariablesState,
+  setVariablesQuery,
   disableSkip,
   setDocsOpen,
   setDocsType,

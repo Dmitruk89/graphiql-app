@@ -9,6 +9,7 @@ import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
+import AccordionControls from './AccordionControls';
 
 export default function SimpleAccordion() {
   const t = useSelector(selectTranslations);
@@ -21,8 +22,14 @@ export default function SimpleAccordion() {
   };
 
   return (
-    <>
-      <Accordion expanded={isExpanded} sx={{ marginTop: '16px' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexGrow: 1,
+        alignItems: 'flex-start',
+      }}
+    >
+      <Accordion expanded={isExpanded} sx={{ marginTop: '16px', width: '100%' }}>
         <AccordionSummary
           expandIcon={
             <ExpandLessIcon
@@ -60,6 +67,7 @@ export default function SimpleAccordion() {
           <LabTabs value={value} />
         </AccordionDetails>
       </Accordion>
-    </>
+      <AccordionControls></AccordionControls>
+    </Box>
   );
 }
