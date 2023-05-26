@@ -7,11 +7,12 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
+import LanguageIcon from '@mui/icons-material/Language';
 import type { RootState } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
 import { switchLanguage } from '../features/translation/translationSlice';
-import ruFlag from '../assets/flags/ru.png';
-import enFlag from '../assets/flags/en.png';
+import { getCurrentLangIndex } from '../helpers/helperFuntions';
+import { Typography } from '@mui/material';
 
 export default function LanguageSwitcher() {
   const language = useSelector((state: RootState) => state.translation.lang);
@@ -19,7 +20,7 @@ export default function LanguageSwitcher() {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+  const [selectedIndex, setSelectedIndex] = React.useState(getCurrentLangIndex());
 
   const handleMenuItemClick = (index: number, option: string) => {
     setSelectedIndex(index);
@@ -42,6 +43,7 @@ export default function LanguageSwitcher() {
     <React.Fragment>
       <ButtonGroup color="inherit" ref={anchorRef} aria-label="split button">
         <Button
+          sx={{ textTransform: 'none' }}
           size="small"
           variant="text"
           aria-controls={open ? 'split-button-menu' : undefined}
@@ -50,9 +52,8 @@ export default function LanguageSwitcher() {
           aria-haspopup="menu"
           onClick={handleToggle}
         >
-          <div className="flag">
-            {language === 'ru' ? <img src={ruFlag} alt="ru" /> : <img src={enFlag} alt="en" />}
-          </div>
+          <LanguageIcon />
+          <Typography>{language === 'ru' ? 'Русский' : 'English'}</Typography>
         </Button>
       </ButtonGroup>
       <Popper
@@ -82,13 +83,7 @@ export default function LanguageSwitcher() {
                       selected={index === selectedIndex}
                       onClick={() => handleMenuItemClick(index, option)}
                     >
-                      <div className="flag">
-                        {option === 'ru' ? (
-                          <img src={ruFlag} alt="ru" />
-                        ) : (
-                          <img src={enFlag} alt="en" />
-                        )}
-                      </div>
+                      <Typography>{option === 'ru' ? 'Русский' : 'English'}</Typography>
                     </MenuItem>
                   ))}
                 </MenuList>

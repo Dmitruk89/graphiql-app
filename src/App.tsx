@@ -1,17 +1,20 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { useIdToken } from 'react-firebase-hooks/auth';
 import { store } from './store';
 import { Provider } from 'react-redux';
 import { apiSlice } from './features/api/apiSlice';
 import { ApiProvider } from '@reduxjs/toolkit/query/react';
-import Auth from './pages/Auth';
+const Welcome = lazy(() => import('./pages/Welcome'));
+const Main = lazy(() => import('./pages/Main'));
+const Auth = lazy(() => import('./pages/Auth'));
 import NotFound from './pages/NotFound';
 import { checkTokenExpiration } from './helpers/helperFuntions';
 import { createTheme, ThemeProvider } from '@mui/material';
-import Welcome from './pages/Welcome';
-import Main from './pages/Main';
+import { Loading } from './components/Loading';
+import { useSelector } from 'react-redux';
+import { selectTranslations } from './features/translation/translationSlice';
 
 const theme = createTheme({
   palette: {
@@ -23,6 +26,7 @@ const theme = createTheme({
 
 export function App() {
   const auth = getAuth();
+  const t = useSelector(selectTranslations);
   const [loading] = useIdToken(auth);
 
   React.useEffect(() => {
@@ -36,12 +40,14 @@ export function App() {
   }, [auth, loading]);
 
   return (
-    <Routes>
-      <Route index element={<Welcome />} />
-      <Route path="/auth/:path" element={<Auth />} />
-      <Route path="/main" element={<Main />} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <Suspense fallback={<Loading text={t.loader.app} fullHeight={true} />}>
+      <Routes>
+        <Route index element={<Welcome />} />
+        <Route path="/auth/:path" element={<Auth />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 }
 

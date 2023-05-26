@@ -35,11 +35,12 @@ export function SignIn() {
   const t = useSelector(selectTranslations);
   const auth = getAuth();
   const navigate = useNavigate();
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [isFirebaseLoading, setIsFirebaseLoading] = React.useState(false);
   const [isFirebaseError, setIsFirebaseError] = React.useState(false);
+  const [firebaseErrorMessage, setFirebaseErrorMessage] = React.useState('');
   const [isEmailError, setIsEmailError] = React.useState(false);
   const [isPasswordError, setIsPasswordError] = React.useState(false);
 
@@ -48,10 +49,11 @@ export function SignIn() {
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then(({ user }) => user.getIdTokenResult())
       .then((data) => setTokenExpirationToLocalStorage(new Date(data.expirationTime).getTime()))
-      .catch(() => {
+      .catch((err) => {
+        if (err.message.includes('invalid-email')) setFirebaseErrorMessage(t.auth.wrongEmail);
+        if (err.message.includes('user-not-found')) setFirebaseErrorMessage(t.auth.wrongUser);
+        if (err.message.includes('wrong-password')) setFirebaseErrorMessage(t.auth.wrongPassword);
         setIsFirebaseError(true);
-        setIsEmailError(true);
-        setIsPasswordError(true);
       })
       .finally(() => setIsFirebaseLoading(false));
   };
@@ -63,18 +65,8 @@ export function SignIn() {
     errors.password ? setIsPasswordError(true) : setIsPasswordError(false);
   }, [errors.email, errors.password]);
 
-  React.useEffect(() => {
-    if (loading) return;
-    if (user) {
-      setIsFirebaseError(false);
-      setIsEmailError(false);
-      setIsPasswordError(false);
-      navigate('/main');
-    }
-  }, [user, loading, error, navigate]);
-
-  return (
-    (loading && (
+  if (loading) {
+    return (
       <Box
         sx={{
           display: 'flex',
@@ -83,11 +75,19 @@ export function SignIn() {
           alignItems: 'center',
         }}
       >
+        laoding
         <CircularProgress color="inherit" />
       </Box>
-    )) ||
-    (user && <Typography>{t.auth.redirecting}</Typography>) ||
-    (isFirebaseLoading && (
+    );
+  }
+
+  if (user) {
+    navigate('/main');
+    return <Typography>{t.auth.redirecting}</Typography>;
+  }
+
+  if (isFirebaseLoading) {
+    return (
       <Box
         sx={{
           display: 'flex',
@@ -100,63 +100,65 @@ export function SignIn() {
         <Typography>{t.auth.connectingToFirebase}</Typography>
         <CircularProgress color="inherit" />
       </Box>
-    )) || (
-      <FormProvider {...methods}>
-        <form className="form" onSubmit={handleSubmit(onFormSubmit)}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              gap: 1,
-              margin: 'auto',
-              maxWidth: '300px',
+    );
+  }
+
+  return (
+    <FormProvider {...methods}>
+      <form className="form" onSubmit={handleSubmit(onFormSubmit)}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 1,
+            margin: 'auto',
+            maxWidth: '300px',
+          }}
+        >
+          {isFirebaseError && <InputErrorMessage error={firebaseErrorMessage} />}
+          <TextField
+            error={isEmailError || isFirebaseError}
+            fullWidth={true}
+            label={t.auth.email}
+            variant="outlined"
+            type="text"
+            {...register('email', { required: t.auth.emailRequireErrorMessage })}
+          />
+          {errors.email && <InputErrorMessage error={errors.email.message} />}
+          <TextField
+            error={isPasswordError || isFirebaseError}
+            fullWidth={true}
+            label={t.auth.password}
+            variant="outlined"
+            type={showPassword ? 'text' : 'password'}
+            {...register('password', { required: t.auth.passwordRequireErrorMessage })}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
             }}
-          >
-            {isFirebaseError && <InputErrorMessage error={t.auth.wrongEmail} />}
-            <TextField
-              error={isEmailError}
-              fullWidth={true}
-              label={t.auth.email}
-              variant="outlined"
-              type="text"
-              {...register('email', { required: t.auth.emailRequireErrorMessage })}
-            />
-            {errors.email && <InputErrorMessage error={errors.email.message} />}
-            <TextField
-              error={isPasswordError}
-              fullWidth={true}
-              label={t.auth.password}
-              variant="outlined"
-              type={showPassword ? 'text' : 'password'}
-              {...register('password', { required: t.auth.passwordRequireErrorMessage })}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            />
-            {errors.password && <InputErrorMessage error={errors.password.message} />}
-            <Button type="submit" variant="contained">
-              {t.auth.signIn}
-            </Button>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography>{t.auth.dontHaveAcc}</Typography>
-              <Link to="/auth/signUp">
-                <Button>{t.auth.signUp}</Button>
-              </Link>
-            </Box>
+          />
+          {errors.password && <InputErrorMessage error={errors.password.message} />}
+          <Button type="submit" variant="contained">
+            {t.auth.signIn}
+          </Button>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Typography>{t.auth.dontHaveAcc}</Typography>
+            <Link to="/auth/signUp">
+              <Button>{t.auth.signUp}</Button>
+            </Link>
           </Box>
-        </form>
-      </FormProvider>
-    )
+        </Box>
+      </form>
+    </FormProvider>
   );
 }

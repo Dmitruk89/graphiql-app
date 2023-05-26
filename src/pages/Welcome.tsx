@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Button, Container, Divider, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
@@ -8,7 +8,8 @@ import { selectTranslations } from '../features/translation/translationSlice';
 import { IDeveloper, i18nState } from '../types/types';
 import { descrStyle, devStyle, titleStyle } from '../utils/style-const';
 import LanguageSwitcher from '../components/LanguageSwitcher';
-import DeveloperCard from '../components/Card';
+import { Loading } from '../components/Loading';
+const DeveloperCard = lazy(() => import('../components/Card'));
 
 import { getAuth } from 'firebase/auth';
 import { useIdToken } from 'react-firebase-hooks/auth';
@@ -104,15 +105,17 @@ function Welcome() {
           <Typography variant="h1" component="h4" sx={titleStyle}>
             {t.welcomeSection.developers}
           </Typography>
-          <Box component="div" sx={devStyle}>
-            {lang === 'en'
-              ? developers_en.map((developer: IDeveloper, i) => (
-                  <DeveloperCard key={i} developer={developer} />
-                ))
-              : developers_ru.map((developer: IDeveloper, i) => (
-                  <DeveloperCard key={i} developer={developer} />
-                ))}
-          </Box>
+          <Suspense fallback={<Loading text={null} fullHeight={false} />}>
+            <Box component="div" sx={devStyle}>
+              {lang === 'en'
+                ? developers_en.map((developer: IDeveloper, i) => (
+                    <DeveloperCard key={i} developer={developer} />
+                  ))
+                : developers_ru.map((developer: IDeveloper, i) => (
+                    <DeveloperCard key={i} developer={developer} />
+                  ))}
+            </Box>
+          </Suspense>
         </Container>
         <Divider variant="inset" />
         <Features />

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import Docs from './Docs';
-import Editor from './Editor';
-import ResponseSection from './ResponseSection';
+const Editor = lazy(() => import('./Editor'));
+const ResponseSection = lazy(() => import('./ResponseSection'));
+const SimpleAccordion = lazy(() => import('./Accordion'));
 import { styled } from '@mui/material/styles';
-import SimpleAccordion from './Accordion';
+import { Loading } from './Loading';
+import { Box } from '@mui/material';
 
 export default function PageLayout() {
   const drawerWidth = useSelector((state: RootState) => state.graphql.docsWidth);
@@ -36,11 +38,21 @@ export default function PageLayout() {
   return (
     <Main open={open} className="layout">
       <Docs></Docs>
-      <div className="editorsContainer">
-        <Editor></Editor>
-        <SimpleAccordion />
-      </div>
-      <ResponseSection></ResponseSection>
+      <Suspense
+        fallback={
+          <Box
+            sx={{ display: 'flex', flexGrow: 1, justifyContent: 'center', alignItems: 'center' }}
+          >
+            <Loading text={null} fullHeight={false} />
+          </Box>
+        }
+      >
+        <div className="editorsContainer">
+          <Editor></Editor>
+          <SimpleAccordion />
+        </div>
+        <ResponseSection></ResponseSection>
+      </Suspense>
     </Main>
   );
 }
