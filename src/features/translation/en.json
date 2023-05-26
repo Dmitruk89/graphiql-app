@@ -4,7 +4,7 @@
   },
   "welcomeSection": {
     "title": "GraphiQL-clone",
-    "welcomeDescr": "GraphiQL is the GraphQL integrated development environment (IDE). It’s a powerful (and all-around awesome) tool you’ll use often while building Gatsby websites. It offers syntax highlighting, intellisense autocompletion, automatic documentation, and much more.",
+    "welcomeDescr": "GraphiQL is the GraphQL integrated development environment (IDE). It’s a powerful (and all-around awesome) tool you’ll use often while building websites",
     "linkToMain": "Go to main page"
   },
   "mainSection": {
