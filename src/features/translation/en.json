@@ -41,5 +41,10 @@
   "tabs": {
     "variables": "Variables",
     "headers": "Headers"
+  },
+  "loader": {
+    "loading": "Loading",
+    "docs": "Loading Docs",
+    "app": "Loading Application"
   }
 }
