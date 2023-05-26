@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { HeadersStateType, VariablesStateType } from '../../types/types';
 import { DocsType, DocsField, DocsListItem } from '../../types/docsTypes';
 
-
 export interface GraphqlState {
   editorCode: string;
   varQueryCode: string;
