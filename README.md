@@ -4,8 +4,7 @@ This application is a clone of original [GraphiQL app](https://github.com/graphq
 
 ## Overview
 
-GraphiQL is a browser-based user interface for interactively exploring the capabilities of, and executing queries against, a GraphQL API. Unlike the SL1 REST API, all requests to the GraphQL API on a given SL1 system use the same URI.
-
+GraphiQL is a browser-based user interface for interactively exploring the capabilities of, and executing queries against, a GraphQL API.
 The application was made as a final task of the Rolling Scope School - [React course](https://rs.school/react/)
 
 The application is using [Rick and Morthy API](https://rickandmortyapi.com/documentation/) for GraphQL queries.
