@@ -12,6 +12,7 @@ import type { RootState } from '../store';
 import { useSelector, useDispatch } from 'react-redux';
 import { switchLanguage } from '../features/translation/translationSlice';
 import { getCurrentLangIndex } from '../helpers/helperFuntions';
+import { Typography } from '@mui/material';
 
 export default function LanguageSwitcher() {
   const language = useSelector((state: RootState) => state.translation.lang);
@@ -42,6 +43,7 @@ export default function LanguageSwitcher() {
     <React.Fragment>
       <ButtonGroup color="inherit" ref={anchorRef} aria-label="split button">
         <Button
+          sx={{ textTransform: 'none' }}
           size="small"
           variant="text"
           aria-controls={open ? 'split-button-menu' : undefined}
@@ -51,7 +53,7 @@ export default function LanguageSwitcher() {
           onClick={handleToggle}
         >
           <LanguageIcon />
-          {language}
+          <Typography>{language === 'ru' ? 'Русский' : 'English'}</Typography>
         </Button>
       </ButtonGroup>
       <Popper
@@ -81,7 +83,7 @@ export default function LanguageSwitcher() {
                       selected={index === selectedIndex}
                       onClick={() => handleMenuItemClick(index, option)}
                     >
-                      {option.toUpperCase()}
+                      <Typography>{option === 'ru' ? 'Русский' : 'English'}</Typography>
                     </MenuItem>
                   ))}
                 </MenuList>
