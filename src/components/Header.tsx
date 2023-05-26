@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,8 +11,9 @@ import { setDocsOpen } from '../features/graphql/graphqlSlice';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import { RootState } from '../store';
-import UserMenu from './UserMenu';
+const UserMenu = lazy(() => import('./UserMenu'));
 import { useScrollTrigger } from '@mui/material';
+import { Loading } from './Loading';
 
 export default function Header() {
   const open = useSelector((state: RootState) => state.graphql.isDocsOpen);
@@ -69,7 +70,7 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <ElevationScroll>
         <AppBar position="fixed" open={open}>
-          <Toolbar>
+          <Toolbar sx={{ height: trigger ? '40px' : '80px' }}>
             <IconButton
               size="large"
               aria-label="open drawer"
@@ -80,8 +81,12 @@ export default function Header() {
             >
               <AssignmentIcon />
             </IconButton>
-            <Box sx={{ flexGrow: 1 }}></Box>
-            <UserMenu></UserMenu>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              {t.header.title}
+            </Typography>
+            <Suspense fallback={<Loading text={null} fullHeight={false} />}>
+              <UserMenu></UserMenu>
+            </Suspense>
             <LanguageSwitcher></LanguageSwitcher>
           </Toolbar>
         </AppBar>

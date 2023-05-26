@@ -10,7 +10,8 @@
   "mainSection": {
     "sendButton": "send",
     "editorPlaceholder": "Please enter GraphQL query",
-    "resultPlaceholder": "Result goes here..."
+    "resultPlaceholder": "Result goes here...",
+    "variablesPlaceholder": "Please enter variables"
   },
   "auth": {
     "dontHaveAcc": "Don't have an account?",
@@ -21,7 +22,10 @@
     "email": "Enter e-mail",
     "password": "Enter password",
     "repeatPassword": "Repeat password",
-    "wrongEmail": "Wrong e-mail or password",
+    "wrongEmail": "Invalid e-mail",
+    "wrongUser": "User not found",
+    "wrongPassword": "Wrong password",
+    "emailInUse": "This e-mail already in use",
     "redirecting": "Redirecting",
     "connectingToFirebase": "Connecting to Firebase",
     "emailPatternErrorMessage": "E-mail must contain minimum 3 symbols that can be letters, digits or special characters (-_$!%*#?&) before @",
@@ -42,5 +46,10 @@
   "docs": {
     "title": "Docs",
     "description": "A GraphQL schema provides a root type for each kind of operation."
+  },
+  "loader": {
+    "loading": "Loading",
+    "docs": "Loading Docs",
+    "app": "Loading Application"
   }
 }

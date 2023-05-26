@@ -10,7 +10,8 @@
   "mainSection": {
     "sendButton": "отправить",
     "editorPlaceholder": "Пожалуйста введите GraphQL запрос",
-    "resultPlaceholder": "Результат отобразится здесь..."
+    "resultPlaceholder": "Результат отобразится здесь...",
+    "variablesPlaceholder": "Пожалуйста введите переменные"
   },
   "auth": {
     "dontHaveAcc": "Нет аккаунта?",
@@ -21,7 +22,10 @@
     "email": "Введите e-mail",
     "password": "Введите пароль",
     "repeatPassword": "Повторите пароль",
-    "wrongEmail": "Неверный e-mail или пароль",
+    "wrongEmail": "Неверный e-mail",
+    "wrongUser": "Нет такого пользователя",
+    "wrongPassword": "Неверный пароль",
+    "emailInUse": "Такой e-mail уже занят",
     "redirecting": "Переадресация",
     "connectingToFirebase": "Подключение к Firebase",
     "emailPatternErrorMessage": "E-mail должен состоять из букв, цифр или специальных символов (-_$!%*#?&) и содержать не менее 3 символов перед @",
@@ -42,5 +46,10 @@
   "docs": {
     "title": "Доки",
     "description": "Схема GraphQL отображает корневой тип для каждого вида операций"
+  },
+  "loader": {
+    "loading": "Загрузка",
+    "docs": "Загрузка Информации",
+    "app": "Загрузка Приложения"
   }
 }

@@ -10,7 +10,7 @@ const supportedLangs = {
 };
 
 const initialState = {
-  lang: 'en',
+  lang: localStorage.getItem('divRulezzCurrentLang') || 'en',
   supportedLangs: { ...supportedLangs },
   translations: {
     en: enJSON,
@@ -24,6 +24,7 @@ export const i18nSlice = createSlice({
   reducers: {
     switchLanguage: (state, action: PayloadAction<string>) => {
       state.lang = action.payload;
+      localStorage.setItem('divRulezzCurrentLang', action.payload);
     },
   },
 });
