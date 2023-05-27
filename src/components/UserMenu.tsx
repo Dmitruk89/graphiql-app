@@ -4,6 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import FirstPageIcon from '@mui/icons-material/FirstPage';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -14,7 +15,7 @@ import { selectTranslations } from '../features/translation/translationSlice';
 import { getAuth, signOut } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { removeTokenExpirationFromLocalStorage } from '../helpers/helperFuntions';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useSelector } from 'react-redux';
 
@@ -43,13 +44,25 @@ export default function UserMenu() {
   };
   return (
     <React.Fragment>
-      <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
+      <Box sx={{ display: { xs: 'none', sm: 'flex' }, flexGrow: 1, alignItems: 'center' }}>
+        <Box sx={{ flexGrow: 1 }}>
+          <Link to="/">
+            <Button color="info">{t.mainSection.backToWelcomeButton}</Button>
+          </Link>
+        </Box>
         {user && <Typography component="div">{user.email}</Typography>}
         <Button onClick={handleLogOutClick} color="info" sx={{ margin: ' 0 0.65rem 0 1rem' }}>
           {t.header.logoutButton}
         </Button>
       </Box>
-      <Box sx={{ display: { xs: 'flex', sm: 'none' }, alignItems: 'center', textAlign: 'center' }}>
+      <Box
+        sx={{
+          display: { xs: 'flex', sm: 'none' },
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          textAlign: 'center',
+        }}
+      >
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -98,6 +111,14 @@ export default function UserMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        <MenuItem>
+          <FirstPageIcon />
+          <Link to="/">
+            <Button sx={{ textTransform: 'none', color: '#000' }}>
+              <Typography>{t.mainSection.backToWelcomeButton}</Typography>
+            </Button>
+          </Link>
+        </MenuItem>
         <MenuItem>
           <Avatar /> {user && <Typography component="div">{user.email}</Typography>}
         </MenuItem>

@@ -32,8 +32,8 @@ function Welcome() {
         sx={{
           display: 'flex',
           justifyContent: 'flex-end',
+          alignItems: 'center',
           padding: '15px',
-          margin: '0 auto',
         }}
       >
         {user ? (
@@ -52,57 +52,66 @@ function Welcome() {
         )}
         <LanguageSwitcher></LanguageSwitcher>
       </Box>
-      <Divider />
-      <Container
+      <Box
         sx={{
-          marginBottom: '50px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          minHeight: 'calc(100vh - 2 * var(--footer-height))',
         }}
       >
-        <Typography variant="h1" component="h2" sx={titleStyle}>
-          {t.welcomeSection.title}
-        </Typography>
-        <Typography component="p" sx={descrStyle}>
-          {t.welcomeSection.welcomeDescr}
-        </Typography>
-        <Typography component="p" sx={descrStyle}>
-          {t.welcomeSection.welcomeProj}{' '}
-          <a className="customLink" href="https://rs.school/react/">
-            {t.welcomeSection.welcomeLink}
-          </a>
-        </Typography>
-        <Box
+        <Divider />
+        <Container
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            minWidth: '290px',
-            minHeight: '200px',
-            backgroundColor: '#426892',
-            margin: '0 auto',
+            marginBottom: '50px',
           }}
         >
-          video about app
-        </Box>
-      </Container>
-      <Divider />
-      <Container sx={{ padding: '50px 0 100px' }}>
-        <Typography variant="h1" component="h4" sx={titleStyle}>
-          {t.welcomeSection.developers}
-        </Typography>
-        <Suspense fallback={<Loading text={null} fullHeight={false} />}>
-          <Box component="div" sx={devStyle}>
-            {lang === 'en'
-              ? developers_en.map((developer: IDeveloper, i) => (
-                  <DeveloperCard key={i} developer={developer} />
-                ))
-              : developers_ru.map((developer: IDeveloper, i) => (
-                  <DeveloperCard key={i} developer={developer} />
-                ))}
+          <Typography variant="h1" component="h2" sx={titleStyle}>
+            {t.welcomeSection.title}
+          </Typography>
+          <Typography component="p" sx={descrStyle}>
+            {t.welcomeSection.welcomeDescr}
+          </Typography>
+          <Typography component="p" sx={descrStyle}>
+            {t.welcomeSection.welcomeProj}{' '}
+            <a className="customLink" href="https://rs.school/react/">
+              {t.welcomeSection.welcomeLink}
+            </a>
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minWidth: '290px',
+              minHeight: '200px',
+              backgroundColor: '#426892',
+              margin: '0 auto',
+            }}
+          >
+            video about app
           </Box>
-        </Suspense>
-      </Container>
-      <Divider />
-      <Features />
+        </Container>
+        <Divider />
+        <Container sx={{ padding: '50px 0 100px' }}>
+          <Typography variant="h1" component="h4" sx={titleStyle}>
+            {t.welcomeSection.developers}
+          </Typography>
+          <Suspense fallback={<Loading text={null} fullHeight={false} />}>
+            <Box component="div" sx={devStyle}>
+              {lang === 'en'
+                ? developers_en.map((developer: IDeveloper, i) => (
+                    <DeveloperCard key={i} developer={developer} />
+                  ))
+                : developers_ru.map((developer: IDeveloper, i) => (
+                    <DeveloperCard key={i} developer={developer} />
+                  ))}
+            </Box>
+          </Suspense>
+        </Container>
+        <Divider />
+        <Features />
+      </Box>
       <Footer />
     </>
   );
