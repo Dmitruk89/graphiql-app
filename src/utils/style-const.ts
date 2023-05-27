@@ -24,17 +24,17 @@ export const descrStyle = {
   textAlign: 'center',
   margin: '0 auto  20px',
   '@media (max-width: 915px)': {
-    fontSize: '24px',
+    fontSize: '20px',
     width: '90%',
   },
 };
 
 export const titleStyle = {
-  margin: '20px auto 0',
-  fontSize: '48px',
+  margin: '55px auto 15px',
+  fontSize: '38px',
   fontWeight: 500,
   textAlign: 'center',
   '@media (max-width: 915px)': {
-    fontSize: '32px',
+    fontSize: '28px',
   },
 };

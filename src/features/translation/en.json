@@ -4,8 +4,22 @@
   },
   "welcomeSection": {
     "title": "GraphiQL-clone",
-    "welcomeDescr": "GraphiQL is the GraphQL integrated development environment (IDE). It’s a powerful (and all-around awesome) tool you’ll use often while building websites",
-    "linkToMain": "Go to main page"
+    "welcomeDescr": "GraphiQL is a browser-based user interface for interactively exploring the capabilities of, and executing queries against, a GraphQL API.",
+    "welcomeProj": "The application was made as a final task of the Rolling Scope School - ",
+    "welcomeLink": "React course 2023 Q1",
+    "linkToMain": "Go to main page",
+    "developers": "About us",
+    "project": "About project"
+  },
+  "about": {
+    "features1": "Query editor",
+    "features2": "Response section",
+    "features3": "Variables and Headers editors",
+    "features4": "Documentation explorer with ability to navigate back in queries",
+    "features5": "Multiple languages supported",
+    "features6": "Firebase authentication with auto-logout",
+    "about1": "Features",
+    "about2": "Technologes"
   },
   "mainSection": {
     "sendButton": "send",

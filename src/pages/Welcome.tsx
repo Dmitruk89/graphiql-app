@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container, Divider, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
 import { developers_en, developers_ru } from '../utils/constants';
 import { useSelector } from 'react-redux';
@@ -14,6 +14,7 @@ const DeveloperCard = lazy(() => import('../components/Card'));
 import { getAuth } from 'firebase/auth';
 import { useIdToken } from 'react-firebase-hooks/auth';
 import Footer from '../components/Footer';
+import Features from '../components/Features';
 
 function Welcome() {
   const t = useSelector(selectTranslations);
@@ -47,9 +48,8 @@ function Welcome() {
           sx={{
             display: 'flex',
             justifyContent: 'flex-end',
-            maxWidth: '1400px',
             padding: '15px',
-            margin: '20px auto',
+            margin: '0 auto',
           }}
         >
           {user ? (
@@ -68,13 +68,42 @@ function Welcome() {
           )}
           <LanguageSwitcher></LanguageSwitcher>
         </Box>
-        <Container sx={{ height: 'calc(100vh - var(--footer-height) - 107px)' }}>
+        <Divider />
+        <Container
+          sx={{
+            marginBottom: '50px',
+          }}
+        >
           <Typography variant="h1" component="h2" sx={titleStyle}>
             {t.welcomeSection.title}
           </Typography>
-          ;
           <Typography component="p" sx={descrStyle}>
             {t.welcomeSection.welcomeDescr}
+          </Typography>
+          <Typography component="p" sx={descrStyle}>
+            {t.welcomeSection.welcomeProj}{' '}
+            <a className="customLink" href="https://rs.school/react/">
+              {t.welcomeSection.welcomeLink}
+            </a>
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minWidth: '290px',
+              minHeight: '200px',
+              backgroundColor: '#426892',
+              margin: '0 auto',
+            }}
+          >
+            video about app
+          </Box>
+        </Container>
+        <Divider />
+        <Container sx={{ padding: '50px 0 100px' }}>
+          <Typography variant="h1" component="h4" sx={titleStyle}>
+            {t.welcomeSection.developers}
           </Typography>
           <Suspense fallback={<Loading text={null} fullHeight={false} />}>
             <Box component="div" sx={devStyle}>
@@ -88,6 +117,8 @@ function Welcome() {
             </Box>
           </Suspense>
         </Container>
+        <Divider />
+        <Features />
         <Footer />
       </>
     )

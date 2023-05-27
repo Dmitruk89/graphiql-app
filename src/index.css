@@ -48,6 +48,12 @@ body {
   padding: 16px;
 }
 
+.customLink {
+  text-decoration: none;
+  color: #426892;
+  font-weight: 700;
+}
+
 @media (max-width: 915px) {
   .photo {
     display: none;
