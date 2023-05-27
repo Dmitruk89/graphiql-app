@@ -9,12 +9,15 @@ import BreadCrumps from './docs/BreadCrumps';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { selectTranslations } from '../features/translation/translationSlice';
+import FieldInfo from './docs/FieldInfo';
 
 export default function DocsBody() {
   const t = useSelector(selectTranslations);
   const [isSublistOpen, setIsSublistOpen] = React.useState(false);
-
   const docsTypeName = useSelector((state: RootState) => state.graphql.docsTypeName);
+  const docsListName = useSelector((state: RootState) => state.graphql.docsListName);
+  const isTypeQuery = useSelector((state: RootState) => state.graphql.isTypeQuery);
+  const docsField = useSelector((state: RootState) => state.graphql.docsField);
 
   const { data: docs, isFetching, isSuccess } = useGetDocsQuery({ docsTypeName });
 
@@ -41,7 +44,7 @@ export default function DocsBody() {
         <CircularProgress color="inherit" />
       </Box>
     );
-  } else if (isSuccess) {
+  } else if (isSuccess && isTypeQuery) {
     ListContent = docs['__type']['fields'] ? (
       <FieldList fields={docs['__type']['fields']}></FieldList>
     ) : docs['__type']['inputFields'] ? (
@@ -49,6 +52,8 @@ export default function DocsBody() {
     ) : docs['__type'] ? (
       <Description type={docs['__type']}></Description>
     ) : null;
+  } else if (!isTypeQuery) {
+    ListContent = docsField ? <FieldInfo field={docsField}></FieldInfo> : null;
   }
 
   return (
@@ -77,7 +82,7 @@ export default function DocsBody() {
               <Typography variant="body1">
                 <span className="fieldName">Fields: </span>
                 <Link href="#" onClick={handleClick}>
-                  <span className="fieldType">{docsTypeName}</span>
+                  {docsListName}
                 </Link>
               </Typography>
             </li>
