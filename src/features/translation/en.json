@@ -22,10 +22,16 @@
     "about2": "Technologes"
   },
   "mainSection": {
-    "sendButton": "send",
-    "editorPlaceholder": "Please enter GraphQL query",
+    "sendButton": "send request",
+    "editorPlaceholder": "Please enter GraphQL query or paste the placeholder",
+    "editorTooltipPlaceholder": "Editor code:",
+    "editorClearTooltip": "Clear editor",
     "resultPlaceholder": "Result goes here...",
-    "variablesPlaceholder": "Please enter variables"
+    "variablesPlaceholder": "Please enter variables or paste the placeholder",
+    "variablesTooltipPlaceholder": "Variables code:",
+    "variablesClearTooltip": "Clear variables",
+    "headersPlaceholder": "Please enter headers",
+    "tooltipClickAction": "Click to paste"
   },
   "auth": {
     "dontHaveAcc": "Don't have an account?",

@@ -15,7 +15,7 @@ export default function LabTabs(props: Props) {
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
       <TabContext value={props.value}>
-        <TabPanel value="1">
+        <TabPanel sx={{ padding: '0' }} value="1">
           <Variables />
         </TabPanel>
         <TabPanel sx={{ padding: '0' }} value="2">

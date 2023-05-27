@@ -14,11 +14,15 @@ export default function ResponseSection() {
   const t = useSelector(selectTranslations);
   const query = useSelector((state: RootState) => state.graphql.query);
   const headers = useSelector((state: RootState) => state.graphql.headersForQuery);
+  let variables = useSelector((state: RootState) => state.graphql.varQuery);
+  if (variables === '') {
+    variables = '{}';
+  }
   const {
     data: apiResponse,
     error,
     isLoading,
-  } = useGetCharactersQuery({ query, headers }, { skip });
+  } = useGetCharactersQuery({ query, headers, variables }, { skip });
   if (error) {
     const errorMessage = (error as ApiError)?.message;
     const colonCurlyBraceIndex = errorMessage.indexOf(': {');
