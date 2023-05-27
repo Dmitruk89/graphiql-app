@@ -95,7 +95,7 @@ function Welcome() {
               minHeight: '400px',
               backgroundColor: '#426892',
               margin: '0 auto',
-              '@media (max-width: 400px)': {
+              '@media (max-width: 576px)': {
                 display: 'none',
               },
             }}
