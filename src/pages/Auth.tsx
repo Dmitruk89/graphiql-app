@@ -43,7 +43,7 @@ function Auth() {
           sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', height: '6rem' }}
         >
           <Link to="/">
-            <Button color="primary">{t.notFound.btnText}</Button>
+            <Button color="primary">{t.mainSection.backToWelcomeButton}</Button>
           </Link>
           <LanguageSwitcher></LanguageSwitcher>
         </Box>

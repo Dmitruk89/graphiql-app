@@ -11,7 +11,8 @@
     "sendButton": "send",
     "editorPlaceholder": "Please enter GraphQL query",
     "resultPlaceholder": "Result goes here...",
-    "variablesPlaceholder": "Please enter variables"
+    "variablesPlaceholder": "Please enter variables",
+    "backToWelcomeButton": "Welcome page"
   },
   "auth": {
     "dontHaveAcc": "Don't have an account?",

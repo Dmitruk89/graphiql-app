@@ -11,7 +11,8 @@
     "sendButton": "отправить",
     "editorPlaceholder": "Пожалуйста введите GraphQL запрос",
     "resultPlaceholder": "Результат отобразится здесь...",
-    "variablesPlaceholder": "Пожалуйста введите переменные"
+    "variablesPlaceholder": "Пожалуйста введите переменные",
+    "backToWelcomeButton": "Страница приветствия"
   },
   "auth": {
     "dontHaveAcc": "Нет аккаунта?",
