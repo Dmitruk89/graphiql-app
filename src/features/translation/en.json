@@ -6,7 +6,7 @@
   },
   "welcomeSection": {
     "title": "GraphiQL-clone",
-    "welcomeDescr": "GraphiQL is a browser-based user interface for interactively exploring the capabilities of, and executing queries against, a GraphQL API. Unlike the SL1 REST API, all requests to the GraphQL API on a given SL1 system use the same URI.",
+    "welcomeDescr": "GraphiQL is a browser-based user interface for interactively exploring the capabilities of, and executing queries against, a GraphQL API.",
     "welcomeProj": "The application was made as a final task of the Rolling Scope School - ",
     "welcomeLink": "React course 2023 Q1",
     "linkToMain": "Go to main page",

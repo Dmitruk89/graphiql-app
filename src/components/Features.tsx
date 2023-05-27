@@ -62,6 +62,9 @@ export default function Features() {
         minHeight: 200,
         width: '40%',
         margin: '20px auto',
+        '@media (max-width: 915px)': {
+          width: '90%',
+        },
       }}
     >
       <Typography variant="h1" component="h4" sx={titleStyle}>

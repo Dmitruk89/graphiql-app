@@ -91,10 +91,13 @@ function Welcome() {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              width: '580px',
-              height: '320px',
+              minWidth: '320px',
+              minHeight: '400px',
               backgroundColor: '#426892',
               margin: '0 auto',
+              '@media (max-width: 400px)': {
+                display: 'none',
+              },
             }}
           >
             video about app
