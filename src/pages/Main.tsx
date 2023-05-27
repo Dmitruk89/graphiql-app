@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { useIdToken } from 'react-firebase-hooks/auth';
 import { useSelector } from 'react-redux';
@@ -13,39 +12,27 @@ import { Loading } from '../components/Loading';
 function Main() {
   const t = useSelector(selectTranslations);
   const auth = getAuth();
-  const navigate = useNavigate();
   const [user, loading] = useIdToken(auth);
 
-  React.useEffect(() => {
-    if (loading) {
-      return;
-    }
-    if (!user) {
-      return navigate('/');
-    }
-  }, [user, auth, navigate, loading]);
+  if (loading) {
+    return <Loading text={null} fullHeight={true} />;
+  }
+
+  if (!user) {
+    return (
+      <>
+        <Loading text={t.auth.redirecting} fullHeight={true} />
+        <Navigate to="/" replace />
+      </>
+    );
+  }
 
   return (
-    (loading && <Loading text={t.auth.connectingToFirebase} fullHeight={true} />) ||
-    (!user && (
-      <Box
-        sx={{
-          display: 'flex',
-          flexGrow: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
-        }}
-      >
-        <Typography>{t.auth.redirecting}</Typography>)
-      </Box>
-    )) || (
-      <>
-        <Header></Header>
-        <PageLayout></PageLayout>
-        <Footer />
-      </>
-    )
+    <>
+      <Header></Header>
+      <PageLayout></PageLayout>
+      <Footer />
+    </>
   );
 }
 

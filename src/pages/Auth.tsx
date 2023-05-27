@@ -1,8 +1,10 @@
 import React, { lazy, Suspense } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, Navigate } from 'react-router-dom';
 import { Container, Box, Button } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
+import { getAuth } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import Footer from '../components/Footer';
@@ -18,6 +20,21 @@ const SignUp = lazy(() =>
 function Auth() {
   const t = useSelector(selectTranslations);
   const params = useParams();
+  const auth = getAuth();
+  const [user, loading] = useAuthState(auth);
+
+  if (loading) {
+    return <Loading text={null} fullHeight={true} />;
+  }
+
+  if (user) {
+    return (
+      <>
+        <Loading text={t.auth.redirecting} fullHeight={true} />
+        <Navigate to="/main" replace />
+      </>
+    );
+  }
 
   return (
     <>
@@ -39,7 +56,7 @@ function Auth() {
           }}
         >
           <Suspense fallback={<Loading text={null} fullHeight={false} />}>
-            <Box>{params.path === 'signIn' ? <SignIn /> : <SignUp />}</Box>
+            <Box>{params.path === 'signIn' ? <SignIn auth={auth} /> : <SignUp auth={auth} />}</Box>
           </Suspense>
         </Container>
       </Container>
