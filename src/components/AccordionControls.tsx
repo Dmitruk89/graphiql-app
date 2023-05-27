@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   setIsAccordionExpanded,
   updateEditor,
+  updateHeadersEditor,
   updateVariables,
 } from '../features/graphql/graphqlSlice';
 import { RootState } from '../store';
@@ -22,16 +23,19 @@ import {
 export default function AccordionControls() {
   const t = useSelector(selectTranslations);
   const varPlaceholder = useSelector((state: RootState) => state.graphql.placeholderVar);
+  const headersPlaceholder = useSelector((state: RootState) => state.graphql.placeholderHead);
   const varEditorPlaceholder = useSelector((state: RootState) => state.graphql.placeholderVarCode);
   const dispatch = useDispatch();
 
   function onPasteButtonClick() {
     dispatch(updateEditor(varEditorPlaceholder));
     dispatch(updateVariables(varPlaceholder));
+    dispatch(updateHeadersEditor(headersPlaceholder));
     dispatch(setIsAccordionExpanded(true));
   }
   function onClearButtonClick() {
     dispatch(updateVariables(''));
+    dispatch(updateHeadersEditor(''));
   }
 
   const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
@@ -71,6 +75,10 @@ export default function AccordionControls() {
                 {t.mainSection.variablesTooltipPlaceholder}
               </Typography>
               {varPlaceholder}
+              <Typography variant="body2" color="inherit">
+                {t.mainSection.headersTooltipPlaceholder}
+              </Typography>
+              {headersPlaceholder}
             </React.Fragment>
           }
         >

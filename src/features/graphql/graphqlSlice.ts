@@ -3,6 +3,7 @@ import { HeadersStateType, VariablesStateType } from '../../types/types';
 import { DocsType, DocsField, DocsListItem } from '../../types/docsTypes';
 
 export interface GraphqlState {
+  placeholderHead: string;
   placeholderVar: string;
   placeholderVarCode: string;
   placeholderCode: string;
@@ -27,6 +28,11 @@ export interface GraphqlState {
 }
 
 const initialState: GraphqlState = {
+  placeholderHead: `
+  { 
+    "zoo": "bar"
+  }
+  `,
   placeholderVar: `
   { 
     "id": 1
