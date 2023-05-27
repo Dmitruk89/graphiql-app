@@ -20,7 +20,11 @@ export default function Editor() {
           flexGrow: 1,
           alignItems: 'flex-start',
           justifyContent: 'space-between',
-          borderRadius: '10px',
+          flexDirection: 'column',
+          '@media (min-width:400px)': {
+            alignItems: 'space-between',
+            flexDirection: 'row',
+          },
         }}
       >
         <CodeEditor

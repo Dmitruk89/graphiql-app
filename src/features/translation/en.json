@@ -29,8 +29,10 @@
     "resultPlaceholder": "Result goes here...",
     "variablesPlaceholder": "Please enter variables or paste the placeholder",
     "variablesTooltipPlaceholder": "Variables code:",
-    "variablesClearTooltip": "Clear variables",
+    "variablesClearTooltip": "Clear variables/headers section",
     "headersPlaceholder": "Please enter headers",
+    "headersNotification": "Please type headers in JSON format",
+    "headersTooltipPlaceholder": "Headers code:",
     "tooltipClickAction": "Click to paste"
   },
   "auth": {

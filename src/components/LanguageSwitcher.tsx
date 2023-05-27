@@ -53,7 +53,9 @@ export default function LanguageSwitcher() {
           onClick={handleToggle}
         >
           <LanguageIcon />
-          <Typography>{language === 'ru' ? 'Русский' : 'English'}</Typography>
+          <Typography sx={{ fontSize: '0.8rem' }}>
+            {language === 'ru' ? 'Русский' : 'English'}
+          </Typography>
         </Button>
       </ButtonGroup>
       <Popper
@@ -83,7 +85,9 @@ export default function LanguageSwitcher() {
                       selected={index === selectedIndex}
                       onClick={() => handleMenuItemClick(index, option)}
                     >
-                      <Typography>{option === 'ru' ? 'Русский' : 'English'}</Typography>
+                      <Typography sx={{ fontSize: '0.8rem' }}>
+                        {option === 'ru' ? 'Русский' : 'English'}
+                      </Typography>
                     </MenuItem>
                   ))}
                 </MenuList>

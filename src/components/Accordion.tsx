@@ -30,6 +30,11 @@ export default function SimpleAccordion() {
         display: 'flex',
         flexGrow: 1,
         alignItems: 'flex-start',
+        flexDirection: 'column',
+        '@media (min-width:400px)': {
+          alignItems: 'space-between',
+          flexDirection: 'row',
+        },
       }}
     >
       <Accordion expanded={isExpanded} sx={{ marginTop: '16px', width: '100%' }}>

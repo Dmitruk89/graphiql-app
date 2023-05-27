@@ -54,6 +54,7 @@ export default function Footer() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              padding: '15px',
               '@media (min-width:600px)': {
                 alignItems: 'space-between',
                 flexDirection: 'row',
