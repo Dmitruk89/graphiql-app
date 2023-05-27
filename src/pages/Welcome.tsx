@@ -68,7 +68,7 @@ function Welcome() {
           )}
           <LanguageSwitcher></LanguageSwitcher>
         </Box>
-        <Divider variant="inset" />
+        <Divider />
         <Container
           sx={{
             marginBottom: '50px',
@@ -91,19 +91,16 @@ function Welcome() {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              minWidth: '320px',
-              minHeight: '400px',
+              minWidth: '290px',
+              minHeight: '200px',
               backgroundColor: '#426892',
               margin: '0 auto',
-              '@media (max-width: 576px)': {
-                display: 'none',
-              },
             }}
           >
             video about app
           </Box>
         </Container>
-        <Divider variant="inset" />
+        <Divider />
         <Container sx={{ padding: '50px 0 100px' }}>
           <Typography variant="h1" component="h4" sx={titleStyle}>
             {t.welcomeSection.developers}
@@ -120,7 +117,7 @@ function Welcome() {
             </Box>
           </Suspense>
         </Container>
-        <Divider variant="inset" />
+        <Divider />
         <Features />
         <Footer />
       </>

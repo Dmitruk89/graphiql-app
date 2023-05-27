@@ -31,7 +31,7 @@ function DeveloperCard(props: IProps) {
               }}
             />
           </div>
-          <CardContent sx={{ display: 'flex', justifyContent: 'space-between' }}>
+          <CardContent sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
             <div>
               <Typography gutterBottom variant="h5" component="div">
                 {name}
