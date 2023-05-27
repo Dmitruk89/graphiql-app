@@ -16,7 +16,9 @@ export default function TypeLink(props: { type: DocsType }) {
       ? type.name
       : type.ofType.name
       ? type.ofType.name
-      : type.ofType?.ofType?.name;
+      : type.ofType?.ofType?.name
+      ? props.type.ofType?.ofType?.name
+      : props.type.ofType?.ofType?.ofType?.name;
     dispatch(setIsTypeQuery(true));
     dispatch(setDocsTypeName(name));
     dispatch(setDocsListName({ name: name, isType: true }));
