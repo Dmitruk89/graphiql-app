@@ -8,6 +8,7 @@ export const removeTokenExpirationFromLocalStorage = (): void => {
   localStorage.removeItem('DIV_RULEZZ_tokenExpirationStamp');
 };
 
+//When the token expires - the user should be redirected to the "Welcome page" automatically. 3 points
 export const checkTokenExpiration = (auth: Auth): void => {
   const expirationStamp = localStorage.getItem('DIV_RULEZZ_tokenExpirationStamp');
   const currentTimeStamp = new Date().getTime();

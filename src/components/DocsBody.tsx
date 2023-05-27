@@ -8,8 +8,10 @@ import Description from './docs/Description';
 import BreadCrumps from './docs/BreadCrumps';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
+import { selectTranslations } from '../features/translation/translationSlice';
 
 export default function DocsBody() {
+  const t = useSelector(selectTranslations);
   const [isSublistOpen, setIsSublistOpen] = React.useState(false);
 
   const docsTypeName = useSelector((state: RootState) => state.graphql.docsTypeName);
@@ -70,7 +72,7 @@ export default function DocsBody() {
               boxShadow: '0px 50px 71px -44px rgba(0,0,0,0.2)',
             }}
           >
-            A GraphQL schema provides a root type for each kind of operation.
+            {t.docs.description}
             <li>
               <Typography variant="body1">
                 <span className="fieldName">Fields: </span>
