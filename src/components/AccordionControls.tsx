@@ -57,10 +57,14 @@ export default function AccordionControls() {
           marginLeft: '10px',
           marginTop: '10px',
           display: 'flex',
-          flexDirection: 'column',
+          flexDirection: 'row',
           alignItems: 'flex-start',
           gap: '5px',
           justifyContent: 'space-between',
+          '@media (min-width:400px)': {
+            alignItems: 'space-between',
+            flexDirection: 'column',
+          },
         }}
       >
         <HtmlTooltip
