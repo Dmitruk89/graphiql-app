@@ -1,7 +1,7 @@
 {
   "header": {
     "title": "GraphiQL-клон",
-    "logoutButton": "выйти",
+    "logoutButton": "Выйти",
     "docs": "Доки"
   },
   "welcomeSection": {
@@ -41,7 +41,7 @@
   "auth": {
     "dontHaveAcc": "Нет аккаунта?",
     "haveAcc": "Уже есть аккаунт?",
-    "signUp": "Зарегистрироваться",
+    "signUp": "Создать аккаунт",
     "signIn": "Войти",
     "login": "Введите логин",
     "email": "Введите e-mail",

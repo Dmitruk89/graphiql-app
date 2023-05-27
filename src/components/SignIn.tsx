@@ -127,7 +127,7 @@ export function SignIn(props: { auth: Auth }) {
             {t.auth.signIn}
           </Button>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography>{t.auth.dontHaveAcc}</Typography>
+            <Typography sx={{ textAlign: 'center' }}>{t.auth.dontHaveAcc}</Typography>
             <Link to="/auth/signUp">
               <Button>{t.auth.signUp}</Button>
             </Link>

@@ -38,9 +38,19 @@ function Auth() {
 
   return (
     <>
-      <Container sx={{ display: 'flex', flexDirection: 'column' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <Box
-          sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', height: '6rem' }}
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+            padding: '15px',
+          }}
         >
           <Link to="/">
             <Button color="primary">{t.mainSection.backToWelcomeButton}</Button>
@@ -50,7 +60,7 @@ function Auth() {
         <Container
           sx={{
             display: 'flex',
-            height: 'calc(100vh - 96px - var(--footer-height))',
+            minHeight: 'calc(100vh - 2 * var(--footer-height))',
             justifyContent: 'center',
             alignItems: 'center',
           }}
@@ -59,7 +69,7 @@ function Auth() {
             <Box>{params.path === 'signIn' ? <SignIn auth={auth} /> : <SignUp auth={auth} />}</Box>
           </Suspense>
         </Container>
-      </Container>
+      </Box>
       <Footer />
     </>
   );
