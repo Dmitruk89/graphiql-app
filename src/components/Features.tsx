@@ -1,5 +1,4 @@
 import * as React from 'react';
-import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
@@ -50,10 +49,6 @@ export default function Features() {
     setValue(newValue);
   };
 
-  const handleChangeIndex = (index: number) => {
-    setValue(index);
-  };
-
   return (
     <Box
       sx={{
@@ -83,28 +78,22 @@ export default function Features() {
           <Tab label={t.about.about2} {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={value}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <Typography component="p">{t.about.features1}</Typography>
-          <Typography component="p">{t.about.features2}</Typography>
-          <Typography component="p">{t.about.features3}</Typography>
-          <Typography component="p">{t.about.features4}</Typography>
-          <Typography component="p">{t.about.features5}</Typography>
-          <Typography component="p">{t.about.features6}</Typography>
-        </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          <Typography component="p">GraphQL</Typography>
-          <Typography component="p">React, Vite</Typography>
-          <Typography component="p">Material UI</Typography>
-          <Typography component="p">Redux Toolkit, RTK Query</Typography>
-          <Typography component="p">Firebase API</Typography>
-          <Typography component="p">i18n</Typography>
-        </TabPanel>
-      </SwipeableViews>
+      <TabPanel value={value} index={0} dir={theme.direction}>
+        <Typography component="p">{t.about.features1}</Typography>
+        <Typography component="p">{t.about.features2}</Typography>
+        <Typography component="p">{t.about.features3}</Typography>
+        <Typography component="p">{t.about.features4}</Typography>
+        <Typography component="p">{t.about.features5}</Typography>
+        <Typography component="p">{t.about.features6}</Typography>
+      </TabPanel>
+      <TabPanel value={value} index={1} dir={theme.direction}>
+        <Typography component="p">GraphQL</Typography>
+        <Typography component="p">React, Vite</Typography>
+        <Typography component="p">Material UI</Typography>
+        <Typography component="p">Redux Toolkit, RTK Query</Typography>
+        <Typography component="p">Firebase API</Typography>
+        <Typography component="p">i18n</Typography>
+      </TabPanel>
     </Box>
   );
 }

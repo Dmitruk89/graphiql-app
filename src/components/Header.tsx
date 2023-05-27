@@ -13,7 +13,6 @@ import { RootState } from '../store';
 const UserMenu = lazy(() => import('./UserMenu'));
 import { useScrollTrigger } from '@mui/material';
 import { Loading } from './Loading';
-import { selectTranslations } from '../features/translation/translationSlice';
 
 export default function Header() {
   const open = useSelector((state: RootState) => state.graphql.isDocsOpen);

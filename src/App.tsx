@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
 import { useIdToken } from 'react-firebase-hooks/auth';
@@ -6,18 +6,12 @@ import { store } from './store';
 import { Provider } from 'react-redux';
 import { apiSlice } from './features/api/apiSlice';
 import { ApiProvider } from '@reduxjs/toolkit/query/react';
-// const Welcome = lazy(() => import('./pages/Welcome'));
-// const Main = lazy(() => import('./pages/Main'));
-// const Auth = lazy(() => import('./pages/Auth'));
 import Welcome from './pages/Welcome';
 import Main from './pages/Main';
 import Auth from './pages/Auth';
 import NotFound from './pages/NotFound';
 import { checkTokenExpiration } from './helpers/helperFuntions';
 import { createTheme, ThemeProvider } from '@mui/material';
-import { Loading } from './components/Loading';
-import { useSelector } from 'react-redux';
-import { selectTranslations } from './features/translation/translationSlice';
 
 const theme = createTheme({
   palette: {
@@ -32,7 +26,6 @@ const theme = createTheme({
 
 export function App() {
   const auth = getAuth();
-  const t = useSelector(selectTranslations);
   const [loading] = useIdToken(auth);
 
   React.useEffect(() => {
