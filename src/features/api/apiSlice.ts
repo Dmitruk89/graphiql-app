@@ -25,7 +25,7 @@ export const apiSlice = createApi({
           document: gql`
             ${payload.query}
           `,
-          variables: JSON.parse(payload.variables),
+          variables: payload.variables,
         };
       },
     }),

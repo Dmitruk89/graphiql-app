@@ -74,11 +74,11 @@ export default function AccordionControls() {
             </React.Fragment>
           }
         >
-          <IconButton color="info" onClick={() => onPasteButtonClick()}>
+          <IconButton color="primary" onClick={() => onPasteButtonClick()}>
             <PostAddIcon />
           </IconButton>
         </HtmlTooltip>
-        <IconButton color="info" onClick={() => onClearButtonClick()}>
+        <IconButton color="primary" onClick={() => onClearButtonClick()}>
           <Tooltip title={t.mainSection.variablesClearTooltip} placement="right">
             <DeleteSweepIcon />
           </Tooltip>

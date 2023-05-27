@@ -37,7 +37,6 @@ const initialState: GraphqlState = {
       name
       status
       species
-      type
       gender
     }
   }
@@ -88,8 +87,11 @@ export const graphqlSlice = createSlice({
     updateVariables: (state: GraphqlState, action: PayloadAction<string>) => {
       state.varQueryCode = action.payload;
     },
-    setVariablesQuery: (state) => {
-      state.varQuery = state.varQueryCode;
+    updateVariablesForQuery: (state, action: PayloadAction<string>) => {
+      state.varQuery = action.payload;
+    },
+    setVariablesState: (state, action: PayloadAction<VariablesStateType>) => {
+      state.variablesState = action.payload;
     },
     updateHeadersEditor: (state, action: PayloadAction<string>) => {
       state.headersEditor = action.payload;
@@ -150,7 +152,8 @@ export const {
   setHeadersState,
   createQuery,
   updateVariables,
-  setVariablesQuery,
+  updateVariablesForQuery,
+  setVariablesState,
   disableSkip,
   setDocsOpen,
   setDocsType,

@@ -10,7 +10,8 @@ import {
   disableSkip,
   updateHeadersForQuery,
   setHeadersState,
-  setVariablesQuery,
+  setVariablesState,
+  updateVariablesForQuery,
 } from '../features/graphql/graphqlSlice';
 import { RootState } from '../store';
 import { selectTranslations } from '../features/translation/translationSlice';
@@ -22,30 +23,44 @@ import {
   TooltipProps,
   Typography,
 } from '@mui/material';
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import { HeadersStateType, VariablesStateType } from 'types/types';
 
 export default function EditorControls() {
   const t = useSelector(selectTranslations);
   const code = useSelector((state: RootState) => state.graphql.editorCode);
   const placeholder = useSelector((state: RootState) => state.graphql.placeholderCode);
   const headersEditorCode = useSelector((state: RootState) => state.graphql.headersEditor);
+  const varaiblesEditorCode = useSelector((state: RootState) => state.graphql.varQueryCode);
   const dispatch = useDispatch();
 
-  function onSendButtonClick() {
+  function jsonHandler(
+    jsonCode: string,
+    setter:
+      | ActionCreatorWithPayload<HeadersStateType, 'characters/setHeadersState'>
+      | ActionCreatorWithPayload<VariablesStateType, 'characters/setVariablesState'>
+  ) {
     try {
-      if (headersEditorCode === '') throw new Error('emptyHeaders');
-      const objFromHeadersEditor = JSON.parse(headersEditorCode);
-      dispatch(setHeadersState('parsed'));
-      dispatch(updateHeadersForQuery(Object.entries(objFromHeadersEditor)));
+      if (jsonCode === '') throw new Error('emptyCode');
+      const objFromEditor = JSON.parse(jsonCode);
+      dispatch(setter('parsed'));
+      return objFromEditor;
     } catch (error) {
-      if (error instanceof Error && error.message === 'emptyHeaders') {
-        dispatch(setHeadersState('empty'));
+      if (error instanceof Error && error.message === 'emptyCode') {
+        dispatch(setter('empty'));
       } else {
-        dispatch(setHeadersState('notParsed'));
+        dispatch(setter('notParsed'));
       }
     }
+  }
+
+  function onSendButtonClick() {
+    const headersObject = jsonHandler(headersEditorCode, setHeadersState);
+    const variablesObject = jsonHandler(varaiblesEditorCode, setVariablesState);
+    if (headersObject) dispatch(updateHeadersForQuery(Object.entries(headersObject)));
+    dispatch(updateVariablesForQuery(variablesObject));
     dispatch(disableSkip());
     dispatch(createQuery(code));
-    dispatch(setVariablesQuery());
   }
 
   function onPasteButtonClick() {
@@ -80,7 +95,7 @@ export default function EditorControls() {
         }}
       >
         <IconButton
-          color="primary"
+          color="info"
           aria-label="add to shopping cart"
           onClick={() => onSendButtonClick()}
         >
@@ -99,11 +114,11 @@ export default function EditorControls() {
             </React.Fragment>
           }
         >
-          <IconButton color="info" onClick={() => onPasteButtonClick()}>
+          <IconButton color="primary" onClick={() => onPasteButtonClick()}>
             <PostAddIcon />
           </IconButton>
         </HtmlTooltip>
-        <IconButton color="info" onClick={() => onClearButtonClick()}>
+        <IconButton color="primary" onClick={() => onClearButtonClick()}>
           <Tooltip title={t.mainSection.editorClearTooltip} placement="right">
             <DeleteSweepIcon />
           </Tooltip>

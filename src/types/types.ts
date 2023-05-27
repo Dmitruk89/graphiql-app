@@ -22,7 +22,7 @@ export type SignInInput = {
 
 export type HeadersStateType = 'empty' | 'parsed' | 'notParsed';
 
-export type VariablesStateType = 'empty';
+export type VariablesStateType = 'empty' | 'parsed' | 'notParsed';
 
 export interface IDeveloper {
   image: string;
