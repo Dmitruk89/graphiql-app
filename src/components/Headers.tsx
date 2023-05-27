@@ -15,7 +15,16 @@ export function Headers() {
   return (
     <>
       {headersState === 'notParsed' && (
-        <Box sx={{ color: 'red', textAlign: 'center' }}>Please type headers in JSON format</Box>
+        <Box
+          sx={{
+            color: 'red',
+            textAlign: 'center',
+            fontFamily:
+              'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+          }}
+        >
+          {t.mainSection.headersNotification}
+        </Box>
       )}
       <CodeEditor
         value={headersEditorState}

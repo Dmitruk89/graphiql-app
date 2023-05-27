@@ -31,8 +31,10 @@
     "resultPlaceholder": "Результат отобразится здесь...",
     "variablesPlaceholder": "Пожалуйста, введите переменные или вставьте шаблон",
     "variablesTooltipPlaceholder": "Код переменных:",
-    "variablesClearTooltip": "Очистить переменные",
+    "variablesClearTooltip": "Очистить редактор переменные/заголовки",
     "headersPlaceholder": "Пожалуйста, введите заголовки",
+    "headersNotification": "Пожалуйста, введите заголовки в JSON формате",
+    "headersTooltipPlaceholder": "Код заголовков",
     "tooltipClickAction": "Кликни, чтобы вставить"
   },
   "auth": {
