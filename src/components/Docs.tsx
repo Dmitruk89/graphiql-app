@@ -46,17 +46,15 @@ export default function Docs() {
       anchor="left"
       open={open}
     >
-      <>
-        <DrawerHeader>
-          <Typography variant="h6">{t.header.docs}</Typography>
-          <IconButton onClick={handleDocsClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <React.Suspense fallback={<Loading text={t.loader.docs} fullHeight={false} />}>
-          <DocsBody />
-        </React.Suspense>
-      </>
+      <DrawerHeader>
+        <Typography variant="h6">{t.docs.title}</Typography>
+        <IconButton onClick={handleDocsClose}>
+          {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+        </IconButton>
+      </DrawerHeader>
+      <React.Suspense fallback={<Loading text={t.loader.docs} fullHeight={false} />}>
+        <DocsBody />
+      </React.Suspense>
     </Drawer>
   );
 }

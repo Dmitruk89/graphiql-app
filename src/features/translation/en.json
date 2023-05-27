@@ -1,7 +1,5 @@
 {
   "header": {
-    "title": "GraphiQL-clone",
-    "docs": "Docs",
     "logoutButton": "sign out"
   },
   "welcomeSection": {
@@ -63,5 +61,9 @@
     "loading": "Loading",
     "docs": "Loading Docs",
     "app": "Loading Application"
+  },
+  "docs": {
+    "title": "Docs",
+    "description": "A GraphQL schema provides a root type for each kind of operation."
   }
 }

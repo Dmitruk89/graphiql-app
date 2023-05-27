@@ -32,3 +32,7 @@ export interface IDeveloper {
   link: string;
   work: string;
 }
+
+export type ApiError = {
+  message: string;
+};
