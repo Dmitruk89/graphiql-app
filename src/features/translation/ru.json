@@ -35,7 +35,8 @@
     "headersPlaceholder": "Пожалуйста, введите заголовки",
     "headersNotification": "Пожалуйста, введите заголовки в JSON формате",
     "headersTooltipPlaceholder": "Код заголовков",
-    "tooltipClickAction": "Кликни, чтобы вставить"
+    "tooltipClickAction": "Кликни, чтобы вставить",
+    "backToWelcomeButton": "Страница приветствия"
   },
   "auth": {
     "dontHaveAcc": "Нет аккаунта?",

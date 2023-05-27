@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Button, Container, Divider, Typography } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress/CircularProgress';
 import { developers_en, developers_ru } from '../utils/constants';
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
@@ -22,106 +21,90 @@ function Welcome() {
   const auth = getAuth();
   const [user, loading] = useIdToken(auth);
 
-  React.useEffect(() => {
-    if (loading) {
-      return;
-    }
-  }, [loading]);
+  if (loading) {
+    return <Loading text={t.loader.loading} fullHeight={true} />;
+  }
 
   return (
-    (loading && (
+    <>
       <Box
+        component="div"
         sx={{
           display: 'flex',
-          flexGrow: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh',
+          justifyContent: 'flex-end',
+          padding: '15px',
+          margin: '0 auto',
         }}
       >
-        <CircularProgress color="inherit" />
+        {user ? (
+          <Link to="/main">
+            <Button color="primary">{t.welcomeSection.linkToMain}</Button>
+          </Link>
+        ) : (
+          <>
+            <Link to="/auth/signIn">
+              <Button color="primary">{t.auth.signIn}</Button>
+            </Link>
+            <Link to="/auth/signUp">
+              <Button color="primary">{t.auth.signUp}</Button>
+            </Link>
+          </>
+        )}
+        <LanguageSwitcher></LanguageSwitcher>
       </Box>
-    )) || (
-      <>
+      <Divider />
+      <Container
+        sx={{
+          marginBottom: '50px',
+        }}
+      >
+        <Typography variant="h1" component="h2" sx={titleStyle}>
+          {t.welcomeSection.title}
+        </Typography>
+        <Typography component="p" sx={descrStyle}>
+          {t.welcomeSection.welcomeDescr}
+        </Typography>
+        <Typography component="p" sx={descrStyle}>
+          {t.welcomeSection.welcomeProj}{' '}
+          <a className="customLink" href="https://rs.school/react/">
+            {t.welcomeSection.welcomeLink}
+          </a>
+        </Typography>
         <Box
-          component="div"
           sx={{
             display: 'flex',
-            justifyContent: 'flex-end',
-            padding: '15px',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minWidth: '290px',
+            minHeight: '200px',
+            backgroundColor: '#426892',
             margin: '0 auto',
           }}
         >
-          {user ? (
-            <Link to="/main">
-              <Button color="primary">{t.welcomeSection.linkToMain}</Button>
-            </Link>
-          ) : (
-            <>
-              <Link to="/auth/signIn">
-                <Button color="primary">{t.auth.signIn}</Button>
-              </Link>
-              <Link to="/auth/signUp">
-                <Button color="primary">{t.auth.signUp}</Button>
-              </Link>
-            </>
-          )}
-          <LanguageSwitcher></LanguageSwitcher>
+          video about app
         </Box>
-        <Divider />
-        <Container
-          sx={{
-            marginBottom: '50px',
-          }}
-        >
-          <Typography variant="h1" component="h2" sx={titleStyle}>
-            {t.welcomeSection.title}
-          </Typography>
-          <Typography component="p" sx={descrStyle}>
-            {t.welcomeSection.welcomeDescr}
-          </Typography>
-          <Typography component="p" sx={descrStyle}>
-            {t.welcomeSection.welcomeProj}{' '}
-            <a className="customLink" href="https://rs.school/react/">
-              {t.welcomeSection.welcomeLink}
-            </a>
-          </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              minWidth: '290px',
-              minHeight: '200px',
-              backgroundColor: '#426892',
-              margin: '0 auto',
-            }}
-          >
-            video about app
+      </Container>
+      <Divider />
+      <Container sx={{ padding: '50px 0 100px' }}>
+        <Typography variant="h1" component="h4" sx={titleStyle}>
+          {t.welcomeSection.developers}
+        </Typography>
+        <Suspense fallback={<Loading text={null} fullHeight={false} />}>
+          <Box component="div" sx={devStyle}>
+            {lang === 'en'
+              ? developers_en.map((developer: IDeveloper, i) => (
+                  <DeveloperCard key={i} developer={developer} />
+                ))
+              : developers_ru.map((developer: IDeveloper, i) => (
+                  <DeveloperCard key={i} developer={developer} />
+                ))}
           </Box>
-        </Container>
-        <Divider />
-        <Container sx={{ padding: '50px 0 100px' }}>
-          <Typography variant="h1" component="h4" sx={titleStyle}>
-            {t.welcomeSection.developers}
-          </Typography>
-          <Suspense fallback={<Loading text={null} fullHeight={false} />}>
-            <Box component="div" sx={devStyle}>
-              {lang === 'en'
-                ? developers_en.map((developer: IDeveloper, i) => (
-                    <DeveloperCard key={i} developer={developer} />
-                  ))
-                : developers_ru.map((developer: IDeveloper, i) => (
-                    <DeveloperCard key={i} developer={developer} />
-                  ))}
-            </Box>
-          </Suspense>
-        </Container>
-        <Divider />
-        <Features />
-        <Footer />
-      </>
-    )
+        </Suspense>
+      </Container>
+      <Divider />
+      <Features />
+      <Footer />
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
   TextField,
@@ -12,8 +12,7 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { Auth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
@@ -22,7 +21,7 @@ import { SignUpInput } from '../types/types';
 import { InputErrorMessage } from './InputErrorMessage';
 import { setTokenExpirationToLocalStorage } from '../helpers/helperFuntions';
 
-export function SignUp() {
+export function SignUp(props: { auth: Auth }) {
   const methods = useForm<SignUpInput>({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
@@ -34,9 +33,6 @@ export function SignUp() {
     formState: { errors },
   } = methods;
   const t = useSelector(selectTranslations);
-  const auth = getAuth();
-  const navigate = useNavigate();
-  const [user, loading] = useAuthState(auth);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [showRepeatedPassword, setShowRepeatedPassword] = React.useState(false);
@@ -51,7 +47,7 @@ export function SignUp() {
 
   const onFormSubmit = (data: SignUpInput): void => {
     setIsFirebaseLoading(true);
-    createUserWithEmailAndPassword(auth, data.email, data.repeatedPassword)
+    createUserWithEmailAndPassword(props.auth, data.email, data.repeatedPassword)
       .then(({ user }) => user.getIdTokenResult())
       .then((data) => setTokenExpirationToLocalStorage(new Date(data.expirationTime).getTime()))
       .catch((err) => {
@@ -71,25 +67,6 @@ export function SignUp() {
     errors.repeatedPassword ? setIsRepeatedPasswordError(true) : setIsRepeatedPasswordError(false);
   }, [errors.password, errors.email, errors.repeatedPassword]);
 
-  if (loading) {
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          flexGrow: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <CircularProgress color="inherit" />
-      </Box>
-    );
-  }
-
-  if (user) {
-    navigate('/main');
-    return <Typography>{t.auth.redirecting}</Typography>;
-  }
   if (isFirebaseLoading) {
     return (
       <Box

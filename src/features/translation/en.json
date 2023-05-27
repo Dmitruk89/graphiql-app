@@ -33,7 +33,8 @@
     "headersPlaceholder": "Please enter headers",
     "headersNotification": "Please type headers in JSON format",
     "headersTooltipPlaceholder": "Headers code:",
-    "tooltipClickAction": "Click to paste"
+    "tooltipClickAction": "Click to paste",
+    "backToWelcomeButton": "Welcome page"
   },
   "auth": {
     "dontHaveAcc": "Don't have an account?",

@@ -1,4 +1,5 @@
 import React, { lazy, Suspense } from 'react';
+import { Link } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -11,10 +12,12 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled } from '@mui/material/styles';
 import { RootState } from '../store';
 const UserMenu = lazy(() => import('./UserMenu'));
-import { useScrollTrigger } from '@mui/material';
+import { Button, useScrollTrigger } from '@mui/material';
 import { Loading } from './Loading';
+import { selectTranslations } from '../features/translation/translationSlice';
 
 export default function Header() {
+  const t = useSelector(selectTranslations);
   const open = useSelector((state: RootState) => state.graphql.isDocsOpen);
   const dispatch = useDispatch();
 
@@ -80,7 +83,11 @@ export default function Header() {
             >
               <AssignmentIcon />
             </IconButton>
-            <Box sx={{ flexGrow: 1 }}></Box>
+            <Box sx={{ flexGrow: 1 }}>
+              <Link to="/">
+                <Button color="info">{t.mainSection.backToWelcomeButton}</Button>
+              </Link>
+            </Box>
             <Suspense fallback={<Loading text={null} fullHeight={false} />}>
               <UserMenu></UserMenu>
             </Suspense>

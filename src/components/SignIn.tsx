@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
   TextField,
@@ -12,8 +12,7 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { Auth, signInWithEmailAndPassword } from 'firebase/auth';
 
 import { useSelector } from 'react-redux';
 import { selectTranslations } from '../features/translation/translationSlice';
@@ -21,7 +20,7 @@ import { InputErrorMessage } from './InputErrorMessage';
 import { SignInInput } from '../types/types';
 import { setTokenExpirationToLocalStorage } from '../helpers/helperFuntions';
 
-export function SignIn() {
+export function SignIn(props: { auth: Auth }) {
   const methods = useForm<SignInInput>({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
@@ -33,9 +32,6 @@ export function SignIn() {
   } = methods;
 
   const t = useSelector(selectTranslations);
-  const auth = getAuth();
-  const navigate = useNavigate();
-  const [user, loading] = useAuthState(auth);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const [isFirebaseLoading, setIsFirebaseLoading] = React.useState(false);
@@ -46,7 +42,7 @@ export function SignIn() {
 
   const onFormSubmit = (data: SignInInput): void => {
     setIsFirebaseLoading(true);
-    signInWithEmailAndPassword(auth, data.email, data.password)
+    signInWithEmailAndPassword(props.auth, data.email, data.password)
       .then(({ user }) => user.getIdTokenResult())
       .then((data) => setTokenExpirationToLocalStorage(new Date(data.expirationTime).getTime()))
       .catch((err) => {
@@ -64,27 +60,6 @@ export function SignIn() {
     errors.email ? setIsEmailError(true) : setIsEmailError(false);
     errors.password ? setIsPasswordError(true) : setIsPasswordError(false);
   }, [errors.email, errors.password]);
-
-  if (loading) {
-    return (
-      <Box
-        sx={{
-          display: 'flex',
-          flexGrow: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        laoding
-        <CircularProgress color="inherit" />
-      </Box>
-    );
-  }
-
-  if (user) {
-    navigate('/main');
-    return <Typography>{t.auth.redirecting}</Typography>;
-  }
 
   if (isFirebaseLoading) {
     return (

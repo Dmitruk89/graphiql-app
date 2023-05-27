@@ -34,8 +34,8 @@ export default function UserMenu() {
   const handleLogOutClick = () => {
     signOut(auth)
       .then(() => {
-        removeTokenExpirationFromLocalStorage();
         navigate('/');
+        removeTokenExpirationFromLocalStorage();
       })
       .catch(() => {
         console.error;
