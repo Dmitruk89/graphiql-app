@@ -154,6 +154,12 @@ export function SignUp(props: { auth: Auth }) {
                   ? new RegExp(
                       `^${watchPasswordValue
                         .replace(/\$/g, '\\$')
+                        .replace(/\^/g, '\\^')
+                        .replace(/\?/g, '\\?')
+                        .replace(/\*/g, '\\*')
+                        .replace(/\+/g, '\\+')
+                        .replace(/\[/g, '\\[')
+                        .replace(/\]/g, '\\]')
                         .replace(/\(/g, '\\(')
                         .replace(/\)/g, '\\)')}$`
                     )
