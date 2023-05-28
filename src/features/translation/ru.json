@@ -1,0 +1,80 @@
+{
+  "header": {
+    "title": "GraphiQL-клон",
+    "logoutButton": "Выйти",
+    "docs": "Доки"
+  },
+  "welcomeSection": {
+    "title": "GraphiQL-клон",
+    "welcomeDescr": "GraphiQL — это пользовательский интерфейс на основе браузера для интерактивного изучения возможностей API GraphQL и выполнения запросов к нему.",
+    "welcomeProj": "Приложение разработано в рамках финального задания Rolling Scope School - ",
+    "welcomeLink": "Курс по реакту 2023 Q1",
+    "linkToMain": "Перейти на главную страницу",
+    "developers": "О нас",
+    "project": "О проекте"
+  },
+  "about": {
+    "features1": "Редактор запросов",
+    "features2": "Раздел ответа",
+    "features3": "Редакторы переменных и заголовков",
+    "features4": "Проводник документации с возможностью возврата в запросах",
+    "features5": "Поддерживается несколько языков",
+    "features6": "Аутентификация Firebase с автоматическим выходом",
+    "about1": "Функции",
+    "about2": "Технологии"
+  },
+  "mainSection": {
+    "sendButton": "отправить запрос",
+    "editorPlaceholder": "Пожалуйста, введите GraphQL запрос или вставьте шаблон",
+    "editorTooltipPlaceholder": "Код редактора:",
+    "editorClearTooltip": "Очистить редактор",
+    "resultPlaceholder": "Результат отобразится здесь...",
+    "variablesPlaceholder": "Пожалуйста, введите переменные или вставьте шаблон",
+    "variablesTooltipPlaceholder": "Код переменных:",
+    "variablesClearTooltip": "Очистить редактор переменные/заголовки",
+    "headersPlaceholder": "Пожалуйста, введите заголовки",
+    "headersNotification": "Пожалуйста, введите заголовки в JSON формате",
+    "headersTooltipPlaceholder": "Код заголовков",
+    "tooltipClickAction": "Кликни, чтобы вставить",
+    "backToWelcomeButton": "Страница приветствия"
+  },
+  "auth": {
+    "dontHaveAcc": "Нет аккаунта?",
+    "haveAcc": "Уже есть аккаунт?",
+    "signUp": "Создать аккаунт",
+    "signIn": "Войти",
+    "login": "Введите логин",
+    "email": "Введите e-mail",
+    "password": "Введите пароль",
+    "repeatPassword": "Повторите пароль",
+    "wrongEmail": "Неверный e-mail",
+    "wrongUser": "Нет такого пользователя",
+    "wrongPassword": "Неверный пароль",
+    "emailInUse": "Такой e-mail уже занят",
+    "redirecting": "Переадресация",
+    "connectingToFirebase": "Подключение к Firebase",
+    "emailPatternErrorMessage": "E-mail должен состоять из букв, цифр или специальных символов (-_$!%*#?&) и содержать не менее 3 символов перед @",
+    "emailRequireErrorMessage": "Необходимо ввести e-mail",
+    "passwordPatternErrorMessage": "Пароль должен содержать минимум 8 символов, минимум одну букву, одну цифру и один специальный символ (-_$!%*#?&)",
+    "passwordRequireErrorMessage": "Необходимо ввести пароль",
+    "repeatedPasswordPatternErrorMessage": "Пароли не совпадают",
+    "repeatedPasswordRequireErrorMessage": "Пожалуйста повторите пароль"
+  },
+  "notFound": {
+    "descrText": "Страница, которую вы ищете не существует",
+    "btnText": "назад на главную"
+  },
+  "tabs": {
+    "variables": "Переменные",
+    "headers": "Заголовки"
+  },
+  "loader": {
+    "loading": "Загрузка",
+    "docs": "Загрузка Информации",
+    "app": "Загрузка Приложения"
+  },
+  "docs": {
+    "title": "Доки",
+    "description": "Схема GraphQL отображает корневой тип для каждого вида операций"
+  }
+}

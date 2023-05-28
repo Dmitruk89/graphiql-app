@@ -1,0 +1,78 @@
+{
+  "header": {
+    "logoutButton": "Sign Out"
+  },
+  "welcomeSection": {
+    "title": "GraphiQL-clone",
+    "welcomeDescr": "GraphiQL is a browser-based user interface for interactively exploring the capabilities of, and executing queries against, a GraphQL API.",
+    "welcomeProj": "The application was made as a final task of the Rolling Scope School - ",
+    "welcomeLink": "React course 2023 Q1",
+    "linkToMain": "Go to main page",
+    "developers": "About us",
+    "project": "About project"
+  },
+  "about": {
+    "features1": "Query editor",
+    "features2": "Response section",
+    "features3": "Variables and Headers editors",
+    "features4": "Documentation explorer with ability to navigate back in queries",
+    "features5": "Multiple languages supported",
+    "features6": "Firebase authentication with auto-logout",
+    "about1": "Features",
+    "about2": "Technologes"
+  },
+  "mainSection": {
+    "sendButton": "send request",
+    "editorPlaceholder": "Please enter GraphQL query or paste the placeholder",
+    "editorTooltipPlaceholder": "Editor code:",
+    "editorClearTooltip": "Clear editor",
+    "resultPlaceholder": "Result goes here...",
+    "variablesPlaceholder": "Please enter variables or paste the placeholder",
+    "variablesTooltipPlaceholder": "Variables code:",
+    "variablesClearTooltip": "Clear variables/headers section",
+    "headersPlaceholder": "Please enter headers",
+    "headersNotification": "Please type headers in JSON format",
+    "headersTooltipPlaceholder": "Headers code:",
+    "tooltipClickAction": "Click to paste",
+    "backToWelcomeButton": "Welcome page"
+  },
+  "auth": {
+    "dontHaveAcc": "Don't have an account?",
+    "haveAcc": "Already have an account?",
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "login": "Enter login",
+    "email": "Enter e-mail",
+    "password": "Enter password",
+    "repeatPassword": "Repeat password",
+    "wrongEmail": "Invalid e-mail",
+    "wrongUser": "User not found",
+    "wrongPassword": "Wrong password",
+    "emailInUse": "This e-mail already in use",
+    "redirecting": "Redirecting",
+    "connectingToFirebase": "Connecting to Firebase",
+    "emailPatternErrorMessage": "E-mail must contain minimum 3 symbols that can be letters, digits or special characters (-_$!%*#?&) before @",
+    "emailRequireErrorMessage": "E-mail is required",
+    "passwordPatternErrorMessage": "Password must contain minimum 8 symbols, at least one letter, one digit, one special character (-_$!%*#?&)",
+    "passwordRequireErrorMessage": "Password is required",
+    "repeatedPasswordPatternErrorMessage": "Password mismatch",
+    "repeatedPasswordRequireErrorMessage": "Please repeat your password"
+  },
+  "notFound": {
+    "descrText": "The page you’re looking for doesn’t exist.",
+    "btnText": "back to welcome page"
+  },
+  "tabs": {
+    "variables": "Variables",
+    "headers": "Headers"
+  },
+  "loader": {
+    "loading": "Loading",
+    "docs": "Loading Docs",
+    "app": "Loading Application"
+  },
+  "docs": {
+    "title": "Docs",
+    "description": "A GraphQL schema provides a root type for each kind of operation."
+  }
+}

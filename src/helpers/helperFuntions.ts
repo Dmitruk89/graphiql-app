@@ -1,0 +1,26 @@
+import { Auth, signOut } from 'firebase/auth';
+
+export const setTokenExpirationToLocalStorage = (expirationStamp: number): void => {
+  localStorage.setItem('DIV_RULEZZ_tokenExpirationStamp', `${expirationStamp}`);
+};
+
+export const removeTokenExpirationFromLocalStorage = (): void => {
+  localStorage.removeItem('DIV_RULEZZ_tokenExpirationStamp');
+};
+
+//When the token expires - the user should be redirected to the "Welcome page" automatically. 3 points
+export const checkTokenExpiration = (auth: Auth): void => {
+  const expirationStamp = localStorage.getItem('DIV_RULEZZ_tokenExpirationStamp');
+  const currentTimeStamp = new Date().getTime();
+  if (expirationStamp) {
+    if (currentTimeStamp > +expirationStamp) {
+      signOut(auth).then(removeTokenExpirationFromLocalStorage);
+    }
+  }
+};
+
+export const getCurrentLangIndex = (): number => {
+  const languagesArr = ['en', 'ru'];
+  const currentLang = localStorage.getItem('divRulezzCurrentLang');
+  return languagesArr.indexOf(currentLang ? currentLang : 'en');
+};
