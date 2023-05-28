@@ -9,6 +9,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import Footer from '../components/Footer';
 import { Loading } from '../components/Loading';
+import NotFound from './NotFound';
 
 const SignIn = lazy(() =>
   import('../components/SignIn').then((module) => ({ default: module.SignIn }))
@@ -32,6 +33,14 @@ function Auth() {
       <>
         <Loading text={t.auth.redirecting} fullHeight={true} />
         <Navigate to="/main" replace />
+      </>
+    );
+  }
+
+  if (params.path !== 'signIn' && params.path !== 'signUp') {
+    return (
+      <>
+        <NotFound />
       </>
     );
   }
@@ -66,7 +75,10 @@ function Auth() {
           }}
         >
           <Suspense fallback={<Loading text={null} fullHeight={false} />}>
-            <Box>{params.path === 'signIn' ? <SignIn auth={auth} /> : <SignUp auth={auth} />}</Box>
+            <Box>
+              {(params.path === 'signIn' && <SignIn auth={auth} />) ||
+                (params.path === 'signUp' && <SignUp auth={auth} />)}
+            </Box>
           </Suspense>
         </Container>
       </Box>

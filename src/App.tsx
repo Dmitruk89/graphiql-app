@@ -39,14 +39,12 @@ export function App() {
   }, [auth, loading]);
 
   return (
-    // <Suspense fallback={<Loading text={t.loader.loading} fullHeight={true} />}>
     <Routes>
       <Route index element={<Welcome />} />
       <Route path="/auth/:path" element={<Auth />} />
       <Route path="/main" element={<Main />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
-    // </Suspense>
   );
 }
 
