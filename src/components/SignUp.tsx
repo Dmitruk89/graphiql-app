@@ -155,6 +155,11 @@ export function SignUp(props: { auth: Auth }) {
                       `^${watchPasswordValue
                         .replace(/\$/g, '\\$')
                         .replace(/\^/g, '\\^')
+                        .replace(/\?/g, '\\?')
+                        .replace(/\*/g, '\\*')
+                        .replace(/\+/g, '\\+')
+                        .replace(/\[/g, '\\[')
+                        .replace(/\]/g, '\\]')
                         .replace(/\(/g, '\\(')
                         .replace(/\)/g, '\\)')}$`
                     )
