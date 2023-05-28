@@ -9,6 +9,7 @@ import { descrStyle, devStyle, titleStyle } from '../utils/style-const';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { Loading } from '../components/Loading';
 const DeveloperCard = lazy(() => import('../components/Card'));
+const WelcomePageVideo = lazy(() => import('../components/WelcomePageVideo'));
 
 import { getAuth } from 'firebase/auth';
 import { useIdToken } from 'react-firebase-hooks/auth';
@@ -83,13 +84,14 @@ function Welcome() {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              minWidth: '290px',
-              minHeight: '200px',
-              backgroundColor: '#426892',
-              margin: '0 auto',
+              border: '4px solid rgb(153, 172, 190)',
+              borderRadius: '5px',
+              borderImageSlice: 1,
             }}
           >
-            video about app
+            <Suspense fallback={<Loading text={null} fullHeight={false} />}>
+              <WelcomePageVideo />
+            </Suspense>
           </Box>
         </Container>
         <Divider />
