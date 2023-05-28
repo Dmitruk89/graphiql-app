@@ -84,6 +84,9 @@ function Welcome() {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              border: '4px solid rgb(153, 172, 190)',
+              borderRadius: '5px',
+              borderImageSlice: 1,
             }}
           >
             <Suspense fallback={<Loading text={null} fullHeight={false} />}>
