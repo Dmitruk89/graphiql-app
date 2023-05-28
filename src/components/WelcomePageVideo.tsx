@@ -1,5 +1,5 @@
 import React from 'react';
-import welcomePageVideo from '../assets/graphi.mp4';
+import welcomePageVideo from '../assets/GraphiQL_demo.mp4';
 
 export default function WelcomePageVideo() {
   return (
